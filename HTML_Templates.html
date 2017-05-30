@@ -1,0 +1,221 @@
+//MODAL 
+<div id="PLACEHOLDER_ID" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="modal-cross" aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="modalLabel">PLACEHOLDER_TITLE</h4>
+			</div>
+			<div class="modal-body">
+				PLACEHOLDER_CONTENT	
+			</div>
+		</div>
+	</div>
+</div>
+
+//IN MODAL CLOSE BUTTON
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="modal-cross" aria-hidden="true">&times;</span></button>
+
+//IN MODAL GENERAL BUTTON
+<button type='button' class='button clickable2' ng-click="view.experiment.mQuestionConfirm(answer,QIESTION_NUMBER_PLACEHOLDER)">CONFIRM ANSWER</button>
+
+//TO MODAL BUTTON
+<button type="button" class="button clickable2 col-md-6" data-toggle="modal" data-target="#PLACEHODER_TARGET" >PLACEHOLDER</button>
+
+//DROPDOWN MENU
+<select class="units_dropdown" ng-model="magnitudeSelected_inputB" ng-init="magnitudeSelected_inputB = 1">
+					<option ng-value="0">mM</option>
+					<option ng-value="1" ng-selected="true">uM</option>
+					<option ng-value="2">nM</option>
+				</select>
+
+//INPUT FORM
+<form novalidate name='concA_Form'>
+					<input class="form" name="concA" ng-model='input_concA' type="number">
+				</form>
+
+//MULTIPLE CHOICE QUESTION
+<div class=question-box>
+	<div class='modal-question-title'>QUESTION</div>
+	<div class=modal-question-content>
+	Please answer the multiple choice question below question below<br>
+	A - PLACEHOLDER ANSWER A <br>
+	B - PLACEHOLDER ANSWER B <br>
+	C - PLACEHOLDER ANSWER C <br>
+	D - PLACEHOLDER ANSWER D
+	</div>
+	<div class='modal-question-footer'>
+		<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=1">
+			<option ng-value="1">A</option>
+			<option ng-value="2">B</option>
+			<option ng-value="3">C</option>
+			<option ng-value="4">D</option>
+		</select>
+		<button type='button' class='button clickable2' ng-click="view.experiment.mQuestionConfirm(answer,QIESTION_NUMBER_PLACEHOLDER)">CONFIRM ANSWER</button>
+	</div>
+</div>
+
+//MULTIPLE CHOICE QUESTION 2
+<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==null'>
+	<div class='modal-question-question'>Example Question</div>
+	<div class=modal-question-content>
+	{{view.experiment.questions[0].question}}<br><br>
+	{{view.experiment.questions[0].A}}<br>
+	{{view.experiment.questions[0].B}}<br>
+	{{view.experiment.questions[0].C}}<br>
+	{{view.experiment.questions[0].D}}<br>
+
+	</div>
+	<div class='modal-question-footer'>
+		<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=1">
+			<option ng-value="1">A</option>
+			<option ng-value="2">B</option>
+			<option ng-value="3">C</option>
+			<option ng-value="4">D</option>
+		</select>
+		<button type='button' class='button clickable2' ng-click="view.experiment.mQuestion(answer,0)">CONFIRM ANSWER</button>
+	</div>
+</div>
+
+//MULTIPLE CHOICE CORRECT
+<div class=question-box ng-show='view.experiment.IsCorrect[questionnumber]'>
+	<div class='modal-question-title-correct'>Correct!</div>
+	<div class=modal-question-content>
+	Your answer [answer placeholder] is correct and has been recorded. 
+	</div>
+	<div class='modal-question-footer'></div>
+</div>
+
+//WRITTEN ANSWER
+<div class=question-box ng-show='view.experiment.IsCorrect[questionnumber]==false && view.experiment.beenWrong[questionnumber]==1'>
+	<div class='modal-question-title'>Incorrect!</div>
+	<div class=modal-question-content>
+		Your answer [answer placeholder] is incorrect. Please answer the question again, but this time explain your answer in the box below in written form, this written answer will be checked by the demonstrator at the end of the practical. <br>
+		Contact the demonstrator now if you are having problems.
+	</div>
+	<div class='modal-question-footer'>
+		<form novalidate name='writtenAnswer'>
+			<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
+			<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=A">
+				<option ng-value="1">A</option>
+				<option ng-value="2">B</option>
+				<option ng-value="3">C</option>
+				<option ng-value="4">D</option>
+			</select>
+			<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(answer,WrittenAnswer,questionnumber)">CONFIRM BOTH ANSWERS</button>
+		</form>
+	</div>
+</div>
+
+//JUST WRITTEN ANSWER
+<div class=question-box ng-show='view.experiment.IsCorrect[questionnumber]==false && view.experiment.beenWrong[questionnumber]==1'>
+	<div class='modal-question-title'>Incorrect!</div>
+	<div class=modal-question-content>
+		Your answer [answer placeholder] is incorrect. Please answer the question again, but this time explain your answer in the box below in written form, this written answer will be checked by the demonstrator at the end of the practical. <br>
+		Contact the demonstrator now if you are having problems.
+	</div>
+	<div class='modal-question-footer'>
+		<form novalidate name='writtenAnswer'>
+			<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
+			
+			<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(answer,WrittenAnswer,questionnumber)">CONFIRM BOTH ANSWERS</button>
+		</form>
+	</div>
+</div>
+
+
+//TALK TO INSTRUCTOR WITH MAKE-TRUE
+<div class=question-box ng-show='view.experiment.IsCorrect[1]=="demon"'>
+	<div class='modal-question-title'>Incorrect AGAIN!</div>
+	<div class=modal-question-content>
+	Your answer [answer placeholder] is incorrect for the 2nd time, please contact a demonstrator before continuing.
+	</div>
+	<div class='modal-question-footer'></div>
+	<button type='button' class='button clickable2' ng-click="view.experiment.makeTrue(1)">CONTINUE</button>
+</div>
+
+//TALK TO INSTRUCTOR W/O MAKE-TRUE
+<div class=question-box ng-show='view.experiment.IsCorrect[1]=="demon"'>
+	<div class='modal-question-title'>Incorrect AGAIN!</div>
+	<div class=modal-question-content>
+	Your answer [answer placeholder] is incorrect for the 2nd time, please contact a demonstrator before continuing.
+	</div>
+	<div class='modal-question-footer'></div>
+	<button type='button' class='button clickable2' ng-click="view.experiment.makeTrue(1)">CONTINUE</button>
+</div>
+
+
+//TOTAL QUESTION
+<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==null'>
+	<div class='modal-question-question'>Example Question</div>
+	<div class=modal-question-content>
+	{{view.experiment.questions[0].question}}<br><br>
+	{{view.experiment.questions[0].A}}<br>
+	{{view.experiment.questions[0].B}}<br>
+	{{view.experiment.questions[0].C}}<br>
+	{{view.experiment.questions[0].D}}<br>
+
+	</div>
+	<div class='modal-question-footer'>
+		<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=1">
+			<option ng-value="1">A</option>
+			<option ng-value="2">B</option>
+			<option ng-value="3">C</option>
+			<option ng-value="4">D</option>
+		</select>
+		<button type='button' class='button clickable2' ng-click="view.experiment.mQuestionConfirm(answer,0)">CONFIRM ANSWER</button>
+	</div>
+</div>
+<div class=question-box ng-show='view.experiment.questions[0].IsCorrect'>
+	<div class='modal-question-title-correct'>Correct!</div>
+	<div class=modal-question-content>
+	Congratulations, you answered the question right! <br><br>
+
+	Positive reinforcement placeholder
+	</div>
+	<div class='modal-question-footer'></div>
+</div>
+<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==false && view.experiment.questions[0].beenWrong==1'>
+	<div class='modal-question-title'>Example Written Question</div>
+	<div class=modal-question-content>
+		Your answer is incorrect. Please answer the question again, but this time explain your answer in the box below.<br><br>
+		This written answer will be checked by the demonstrator at the end of the exploration. <br><br>
+		<b>Contact the demonstrator now if you are having problems. If you are incorrect again the demonstrator will help you before you can continue.</b><br><br>
+		
+		{{view.experiment.questions[0].question}}<br><br>
+		{{view.experiment.questions[0].A}}<br>
+		{{view.experiment.questions[0].B}}<br>
+		{{view.experiment.questions[0].C}}<br>
+		{{view.experiment.questions[0].D}}<br>
+		
+	</div>
+	<div class='modal-question-footer'>
+		<form novalidate name='writtenAnswer'>
+			<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
+
+			<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=A" >
+				<option ng-value="1">A</option>
+				<option ng-value="2">B</option>
+				<option ng-value="3">C</option>
+				<option ng-value="4">D</option>
+			</select>
+			<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(answer,WrittenAnswer,0)">CONFIRM BOTH ANSWERS</button>
+		</form>
+	</div>
+</div>
+<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==false && view.experiment.questions[0].beenWrong==2'>
+	<div class='modal-question-title'>Incorrect!</div>
+	<div class=modal-question-content>
+	Your answer is incorrect for the 2nd time, please contact a demonstrator to discuss.
+	</div>
+	<div class='modal-question-footer'></div>
+</div>
+
+//EXAMPLE
+<div class=question-box ng-show='view.experiment.IsCorrect[questionnumber]'>
+	<div class='modal-example-title-'>EXAMPLE!</div>
+	<div class=modal-question-content>
+	Your answer [answer placeholder] is correct and has been recorded. 
+	</div>
+	<div class='modal-question-footer'></div>
+</div>

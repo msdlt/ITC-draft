@@ -1,0 +1,117 @@
+<!DOCType html>
+	<html lang='en'  ng-app='ITC'>
+<head >	
+
+	<script src = 'numeric-1.2.6.js'></script>
+	<!-- <script src = 'index.css'></script> -->
+	<script type="text/javascript" src = 'jquery/jquery-1.11.3.js'></script>
+	<script type="text/javascript" src = 'flot/jquery.flot.js'></script>
+	<script type="text/javascript" src = 'main.js'></script>
+
+</head>
+	
+
+<body>
+
+	<div id="header">
+		<h2>Basic Usage</h2>
+	</div>
+	
+	<div id ='button'>
+		<button onclick='plotData()'>Plot Conc</button>
+		<button onclick='calcConc()''>Calculate Concetrations</button>
+		<button onclick='calcRate()'>Calculate Rates</button>
+		<button onclick='plotRate()'>Plot Rates</button>
+		<button onclick='calcRateDiff()'>Calc Rate Diff</button>
+		<button onclick='plotRateDiff()'>Plot Rate Diff</button>
+		<button onclick='plotAll()'>OR JUST CLICK THIS</button>
+	</div>
+
+	<div id="content">
+
+		<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder" style="width:800px;height:500px"></div>
+			<div id="placeholder2" class="demo-placeholder" style="width:800px;height:500px"></div> 
+			<div id="placeholder3" class="demo-placeholder" style="width:800px;height:500px"></div> 
+			<div id="placeholder4" class="demo-placeholder" style="width:800px;height:500px"></div> 
+			<div id="placeholder5" class="demo-placeholder" style="width:800px;height:500px"></div> 
+		</div>
+
+		
+	</div>
+
+	<div id="footer">
+		Copyright &copy; 2007 - 2014 IOLA and Ole Laursen
+	</div>
+
+//WINS CHART
+	<div id="output-box" class="container-fluid col-md-6">
+						<!-- vi. Panel: sensorgram output graph (angular flot chart) -->
+					<div class="panel-heading">SENSORGRAM</div>
+						<div id="sensorgram">
+							<flot id="flot" dataset="view.chart.dataset" options="view.chart.options"></flot>
+						</div><br>
+
+
+
+//WINS INPUT
+	<div class="panel-heading">CONTROL PANEL</div>
+					<div class="panel-body clickable-box">
+							<!-- a) "Start" button -->
+						<div class="box-left-btn">
+							<button type="button" class="button clickable1 col-md-12" ng-click="view.runExperiment(magnitudeSelected_input_Kd, input_fLC, input_timeOn)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || view.isDisabled_run == true || view.experiment.timeOfDay == view.experiment.endOfDay || view.output.RU_CompiledLabelPlotAll.length == 20" data-toggle="tooltip" title="Require: free ligand concentration and association time input">START</button> 
+								<!-- note: set to 20 since on and off graph counted as a separate ones -->
+						</div>
+							<!-- b) "Washing up" button -->
+						<div class="box-right-btn">
+							<button class="button clickable2 col-md-12" ng-click="view.washUp(input_timeOn)" ng-disabled="view.isDisabled_wash == true" data-toggle="tooltip" title="Require: initiated START">WASH</button>
+						</div>
+							<!-- c) "remove background value" button -->
+						<div class="box-left-btn">
+							<button class="button clickable2 col-md-12" ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || view.isDisabled_background == true || view.isDisabled_run == true || view.output.RU_On_Output.length == 0 || view.output.fLC_tableDisplay[view.output.fLC_tableDisplay.length-1] !== 0 || view.output.fLC_tableDisplay.length > 1" data-toggle="tooltip" title="Require: START free ligand concentration = 0 M for your first trial experiment">BACKGROUND</button>
+						</div>
+							<!-- d) "Clear chart" button -->
+						<div class="box-left-btn">
+							<button class="button clickable1 col-md-12" data-toggle="modal" data-target="#clear_modal" ng-disabled="view.output.RU_CompiledLabelPlotAll.length == 0 || view.isDisabled_run == true" data-toggle="tooltip" title="Data in table will not be erase">CLEAR</button>
+						</div>
+							<!-- e) "Go home" button -->
+						<div class="box-right-btn">
+							<button class="button clickable1 col-md-12" data-toggle="modal" data-target="#home_modal" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">HOME</button>
+						</div>
+							<!-- f) "Help" button -->
+						<div class="box-right-btn">
+							<button type="button" class="button clickable2 col-md-12" data-toggle="modal" data-target="#intro1_modal">HELP</button>
+						</div><br><br>
+							<!-- h. free ligand concentration Input -->
+						<div class="col-md-6 track-panel gloss-contrast">
+							<div>Free Ligand Concentration</div>
+							<form novalidate name="fLC_Form">
+								<input class="form" name="fLC" type="number" step="1" min="{{view.output.minimum_fLC_input}}" placeholder="number" ng-model="input_fLC" required>
+							</form>
+						</div>
+							<!-- i. association time Input -->
+						<div class="col-md-6 track-panel gloss-contrast2">
+							<div>Association Time</div>
+							<form novalidate name="timeOn_Form">
+								<input class="form" name="timeOn" type="number" step="1" min="1" max="900" placeholder="number" ng-model="input_timeOn" required>
+							</form>
+						</div>
+							<!-- j. Drop-down Menu: Selecting units for free ligand concentration units -->
+						<div class="col-md-6 unit-panel gloss-contrast">
+							<select class="units_dropdown" ng-model="magnitudeSelected_input_Kd" ng-init="magnitudeSelected_input_Kd = 1">
+								<option ng-value="0">mM</option>
+								<option ng-value="1" ng-selected="true">uM</option>
+								<option ng-value="2">nM</option>
+							</select>
+						</div>
+							<!-- k. association time Units -->
+						<div id="default_unit" class="col-md-6 unit-panel gloss-contrast2">seconds</div>
+					</div><br>
+				</div>
+			</div><br>
+
+</body>
+
+</body>
+
+	</html>
