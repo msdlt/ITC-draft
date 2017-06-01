@@ -8,19 +8,15 @@ function experimentTrack(systemModel) {
 	
 
 //EXPERIMENT TRACKING 
-	experiment.timePerRun = 0.5;
-	experiment.timePerBreak = 1.0;
+	
 	experiment.startOfDay = 0;
-	experiment.startOfLunch = 12.0; // total runs with good SD per day = 13
-	experiment.startOfDinner = 17.0;
+	
 	experiment.timeOfDay = experiment.startOfDay
 	experiment.endOfDay = 24.0; // total runs per day = 23
 		// creating tracked variables
 	experiment.steps = 0;
 	experiment.timeOfDay = 0;
-	experiment.daysAllowed = 2; 
-	experiment.daysLeft = 2;
-	experiment.endOfExperimentTime = 0; 
+	
 	
 	experiment.processDisabled = true;
 
@@ -41,9 +37,9 @@ experiment.recallActive=false
 experiment.isNoise=false
 
 //ANSWER TRACKING
-	experiment.wrong=0
-	experiment.right=0
-	experiment.beenWrongCount=0
+experiment.wrong=0;
+experiment.right=0;
+experiment.beenWrongCount=0;
 
 	
 	experiment.questions=[

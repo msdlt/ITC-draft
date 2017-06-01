@@ -45,6 +45,8 @@
 	    <script type='text/javascript' src='libraries/pdfmake/vfs_fonts.js'></script>
 		<script type="text/javascript" src="scripts/services/table-config.js"></script>
 
+		 <script type='text/javascript' src='libraries/localstorage/angular-local-storage.min.js'></script>
+
 			<!-- Google Fonts Web Font Embedding & Credits 
 		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=PT+Sans:700'>
 		<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Work+Sans:300,500'>-->
@@ -2113,10 +2115,11 @@
 					<h4 class="modal-title" id="modalLabel">Saved Answers Detected</h4>
 				</div>
 				<div class="modal-body">
-					It is detected that you have already started answering some questions. Your previous answers have been loaded for you. 
+					It is detected that you have already started answering some questions - would you like to start again or load your previous position?
 				</div>
 				<div class='modal-body' id='center_buttons'>
-				<button type="button" class="modal-button clickable2" data-dismiss="modal">Continue</button>&nbsp;&nbsp;&nbsp;
+				<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click='view.initialze()'>Restart</button>&nbsp;&nbsp;&nbsp;
+				<button type="button" class="modal-button clickable2" data-dismiss='modal' ng-click='view.reload()'>Continue</button>
 				</div>
 			</div>
 		</div>
