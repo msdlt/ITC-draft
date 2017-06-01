@@ -41,8 +41,8 @@
 	    <script type="text/javascript" src="libraries/ui-grid/exporter.js"></script>
 	    <script type="text/javascript" src="libraries/ui-grid/selection.js"></script>  
 	    <script type="text/javascript" src="libraries/random.js"></script> 
-		
-
+	    <script type='text/javascript' src='libraries/pdfmake/pdfmake.min.js'></script>
+	    <script type='text/javascript' src='libraries/pdfmake/vfs_fonts.js'></script>
 		<script type="text/javascript" src="scripts/services/table-config.js"></script>
 
 			<!-- Google Fonts Web Font Embedding & Credits 
@@ -103,8 +103,26 @@
 					<h4 class="modal-title" id="modalLabel">Answers</h4>
 				</div>
 				<div class="modal-body">
+					When you have completed the practical, export your answer to PDF for the instructor to look at. For this feature to work, you must change the settings of the Chrome browser to open PDFs in the default viewer. <br><br>
+					Navigate to settings -> Privacy -> Content Settings -> PDF Documents -> Enable 'Open PDF files in default viewer'<br><br>
 					<div id="answer-table">
 						<div class="answer-grid" ui-grid="view.table.answerOptions" ui-grid-selection ui-grid-exporter></div>
+					</div><br>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="runs_modal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="modal-cross" aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="modalLabel">Answers</h4>
+				</div>
+				<div class="modal-body">
+					<div id="answer-table">
+						<div class="answer-grid" ui-grid="view.table.runOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize></div>
 					</div><br>
 				</div>
 			</div>
@@ -2286,6 +2304,9 @@
 					<div>Runs</div>
 					<div class='tracked-value'>{{view.experiment.steps}}</div>
 				</div><br>
+				<div class='col-md-12 answer-button'>
+					<button type="button" class="button3 clickable1 col-md-12" data-toggle="modal" data-target="#runs_modal" >View Complete Runs</button>
+				</div>
 			</div>
 			
 			<!-- 0 -> {{((input_concA*input_numInj*input_vInj)/(input_concB*view.output.vCell))*((view.output.magnitudePool[magnitudeSelected_inputB])/(view.output.magnitudePool[magnitudeSelected_inputA]*view.output.magnitudePool[magnitudeSelected_volInj]))}} -->

@@ -5,7 +5,7 @@ var app = angular.module('ITC', ['model', 'display', 'cookies','ngCookies'])
 	.controller('viewControl', viewMethod);
 
 /* 2. setting up controller */
-viewMethod.$inject = ['systemModel', 'outputModel', 'experimentStatus', 'chartConfig', '$cookies', '$location','tableConfig',]
+viewMethod.$inject = ['systemModel', 'outputModel', 'experimentStatus', 'chartConfig', '$cookies', '$location','tableConfig']
 
 function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $cookies, $location, tableConfig) {
 	var view = this
@@ -20,6 +20,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 	view.system.loadNewPair();
 
 	view.cookiesData='hello'
+	view.experimentTracking=true
 	
 	//RUNNING THE EXPERIMENT
 	//plotData - adds label then binds the data from compile to the chart dataset then calls replot
@@ -86,6 +87,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.plotData('#flot',view.output.heatData,'HeatData',true);
 		view.output.checkGameExample(view.currentExample,newConcA.concentration,newConcB.concentration,newNumInj,newTBInj,newVInj/view.output.magnitudeAdjustVol,newConcA.iD,newConcB.iD);
 		view.experiment.gameComboCheck(newConcA,newConcB,newNumInj,newTBInj,newVInj/view.output.magnitudeAdjustVol);
+		view.table.compileRunData(newConcA,newConcB,newNumInj,newTBInj,newVInj,newMagnitudeVol)
 	}
 
 	view.loadGame=function(game){

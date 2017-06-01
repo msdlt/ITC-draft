@@ -35,8 +35,8 @@ function experimentTrack(systemModel) {
 		experiment.timeOfDay+=0.5;
 	}
 
-experiment.gameMode=false
-experiment.solutionPrep=0
+experiment.gameMode=true
+experiment.solutionPrep=1
 experiment.recallActive=false
 experiment.isNoise=false
 

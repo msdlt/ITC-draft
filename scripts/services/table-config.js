@@ -1,7 +1,7 @@
 	/* Creating table using ui-grid API */
 
 /* 1. registering modules, services and constants */
-angular.module('table_config', ['output_model', 'experiment_status', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter'])
+angular.module('table_config', ['output_model', 'experiment_status', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.autoResize'])
 	.service('tableConfig', ['outputModel', 'experimentStatus', tableCreate]);
 
 /* 2. creating sub-methods as part of the function object that can be called */
@@ -12,6 +12,7 @@ function tableCreate(outputModel, experimentStatus) {
 	
 	table.data=[]
 	table.answerData=[]
+	table.runData=[];
 
 	
 	table.options = {
@@ -84,12 +85,86 @@ function tableCreate(outputModel, experimentStatus) {
 			enableColumnResizing: true,
 				// exporting
 			enableGridMenu: true,
-			exporterMenuCsv: true,
+			exporterMenuCsv: false,
 			exporterMenuPdf: true,
 			exporterEnableExporting: true,
     		exporterCsvFilename: 'answers.csv'
 
     		
+		};
+
+		table.runOptions = {
+			data: table.runData,
+				// defining header name
+			columnDefs: [
+					{
+						field: "runNum",
+						displayName: "Run",
+						width: "50",
+						enableSorting: false
+					},
+					{
+						field: "identityB",
+						displayName: "Macromolecule",
+						width: "100",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					{
+						field: "concB",
+						displayName: "[Macromolecule]",
+						width: "110",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					
+					{
+						field: "identityA",
+						displayName: "Ligand",
+						width: "100",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					{
+						field: "concA",
+						displayName: "[Ligand]",
+						width: "110",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					
+					{
+						field: "buffer",
+						displayName: "Buffer",
+						width: "80",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					{
+						field: "numInj",
+						displayName: "Number Inj.",
+						width: "100",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					{
+						field: "tBInj",
+						displayName: "Inj. Int. (s)",
+						width: "80",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					{
+						field: "volInj",
+						displayName: "Volume Inj.",
+						width: "100",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					}
+					
+
+				],
+				// miscellaneous
+			enableHorizontalScrollbar: 1,
+			enableColumnMenus: false,
+				// exporting
+			enableGridMenu: true,
+			exporterMenuCsv: true,
+			exporterMenuPdf: false,
+			exporterEnableExporting: true,
+    		exporterCsvFilename: 'ITC_Data.csv'
 		};
 
 
@@ -139,6 +214,30 @@ function tableCreate(outputModel, experimentStatus) {
 			
 			table.answerData.push(angular.copy(table.compiledSet))
 		}
+	}
+	x=1;
+	table.compileRunData=function(newConcA,newConcB,newNumInj,newTBInj,newVInj,newMagnitudeVol){
+		if (newMagnitudeVol==0){
+			y='mM';
+		}if (newMagnitudeVol==1){
+			y='μM';
+		}if(newMagnitudeVol==2){
+			y='nM'
+		}
+		
+		table.compiledSet={
+			runNum:x,
+			identityB:newConcB.iD,
+			concB:newConcB.concentration*1000000+'μM',
+			identityA:newConcA.iD,
+			concA:newConcA.concentration*1000000+'μM',
+			buffer:newConcA.buffer,
+			numInj:newNumInj,
+			tBInj:newTBInj,
+			volInj:newVInj+y,
+		}
+		x++;
+		table.runData.push(angular.copy(table.compiledSet))
 	}
 
 
