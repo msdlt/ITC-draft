@@ -94,6 +94,22 @@
 	
 
 	<!--MODALS-->
+
+	<div id="answers_modal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="modal-cross" aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="modalLabel">Answers</h4>
+				</div>
+				<div class="modal-body">
+					<div id="answer-table">
+						<div class="answer-grid" ui-grid="view.table.answerOptions" ui-grid-selection ui-grid-exporter></div>
+					</div><br>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 
@@ -139,7 +155,7 @@
 							<option ng-value="1">A</option>
 							<option ng-value="2">B</option>
 						</select>
-						<button type='button' class='button clickable2' ng-click="view.experiment.mQuestionConfirm(answer,0)">CONFIRM ANSWER</button>
+						<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,0)">CONFIRM ANSWER</button>
 					</div>
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[0].IsCorrect'>
@@ -173,7 +189,7 @@
 								<option ng-value="1">A</option>
 								<option ng-value="2">B</option>
 							</select>
-							<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(answer,WrittenAnswer,0)">CONFIRM BOTH ANSWERS</button>
+							<button type='button' class='button clickable2' ng-click="view.wQuestion(answer,WrittenAnswer,0)">CONFIRM BOTH ANSWERS</button>
 						</form>
 					</div>
 				</div>
@@ -227,7 +243,7 @@
 						<form novalidate name='writtenAnswer'>
 							<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
 							
-							<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(answer,WrittenAnswer,questionnumber)">SUBMIT</button>
+							<button type='button' class='button clickable2' ng-click="view.wQuestion(answer,WrittenAnswer,1)">SUBMIT</button>
 						</form>
 					</div>
 				</div>
@@ -1884,7 +1900,7 @@
 							<form novalidate name='writtenAnswer'>
 								<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
 
-								<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(1,WrittenAnswer,9)">SUBMIT</button>
+								<button type='button' class='button clickable2' ng-click="view.wQuestion(1,WrittenAnswer,9)">SUBMIT</button>
 							</form>
 						</div>
 					</div>
@@ -1906,7 +1922,7 @@
 							<form novalidate name='writtenAnswer'>
 								<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
 
-								<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(1,WrittenAnswer,10)">SUBMIT</button>
+								<button type='button' class='button clickable2' ng-click="view.wQuestion(1,WrittenAnswer,10)">SUBMIT</button>
 							</form>
 						</div>
 					</div>
@@ -1928,7 +1944,7 @@
 							<form novalidate name='writtenAnswer'>
 								<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
 
-								<button type='button' class='button clickable2' ng-click="view.experiment.wQuestionConfirm(1,WrittenAnswer,11)">SUBMIT</button>
+								<button type='button' class='button clickable2' ng-click="view.wQuestion(1,WrittenAnswer,11)">SUBMIT</button>
 							</form>
 						</div>
 					</div>
@@ -2150,6 +2166,9 @@
 				<div class='col-md-6 track-panel '>
 					<div>Wrong (attempts)</div>
 					<div class='tracked-value'>{{view.experiment.wrong}} ({{view.experiment.beenWrongCount}})</div>
+				</div>
+				<div class='col-md-12 answer-button'>
+					<button type="button" class="button3 clickable1 col-md-12" data-toggle="modal" data-target="#answers_modal" >Answers</button>
 				</div>
 			</div><br>
 			

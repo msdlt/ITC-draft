@@ -51,11 +51,11 @@ experiment.isNoise=false
 		{
 			id:0,
 			question:'What is the definition of \'ISOTHERMAL change\'?',
-			A:'A - a change of a system in which temperature remains constant',
-			B:'B - a change of a system in which temperature changes ',
-			C:'',
-			D:'',
-			ifCorrect:'',
+			1:'A - a change of a system in which temperature remains constant',
+			2:'B - a change of a system in which temperature changes ',
+			3:'',
+			4:'',
+			isCorrect:'',
 			ifWrong:'',
 			answer:1,
 			IsCorrect:null,
@@ -66,10 +66,10 @@ experiment.isNoise=false
 		{
 			id:1,
 			question:'For an association reaction discuss the main factors that affect values of K (and therefore deltaG) in terms of deltaS and deltaH.',
-			A:'',
-			B:'',
-			C:'',
-			D:'',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:1,
@@ -81,10 +81,10 @@ experiment.isNoise=false
 		{
 			id:2,
 			question:'Is the reaction in the example endothermic or exothermic?',
-			A:'A - Exothermic',
-			B:'B - Endothermic',
-			C:'',
-			D:'',
+			1:'A - Exothermic',
+			2:'B - Endothermic',
+			3:'',
+			4:'',
 			ifCorrect:'Because the calorimeter is compensating for changes in temperature, a increase in power is attributed to an endothermic reaction and visa versa for exothermic ',
 			ifWrong:'Consider how the machine works ',
 			answer:2,
@@ -96,10 +96,10 @@ experiment.isNoise=false
 		{
 			id:3,
 			question:'What are the units of the equilibrium constant for this reaction?',
-			A:'A - moldm⁻³',
-			B:'B - mol⁻¹dm³',
-			C:'C - Unitless',
-			D:'',
+			1:'A - moldm⁻³',
+			2:'B - mol⁻¹dm³',
+			3:'C - Unitless',
+			4:'',
 			ifCorrect:'How does this ',
 			ifWrong:'Consider how the machine works',
 			answer:3,
@@ -111,10 +111,10 @@ experiment.isNoise=false
 		{
 			id:4,
 			question:'',
-			A:'',
-			B:'',
-			C:'',
-			D:'',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:0,
@@ -126,10 +126,10 @@ experiment.isNoise=false
 		{
 			id:5,
 			question:'',
-			A:'',
-			B:'',
-			C:'',
-			D:'',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:0,
@@ -141,10 +141,10 @@ experiment.isNoise=false
 		{
 			id:6,
 			question:'Congratulations, both of your answers were correct. Consider the experimental values you just calculated: . ',
-			A:'A - Yes',
-			B:'B - No',
-			C:'',
-			D:'',
+			1:'A - Yes',
+			2:'B - No',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:1,
@@ -156,10 +156,10 @@ experiment.isNoise=false
 		{
 			id:7,
 			question:'(Question 1 analysis - enter the value fromt he lowest box in column F)',
-			A:'A - Yes',
-			B:'B - No',
-			C:'',
-			D:'',
+			1:'A - Yes',
+			2:'B - No',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:1,
@@ -171,10 +171,10 @@ experiment.isNoise=false
 		{
 			id:8,
 			question:'',
-			A:'',
-			B:'',
-			C:'',
-			D:'',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:0.000000596,
@@ -188,10 +188,10 @@ experiment.isNoise=false
 		{
 			id:9,
 			question:'',
-			A:'',
-			B:'',
-			C:'',
-			D:'',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:0,
@@ -203,10 +203,10 @@ experiment.isNoise=false
 		{
 			id:10,
 			question:'',
-			A:'',
-			B:'',
-			C:'',
-			D:'',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:0,
@@ -218,10 +218,10 @@ experiment.isNoise=false
 		{
 			id:11,
 			question:'',
-			A:'',
-			B:'',
-			C:'',
-			D:'',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
 			ifCorrect:'',
 			ifWrong:'',
 			answer:0,
@@ -1112,33 +1112,63 @@ experiment.isNoise=false
 			}
 			
 		}
+	experiment.tQuestionLogic=function(areNull,areTrue,areFalse){
+		a=0;
+		b=0;
+		c=0;
+		for (i in areNull){
+			if (experiment.questions[i].IsCorrect==null){
+				a++
+			}
+		}
+		for (i in areTrue){
+			if (experiment.questions[i].IsCorrect==true){
+				b++
+			}
+		}
+		for (i in areFalse){
+			if (experiment.questions[i].IsCorrect==false){
+				c++
+			}
+		}
+		if (a==areNull.length && b==areTrue.length && c==areFalse.length){
+			return true;
+		}
+	}
 	//CHECKS MULTIPLE CHOICE QUESTIONS
-	experiment.mQuestionConfirm = function(answer,question){
+	experiment.mQuestionConfirm = function(thisAnswer,question){
 		for (i in experiment.questions){
 			if (experiment.questions[i].id == question){
-				if (answer == experiment.questions[i].answer){
+				if (thisAnswer == experiment.questions[i].answer){
 					experiment.questions[i].IsCorrect = true;
+					
 				} else {
 					experiment.questions[i].IsCorrect=false;
 					experiment.questions[i].beenWrong += 1;
 				}
-
+				experiment.questions[i].mAnswer=experiment.questions[i][thisAnswer]
+				
 			}	
 		}
 		
+		
 	}
 	//CHECKS WRITTEN ANSWER QUESTION
-	experiment.wQuestionConfirm = function(mAnswer, wAnswer, question){
+	experiment.wQuestionConfirm = function(thismAnswer, thiswAnswer, question){
 		for (i in experiment.questions){
 			if (experiment.questions[i].id == question){
-				if (mAnswer == experiment.questions[i].answer){
+				if (thismAnswer == experiment.questions[i].answer){
 					experiment.questions[i].IsCorrect=true;
+					
 				} else{
 					experiment.questions[i].IsCorrect=false;
 					experiment.questions[i].beenWrong += 1;
 				}
+				experiment.questions[i].wAnswer=thiswAnswer
+				experiment.questions[i].mAnswer=experiment.questions[i][thismAnswer]
 			}
 		}
+		
 		
 	}
 	//SETS A QUESTION TO BEING CORRECT

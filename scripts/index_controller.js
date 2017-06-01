@@ -134,10 +134,12 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.compileCookieData();
 		view.cookies.putObject('storedData', view.cookiesData);
 		view.experiment.questionCount();
+		view.table.compileAnswersTableData();
 	}
 	view.releaseQuestion=function(password,question){
 		if (password==123456789){
 			view.mQuestion(view.experiment.questions[question].answer,question);
+		view.table.compileAnswersTableData();
 		}
 	}
 
@@ -146,6 +148,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.compileCookieData();
 		view.cookies.putObject('storedData', view.cookiesData);
 		view.experiment.questionCount();
+		view.table.compileAnswersTableData();
 	}
 	//COOKIES
 	view.compileCookieData=function(){
@@ -178,6 +181,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		$(window).load(function(){$('#initialising_modal').modal('show');});
 		$('#initialising_modal').modal({backdrop: 'static',keyboard: false});
 	}
+	view.table.compileAnswersTableData();
 
 	//view.compileCookieData();
 		//view.output.calcOutput(newVInj,newNumInj,newConcA,newConcB);

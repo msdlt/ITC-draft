@@ -152,11 +152,20 @@ a.navbar-link:active {
     border: none;
     background: none;
     margin: auto;
-    align:center;
+    align: center;
 
+}
+.button3 {
+    height: 34px;
+    padding: 5px;
+    border: none;
+    background: none;
 }
 .button:disabled {
 	background-color: #232836;	
+}
+.answer-button{
+	padding: 5px;
 }
 
 .clickable1 {
@@ -498,9 +507,26 @@ a.red-link:active {
 	font-size: 0.83em;
 	margin:auto;
 }
-
 .grid {
 	height: 232px;
+	border: 0px;
+	color: #d2e3fd;
+	overflow-y: hidden;
+}
+#answer-table {
+	width:568px;
+	padding: 0px;
+	display: block;
+	background-color: #263349;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 0.83em;
+	margin:auto;
+}
+
+
+.answer-grid {
+	height: 304px;
 	border: 0px;
 	color: #d2e3fd;
 	overflow-y: hidden;
