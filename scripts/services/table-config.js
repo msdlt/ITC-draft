@@ -106,53 +106,60 @@ function tableCreate(outputModel, experimentStatus) {
 					{
 						field: "identityB",
 						displayName: "Macromolecule",
-						width: "100",
+						width: "95",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
 					{
 						field: "concB",
 						displayName: "[Macromolecule]",
-						width: "110",
+						width: "105",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
 					
 					{
 						field: "identityA",
 						displayName: "Ligand",
-						width: "100",
+						width: "95",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
 					{
 						field: "concA",
 						displayName: "[Ligand]",
-						width: "110",
+						width: "105",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
 					
 					{
 						field: "buffer",
 						displayName: "Buffer",
-						width: "80",
+						width: "75",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
 					{
 						field: "numInj",
 						displayName: "Number Inj.",
-						width: "100",
+						width: "95",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
 					{
 						field: "tBInj",
 						displayName: "Inj. Int. (s)",
-						width: "80",
+						width: "75",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
 					{
 						field: "volInj",
 						displayName: "Volume Inj.",
-						width: "100",
+						width: "95",
+						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
+					},
+					{
+						field: "numCons",
+						displayName: "Num. Consid.",
+						width: "95",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					}
+
 					
 
 				],
@@ -235,6 +242,7 @@ function tableCreate(outputModel, experimentStatus) {
 			numInj:newNumInj,
 			tBInj:newTBInj,
 			volInj:newVInj+y,
+			numCons: experiment.considerations
 		}
 		x++;
 		table.runData.push(angular.copy(table.compiledSet))

@@ -7,17 +7,13 @@ function experimentTrack(systemModel) {
 
 	
 
-//EXPERIMENT TRACKING 
-	
+//EXPERIMENT TIME TRACKING 
 	experiment.startOfDay = 0;
-	
 	experiment.timeOfDay = experiment.startOfDay
 	experiment.endOfDay = 24.0; // total runs per day = 23
 		// creating tracked variables
 	experiment.steps = 0;
 	experiment.timeOfDay = 0;
-	
-	
 	experiment.processDisabled = true;
 
 	experiment.timeOfDayCounter = function(numInj) {
@@ -31,15 +27,17 @@ function experimentTrack(systemModel) {
 		experiment.timeOfDay+=0.5;
 	}
 
+
 experiment.gameMode=true
-experiment.solutionPrep=1
+experiment.solutionPrep=0
 experiment.recallActive=false
 experiment.isNoise=false
 
-//ANSWER TRACKING
-experiment.wrong=0;
-experiment.right=0;
-experiment.beenWrongCount=0;
+	//ANSWER TRACKING--------->
+	//initializes counts for answer tracking
+	experiment.wrong=0;
+	experiment.right=0;
+	experiment.beenWrongCount=0;
 
 	
 	experiment.questions=[
@@ -599,17 +597,22 @@ experiment.beenWrongCount=0;
 		{
 			id:'GC1a',
 			show:false,
-			text:'HINT 1a: C VALUE - Your value of c is too high (>1000). This results in a very steep infection and difficulty assigning K',
-		},
-		{
-			id:'GC1b',
-			show:false,
-			text:'HINT 1b: C VALUE - Your value of c is too low (<10). This results in a broad, featureless curve and difficulty with analysis.',
+			text:'HINT 1: C VALUE - Your value of c is not within the correct bounds (10<c<1000)',
 		},
 		{
 			id:'GC1c',
 			show:false,
 			text:'SUCCESS 1: C VALUE - Your value of c was within the acceptable range (10<c<1000).',
+		},
+		{
+			id:'GC2a',
+			show:false,
+			text:'HINT 2: Signal to Noise ratio - Your signal to noise ratio is too low, try using higher concentrations',
+		},
+		{
+			id:'GC2b',
+			show:false,
+			text:'SUCCESS 2: Signal to Noise ratio - Your signal to nise ratio is high enough for correct characterisation',
 		},
 		//gamecombo3: eqiuilibration time
 		{
@@ -626,7 +629,7 @@ experiment.beenWrongCount=0;
 		{
 			id:'GC4a',
 			show:false,
-			text:'HINT 4a: MOLAR RATIO - The molar ratio range across the experiment is high. You waste time when a very large molar ratio range is used due to more injections.',
+			text:'HINT 4a: MOLAR RATIO - The molar ratio range across the experiment is not sithin correct bounds, the infection point will give you an idea of the stoichiometry. If you use too much ligand the molar ratio will be high.',
 		},
 		{
 			id:'GC4b',
@@ -669,13 +672,91 @@ experiment.beenWrongCount=0;
 		}
 		
 	];
+	//SETS A QUESTION TO BEING CORRECT
+	experiment.makeTrue = function(question){
+		for (i in experiment.questions){
+			if (experiment.questions[i].id == question){
+				experiment.questions[i].IsCorrect=true;
+			}
+		}
+	}
 
-	//SOLUTION HANDLING
-	experiment.isDegassed=false;
-	experiment.isDialysed=false;
-	experiment.isConc=false;
+	//CHECKS MULTIPLE CHOICE QUESTIONS
+	experiment.mQuestionConfirm = function(thisAnswer,question){
+		for (i in experiment.questions){
+			if (experiment.questions[i].id == question){
+				if (thisAnswer == experiment.questions[i].answer){
+					experiment.questions[i].IsCorrect = true;
+					
+				} else {
+					experiment.questions[i].IsCorrect=false;
+					experiment.questions[i].beenWrong += 1;
+				}
+				experiment.questions[i].mAnswer=experiment.questions[i][thisAnswer]
+				
+			}	
+		}
+	}
+	//CHECKS WRITTEN ANSWER QUESTION
+	experiment.wQuestionConfirm = function(thismAnswer, thiswAnswer, question){
+		for (i in experiment.questions){
+			if (experiment.questions[i].id == question){
+				if (thismAnswer == experiment.questions[i].answer){
+					experiment.questions[i].IsCorrect=true;
+					
+				} else{
+					experiment.questions[i].IsCorrect=false;
+					experiment.questions[i].beenWrong += 1;
+				}
+				experiment.questions[i].wAnswer=thiswAnswer
+				experiment.questions[i].mAnswer=experiment.questions[i][thismAnswer]
+			}
+		}
+	}
+
+	//COUNTS NUMBER OF CORRECT/INCORRECT QUSIONS
+	experiment.questionCount=function(){
+		experiment.wrong=0
+		experiment.right=0
+		experiment.beenWrongCount=0
+		
+		for (i=0; i<experiment.questions.length;i++){
+			if (experiment.questions[i].IsCorrect==true){
+				experiment.right++;
+			}
+			if (experiment.questions[i].IsCorrect==false){
+				experiment.wrong++;
+			}
+		}
+		for (i=0;i<experiment.questions.length;i++){
+			experiment.beenWrongCount += experiment.questions[i].beenWrong;
+		}	
+	}
+
+	//CONSOLE--------->
+	//CHANGES BOOLEAN VALUE OF CONSOLE ENTRY WITH ID==ID TO OPPOSITE
+	experiment.consoleChange = function(iD){
+		for (n=0;n<iD.length;n++){
+			for (i=0; i<experiment.console.length;i++){
+				if (experiment.console[i].id==iD[n]){
+					experiment.console[i].show = !experiment.console[i].show;
+				}
+			}	
+		}
+	}
+	experiment.consoleTF = function(iD,boolean){
+		for (n=0;n<iD.length;n++){
+			for (i=0; i<experiment.console.length;i++){
+				if (experiment.console[i].id==iD[n]){
+					experiment.console[i].show = boolean;
+				}
+			}	
+		}
+	}
 
 
+	//SOLUTION HANDLING---------->
+	//Ligands available by default
 	experiment.ligand=
 		[
 			{
@@ -694,7 +775,7 @@ experiment.beenWrongCount=0;
 				mass:100
 			}
 		];
-	
+	//samples available by default
 	experiment.sample=
 		[{
 			mW:100,
@@ -709,7 +790,7 @@ experiment.beenWrongCount=0;
 			mass:100
 		}];
 	experiment.ligandSample=[experiment.ligand,experiment.sample]
-
+	//Buffers available by default
 	experiment.buffer=[
 		{
 			iD:'A',
@@ -718,7 +799,7 @@ experiment.beenWrongCount=0;
 			iD:'B'
 		}
 	]
-
+	//Contains the deltH and K values for ligand-sample-buffer triads - checked by checkPairs()
 	experiment.pairs=[
 		//for buffer inquiry
 		// (first for both)
@@ -813,67 +894,108 @@ experiment.beenWrongCount=0;
 		}
 	]
 
-
+	//defaiult ligand solutions 
 	experiment.ligandSolutions=[{iD:'Buffer A', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'A'},{iD:'Buffer B', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'B'}];
+	//default sample solutions
 	experiment.sampleSolutions=[{iD:'Buffer B', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'B'},{iD:'Buffer A', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'A'}];
-
 	
-	//GAMEFICATION ELEMENTS
+	//SETS system VALUES BASED ON STRING INPUTS (ligand,sample,buffer) OF iD VALUE OF OBJECT IN ligandSolutions AND sampleSolutions
+	experiment.checkPairs=function(ligand,sample,buffer){
+		a = ligand+sample+buffer;
+		for (i in experiment.pairs){
+			if (experiment.pairs[i].iD==a){
+				system.dH=experiment.pairs[i].dH;
+				system.kOn=experiment.pairs[i].kOn;
+				system.kOff=experiment.pairs[i].kOff;
+				system.calc_kd();
+				system.stoichiometry=experiment.pairs[i].stoichiometry;
+			}
+		}
+	}
+	
+	//CREATES SOLUTION ONJECT IN EITHER ligandSolutions OR sampleSolutions
+	experiment.concentrations=function(thisMass,thisVolume,whichSolution,ligandOrSample, thisBuffer){
+		if (ligandOrSample==1){
+			experiment.concentration=(thisMass/experiment.ligand[whichSolution].mW)/thisVolume
+			experiment.ligandSolutions.push({concentration: experiment.concentration, iD:experiment.ligand[whichSolution].iD, isDialysed:false, isDegassed:false, volume:thisVolume, buffer:thisBuffer, background:false})
+			
+			experiment.ligand[whichSolution].mass = experiment.ligand[whichSolution].mass - thisMass;	
+		}
+		if (ligandOrSample==2){
+			experiment.concentration=(thisMass/experiment.sample[whichSolution].mW)/thisVolume
+			experiment.sampleSolutions.push({concentration: experiment.concentration, iD:experiment.sample[whichSolution].iD, isDialysed:false, isDegassed:false, volume:thisVolume, buffer:thisBuffer, background:false})
+			experiment.sample[whichSolution].mass = experiment.sample[whichSolution].mass - thisMass
+		}
+	}
+	//REDUCES volume VALUE IN EITHER ligandSolutions OR sampleSolutions
+	experiment.reduceVolumes=function(reduceVol, ligandSolution, sampleSolution){
+		ligandSolution.volume = ligandSolution.volume - reduceVol;
+		sampleSolution.volume = sampleSolution.volume - 0.000994
+
+	}
+	
+	//GAMEFICATION ELEMENTS-------->
 	//checks game combo 1-5; GC 6,7 set in runGameExpt
 	experiment.gameComboCheck=function(concA, concB,numInj, tBInj, vInj){
+		experiment.considerations=0;
 		experiment.gameCombo1(concB);
 		experiment.gameCombo2();
 		experiment.gameCombo3();
 		experiment.gameCombo4();
 		experiment.gameCombo5(numInj);
-		experiment.gameCombo7(concA,concB)
+		experiment.gameCombo7(concA,concB);
 	}
 	//checks that c is within reasonable range
 	experiment.gameCombo1=function(concB){
 		console.log(concB.concentration*system.kd);
 		console.log
-		if (concB.concentration*system.kd>1000){
+		if (concB.concentration*system.kd>1000 || concB.concentration*system.kd<10){
 			//'c is too large'
 			experiment.consoleTF(['GC1a'],true);
+			
 		}
-		if (concB.concentration*system.kd<10){
-			//c is too small
-			experiment.consoleTF(['GC1b'],true);
-		}
+		
 		if (concB.concentration*system.kd>10 && concB.concentration*system.kd<1000){
 			//c is within range
 			experiment.consoleTF(['GC1c'],true);
+			experiment.considerations++;
 		}
 	}
 	//checks signal to noise ratio - noise set by gaussian, signal set by experiment.maxHeat
 	experiment.gameCombo2=function(){
-
+		if (experiment.maxHeat>10*experiment.stdDev_Default){
+			experiment.consoleTF(['GC2b'], true)
+			experiment.considerations++;
+		}else{
+			experiment.consoleTF(['GC2a'], true)
+		}
 	}
 	//checks equilibration time based on experiment.minHeat
 	experiment.gameCombo3=function(){
 		if (experiment.minHeat<0.0000001){
 			experiment.consoleTF(['GC3b'],true);
+			experiment.considerations++;
 		}else{
 			experiment.consoleTF(['GC3a'],true);
 		}
 	}
 	//checks molar ratio range is correct for stoichiometry (2x stoichiometry) - molar ratio from experiment.ratio, stoichiometry from experiment.pairs then system.stoichiometry
 	experiment.gameCombo4=function(){
-		if (1.5 < experiment.ratio && 2.5>experiment.ratio){
+		if (1.5 < experiment.output.ratio && 2.5>experiment.output.ratio){
 			experiment.consoleTF(['GC4c'],true);
+			experiment.comsiderations++;
 		}
-		if (2.5<experiment.ratio){
+		if (2.5<experiment.output.ratio || 1.5>experiment.output.ratio){
 			experiment.consoleTF(['GC4a'],true);
 		}
-		if (1.5>experiment.ratio){
-			experiment.consoleTF(['GC4b'],true);
-		}
+		
 
 	}
 	//checks if number of injections is less than 30 - for time management
 	experiment.gameCombo5=function(numInj){
 		if (30>=numInj && numInj>=15){
 			experiment.consoleTF(['GC5b'],true)
+			experiment.considerations++;
 		}else{
 			experiment.consoleTF(['GC5a'],true)
 		}
@@ -881,10 +1003,10 @@ experiment.beenWrongCount=0;
 	}
 	//checks if background have been run
 	experiment.gameCombo7=function(concA,concB){
-		console.log(concA)
-		console.log(concB)
+		console.log(concA.background)
 		if (concA.background==true && concB.background==true){
 			experiment.consoleTF(['GC7'],true);
+			experiment.considerations++;
 		}
 	}
 
@@ -993,40 +1115,7 @@ experiment.beenWrongCount=0;
 
 
 
-	//SETS system VALUES BASED ON STRING INPUTS OF iD VALUE OF OBJECT IN ligandSolutions AND sampleSolutions
-	experiment.checkPairs=function(ligand,sample,buffer){
-		a = ligand+sample+buffer;
-		for (i in experiment.pairs){
-			if (experiment.pairs[i].iD==a){
-				system.dH=experiment.pairs[i].dH;
-				system.kOn=experiment.pairs[i].kOn;
-				system.kOff=experiment.pairs[i].kOff;
-				system.calc_kd();
-				system.stoichiometry=experiment.pairs[i].stoichiometry;
-			}
-		}
-	}
 	
-	//CREATES SOLUTION ONJECT IN EITHER ligandSolutions OR sampleSolutions
-	experiment.concentrations=function(thisMass,thisVolume,whichSolution,ligandOrSample, thisBuffer){
-		if (ligandOrSample==1){
-			experiment.concentration=(thisMass/experiment.ligand[whichSolution].mW)/thisVolume
-			experiment.ligandSolutions.push({concentration: experiment.concentration, iD:experiment.ligand[whichSolution].iD, isDialysed:false, isDegassed:false, volume:thisVolume, buffer:thisBuffer, background:false})
-			
-			experiment.ligand[whichSolution].mass = experiment.ligand[whichSolution].mass - thisMass;	
-		}
-		if (ligandOrSample==2){
-			experiment.concentration=(thisMass/experiment.sample[whichSolution].mW)/thisVolume
-			experiment.sampleSolutions.push({concentration: experiment.concentration, iD:experiment.sample[whichSolution].iD, isDialysed:false, isDegassed:false, volume:thisVolume, buffer:thisBuffer, background:false})
-			experiment.sample[whichSolution].mass = experiment.sample[whichSolution].mass - thisMass
-		}
-	}
-	//REDUCES volume VALUE IN EITHER ligandSolutions OR sampleSolutions
-	experiment.reduceVolumes=function(reduceVol, ligandSolution, sampleSolution){
-		ligandSolution.volume = ligandSolution.volume - reduceVol;
-		sampleSolution.volume = sampleSolution.volume - 0.000994
-
-	}
 
 	//LOGIC FOR VIEW
 	//TRUE IF EXAMPLES 1 TO 4 ARE COMPLETE
@@ -1131,92 +1220,16 @@ experiment.beenWrongCount=0;
 			return true;
 		}
 	}
-	//CHECKS MULTIPLE CHOICE QUESTIONS
-	experiment.mQuestionConfirm = function(thisAnswer,question){
-		for (i in experiment.questions){
-			if (experiment.questions[i].id == question){
-				if (thisAnswer == experiment.questions[i].answer){
-					experiment.questions[i].IsCorrect = true;
-					
-				} else {
-					experiment.questions[i].IsCorrect=false;
-					experiment.questions[i].beenWrong += 1;
-				}
-				experiment.questions[i].mAnswer=experiment.questions[i][thisAnswer]
-				
-			}	
-		}
+	
 		
 		
-	}
-	//CHECKS WRITTEN ANSWER QUESTION
-	experiment.wQuestionConfirm = function(thismAnswer, thiswAnswer, question){
-		for (i in experiment.questions){
-			if (experiment.questions[i].id == question){
-				if (thismAnswer == experiment.questions[i].answer){
-					experiment.questions[i].IsCorrect=true;
-					
-				} else{
-					experiment.questions[i].IsCorrect=false;
-					experiment.questions[i].beenWrong += 1;
-				}
-				experiment.questions[i].wAnswer=thiswAnswer
-				experiment.questions[i].mAnswer=experiment.questions[i][thismAnswer]
-			}
-		}
-		
-		
-	}
-	//SETS A QUESTION TO BEING CORRECT
-	experiment.makeTrue = function(question){
-		for (i in experiment.questions){
-			if (experiment.questions[i].id == question){
-				experiment.questions[i].IsCorrect=true;
-			}
-		}
-	}
-
-	//CHANGES BOOLEAN VALUE OF CONSOLE ENTRY WITH ID==ID TO OPPOSITE
-	experiment.consoleChange = function(iD){
-		for (n=0;n<iD.length;n++){
-			for (i=0; i<experiment.console.length;i++){
-				if (experiment.console[i].id==iD[n]){
-					experiment.console[i].show = !experiment.console[i].show;
-				}
-			}	
-		}
-	}
-	experiment.consoleTF = function(iD,boolean){
-		for (n=0;n<iD.length;n++){
-			for (i=0; i<experiment.console.length;i++){
-				if (experiment.console[i].id==iD[n]){
-					experiment.console[i].show = boolean;
-				}
-			}	
-		}
-	}
+	
+	
 
 	
-	//COUNTS NUMBER OF CORRECT/INCORRECT QUSIONS
-	experiment.questionCount=function(){
-		experiment.wrong=0
-		experiment.right=0
-		experiment.beenWrongCount=0
-		
-		for (i=0; i<experiment.questions.length;i++){
-			if (experiment.questions[i].IsCorrect==true){
-				experiment.right++;
-			}
-			if (experiment.questions[i].IsCorrect==false){
-				experiment.wrong++;
-			}
-		}
-		for (i=0;i<experiment.questions.length;i++){
-			experiment.beenWrongCount += experiment.questions[i].beenWrong;
-		}	
-	}
+	
 
-	//ERROR
+	//ERROR--------->
 	experiment.stdDev_Default = 0.00000000025; // Need to figure out the right level of variation for concentration; currently default variation is at nM level
 	experiment.stdDev_Absolute = experiment.stdDev_Default; // starting with default level and increase as it passes different time point
 	experiment.stdDev_Gaussian_absolute = 0;

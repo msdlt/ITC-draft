@@ -22,7 +22,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 
 	//initialize tracking features
 	//when true, experiment tracking is showm
-	view.experimentTracking=true;
+	view.experimentTracking=false;
 	//when true, change system box enabled
 	view.changeSystem=false
 	
@@ -68,6 +68,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.experiment.consoleTF(['GC8'],true)
 		if (newConcA.buffer==newConcB.buffer){
 			view.experiment.consoleTF(['GC6b'],true)
+			view.experiment.considerations++;
 			view.experiment.checkPairs(newConcA.iD,newConcB.iD,newConcA.buffer);
 			
 		}else{
@@ -111,6 +112,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		}
 		view.experiment.timeOfDay=0.0;
 		view.experimentTracking=true;
+		view.experiment.steps=0
 		view.compileCookieData();
 		
 	}
@@ -239,10 +241,12 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		$(window).load(function(){$('#initialising_modal').modal('show');});
 		$('#initialising_modal').modal({backdrop: 'static',keyboard: false});
 	}
-
+	
 	view.initialize=function(){
+
 		$(window).load(function(){$('#initialising_modal').modal('show');});
 		$('#initialising_modal').modal({backdrop: 'static',keyboard: false});
+		$('#cookies_modal').modal('hide');
 	}
 
 	

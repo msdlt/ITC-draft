@@ -77,7 +77,7 @@ function chartCreate(outputModel) {
 		},
 		yaxis: {
 			axisLabelUseCanvas: true,
-			axisLabel: "kJ per mol inj",
+			axisLabel: "kJ",
 			position: "left",
 			axisLabelFontFamily: "Work Sans",
 			axisLabelFontSizePixels: 13,
