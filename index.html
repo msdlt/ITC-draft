@@ -145,29 +145,31 @@
 
 					Welcolme to the Isothermal Titration Calorimetry Laboratory - ITClab<br><br>
 
-					The aim of the lab is to teach you to characterise an association reaction by designing an ITC experiment. This software is designed to mimic an ITC machine, allowing you to control the independent variables and have access to the results.<br><br>
+					The aim of the lab is to teach you to characterise a reversible association reaction by designing an ITC experiment. This software is designed to mimic an ITC machine, allowing you to control the independent variables and have access to the results.<br><br>
 
-					However, before you can begin playing the game, we want to teach you the theory and practice behind the technique. By reading the informaion available here, integrating it with your prior knowledge, and answering questions you will have a strong grounding in ITC. <br><br>
+					However, before you plan and run an investigation to practice your experimental design skills, we want to teach you the theory and practice behind the technique. By reading the informaion available here, integrating it with your prior knowledge, and answering questions you will have a strong grounding in ITC. <br><br>
 
 					<font color="#51A7F9">Hence this lab is broken into 2 parts:</font><br>
-					(1) <font color="#c5b552">Exploration:</font> You explore the software and answer questions on the presented material. Answering some questions will unlock other questions and information while answering other questions will unlock aspects of the software.<br>
-					(2) Game: You use the knowlege you gained in exploration to design, run and analyse an ITC experiment. The game becomes avaialable on completion of Part (1) <br><br>
+					(1) <font color="#c5b552">Interactive Tutorial:</font> You explore the software and answer questions on the presented material. Answering some questions will unlock other questions and information while answering other questions will unlock aspects of the software.<br>
+					(2) <font color="#c5b552">Investigation:</font> : You use the knowlege you gained in exploration to design, run and analyse an ITC investigation into reactions of your choice. The investigation becomes avaialable on completion of the interactive tutorial <br><br>
 
 					First, we will show you how the questions work...<br><br>
 
 					<font color="#51A7F9">QUESTION MECHANICS</font><br>
-					In order to unlock the game part of this tutorial, you must answer all questions throughout correctly. Questions are presented in multiple choice format. If you get the question wrong at first then you will be prompted to answer the question again, but this time you also have to write a short paragraph explaing your reasoning.
-					 <br><br>
-					This example shows you how it works - take a few moments to answer the question both right and wrong (refresh the page in between):
+					In order to unlock the investigation part of this tutorial, you must answer all questions correctly. Most questions are presented in multiple choice format, some are written answers, and some are both. If you get the question wrong at first then there are are a few options as to what happens:<br>
+					(1) You are prompted to answer the question again, but the second time round you are given a hint, or asked to answer the question in written form.<br>
+					(2) The software will ask you to talk to a demonstrator, who will explain the answer. When the demonstrator has finished, they will enter a code which lets the software know you have spoken to them.  
+					<br><br>
+					This example shows you how it works - just select an answer and hit confirm. You can try both ways if you want - refresh the page in between and click restart.
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==null'>
 					<div class='modal-question-question'>Example Question</div>
 					<div class=modal-question-content>
 					{{view.experiment.questions[0].question}}<br><br>
-					{{view.experiment.questions[0].A}}<br>
-					{{view.experiment.questions[0].B}}<br>
-					{{view.experiment.questions[0].C}}<br>
-					{{view.experiment.questions[0].D}}<br>
+					{{view.experiment.questions[0][1]}}<br>
+					{{view.experiment.questions[0][2]}}<br>
+					{{view.experiment.questions[0][3]}}<br>
+					{{view.experiment.questions[0][4]}}<br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -175,7 +177,7 @@
 							<option ng-value="1">A</option>
 							<option ng-value="2">B</option>
 						</select>
-						<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,0)">CONFIRM ANSWER</button>
+						<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,0)">CONFIRM</button>
 					</div>
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[0].IsCorrect'>
@@ -187,49 +189,36 @@
 					</div>
 					<div class='modal-question-footer'></div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==false && view.experiment.questions[0].beenWrong==1'>
-					<div class='modal-question-title'>Example Written Question</div>
+				
+				<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==false'>
+					<div class='modal-question-title-incorrect'>Incorrect!</div>
 					<div class=modal-question-content>
-						Your answer is incorrect. Please answer the question again, but this time explain your answer in the box below.<br><br>
-						This written answer will be checked by the demonstrator at the end of the exploration. <br><br>
-						<b>Contact the demonstrator now if you are having problems. If you are incorrect again the demonstrator will help you before you can continue.</b><br><br>
-						
-						{{view.experiment.questions[0].question}}<br><br>
-						{{view.experiment.questions[0].A}}<br>
-						{{view.experiment.questions[0].B}}<br>
-						{{view.experiment.questions[0].C}}<br>
-						{{view.experiment.questions[0].D}}<br>
-						(You do not need to enter anything here for now.)
+					Your answer is incorrect!  Normally you would have to contact a demonstrator...<br><br>
+
+					This time just enter 'ITC' (without quotation marks) in the box below.
 					</div>
 					<div class='modal-question-footer'>
-						<form novalidate name='writtenAnswer'>
-							<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
-
-							<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=A" >
-								<option ng-value="1">A</option>
-								<option ng-value="2">B</option>
-							</select>
-							<button type='button' class='button clickable2' ng-click="view.wQuestion(answer,WrittenAnswer,0)">CONFIRM BOTH ANSWERS</button>
+						<form novalidate name='answer_form'>
+							<div>
+								Demonstrator Input:<br>
+								<input class="form" name="macroConc" ng-model='answer' type="string" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseFirstQuestion(answer,0)">Answer</button>
+							</div>
 						</form>
 					</div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[0].IsCorrect==false && view.experiment.questions[0].beenWrong==2'>
-					<div class='modal-question-title'>Incorrect!</div>
-					<div class=modal-question-content>
-					Your answer is incorrect for the 2nd time, please contact a demonstrator to discuss.
-					</div>
-					<div class='modal-question-footer'></div>
-				</div>
 
 				<div class ='modal-body'>
-					You may have noticed that if you answer the question wrong a second time a different prompt appears with no option to answer again (try this now). At this point you should consult the demonstrator who will help you understand where you have gone wrong. Your progress through the tutorial is monitored and questions are unlocked as you answer others correctly, so it may be necessary to ask the demonstrator to help you immediately. When the demonstrator is happy that you understand, they will change the question to 'correct', and you are free to continue.<br><br>
+					As you progress through the tutorial and you answer questions your answers are made available by clicking the 'Answers' button. In this tab you can export your answers to PDF - you'll have to do this at the end to give them to the demonstrator. Go there now and check it out if you want!<br><br>
 
-					From here on your answers will be saved - refreshing will not reset your previous attempts...
+					As you progress though the tutorial your position is saved, if you accidentally close the browser - don't worry! Just reopen the page and click 'Continue'.<br><br>
+
+					Now you have answered the first question, the 'Theory' section has unlocked. Close this tab and navigate ther now.
 				</div>
 				
 
 				<div class='modal-body' id='center_buttons'>
-				<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click='view.experiment.questions[0].IsCorrect=null'>Continue</button>&nbsp;&nbsp;&nbsp;
+				<button type="button" class="modal-button clickable2" data-dismiss="modal" >Continue</button>&nbsp;&nbsp;&nbsp;
 				</div>
 
 			</div>
@@ -254,7 +243,7 @@
 					(add more on how useful it is vs other calorimeters - power vs total heat, sensitivity (power compensation))
 
 				</div>
-				<div class=question-box ng-show='view.experiment.IsCorrect[1]==null'>
+				<div class=question-box ng-show='view.experiment.questions[1].IsCorrect==null'>
 					<div class='modal-question-title'>Question!</div>
 					<div class=modal-question-content>
 						{{view.experiment.questions[1].question}}
@@ -2204,7 +2193,7 @@
 					<div id='hints-heading' class="col-md-12">BASICS</div>
 					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#initialising_modal" >START</button>
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#basics_modal" >THEORY</button>
+					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#basics_modal" ng-disabled="!view.experiment.tQuestionLogic([],[0],[])">THEORY</button>
 				</div>
 
 				<!-- EXPERIMENT MODAL BUTTONS -->

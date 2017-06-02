@@ -152,6 +152,12 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.table.compileAnswersTableData();
 		}
 	}
+	view.releaseFirstQuestion=function(password,question){
+		if (password=='ITC'){
+			view.mQuestion(view.experiment.questions[question].answer,question);
+		view.table.compileAnswersTableData();
+		}
+	}
 
 	view.wQuestion=function(mAnswer,wAnswer,question){
 		view.experiment.wQuestionConfirm(mAnswer,wAnswer,question);
@@ -160,7 +166,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.experiment.questionCount();
 		view.table.compileAnswersTableData();
 	}
-	//COOKIES
+
 	
 	//EXAMPLES
 	view.runExample=function(example){
@@ -183,7 +189,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		$('#overview2_modal').modal({backdrop: 'static',keyboard: false});
 		view.compileCookieData();
 	}
-
+	//reload 
 	view.reload=function(){
 		view.data=view.local.get('localData')
 		console.log(view.data)
@@ -208,6 +214,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		console.log(view.changeSystem)
 		view.experiment.questionCount();
 	}
+	//complileCookieData saves all status data on most buttton clicks
 	view.compileCookieData=function(){
 		view.storageData={
 			questions: view.experiment.questions,
