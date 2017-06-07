@@ -2269,21 +2269,21 @@
 					<div id='hints-heading' class="col-md-12">BASICS</div>
 					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#initialising_modal" >START</button>
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#basics_modal" ">THEORY</button>
-					<!-- ng-disabled="!view.experiment.tQuestionLogic([],[0],[]) -->
+					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" ng-disabled="!view.experiment.tQuestionLogic([],[0],[])" data-target="#basics_modal" ">THEORY</button>
+					<!--  -->
 				</div>
 
 				<!-- EXPERIMENT MODAL BUTTONS -->
 				<div class='select-hints-box'>
 					<div id='hints-heading' class="col-md-12">EXPERIMENT</div>
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#planning_modal"  >PLANNING</button>
-					<!-- ng-disabled="!view.experiment.tQuestionLogic([],[1,2,3,4],[])" -->
+					<button type="button" class="button clickable1 col-md-6" ng-disabled="!view.experiment.tQuestionLogic([],[1,2,3,4],[])" data-toggle="modal" data-target="#planning_modal"  >PLANNING</button>
+					<!--  -->
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
-					<button type="button" class="button clickable1 col-md-6"  data-toggle="modal" data-target="#running_modal" >RUNNING</button>
+					<button type="button" class="button clickable1 col-md-6" ng-disabled='!view.experiment.exampleLogic([2,3,4,5,6,7,8,9,10,11])'  data-toggle="modal" data-target="#running_modal" >RUNNING</button>
 					<!-- ng-disabled='!view.experiment.exampleLogic([2,3,4,5,6,7,8,9,10,11])' -->
-					<button type="button" class="button clickable1 col-md-6"  ng-click='view.experiment.consoleTF(["13b"],false)' data-toggle="modal" data-target="#analysis_modal" >ANALYSIS</button>
+					<button type="button" class="button clickable1 col-md-6" ng-disabled='!view.experiment.exampleLogic([12,13])'  ng-click='view.experiment.consoleTF(["13b"],false)' data-toggle="modal" data-target="#analysis_modal" >ANALYSIS</button>
 					<!-- ng-disabled='!view.experiment.exampleLogic([12,13])' -->
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#overview2_modal" ng-disabled="!view.experiment.tQuestionLogic([],[9,10,11,12,12,14],[])" >OVERVIEW</button>
+					<button type="button" class="button clickable1 col-md-6" ng-disabled='!view.experiment.exampleLogic([12,13])' data-toggle="modal" data-target="#overview2_modal" ng-disabled="!view.experiment.tQuestionLogic([],[9,10,11,12,12,14],[])" >OVERVIEW</button>
 					
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
 					
@@ -2291,11 +2291,11 @@
 
 				<div class='select-hints-box'>
 					<div id='hints-heading' class="col-md-12">GAME</div>
-					<button type="button" class="button clickable1 col-md-6" data-toggle='modal' data-target='#game4_modal' >OVERVIEW</button>
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#game1_modal" >INQUIRY 1</button>
+					<button type="button" class="button clickable1 col-md-6" ng-disabled="!view.experiment.tQuestionLogic([],[9,10,11,12,12,14],[])" data-toggle='modal' data-target='#game4_modal' >OVERVIEW</button>
+					<button type="button" class="button clickable1 col-md-6" ng-disabled="!view.experiment.tQuestionLogic([],[9,10,11,12,12,14],[])" data-toggle="modal" data-target="#game1_modal" >INQUIRY 1</button>
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#game2_modal" >INQUIRY 2</button>
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#game3_modal" >INQUIRY 3</button>
+					<button type="button" class="button clickable1 col-md-6" ng-disabled="!view.experiment.tQuestionLogic([],[9,10,11,12,12,14],[])" data-toggle="modal" data-target="#game2_modal" >INQUIRY 2</button>
+					<button type="button" class="button clickable1 col-md-6" ng-disabled="!view.experiment.tQuestionLogic([],[9,10,11,12,12,14],[])" data-toggle="modal" data-target="#game3_modal" >INQUIRY 3</button>
 					
 					
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->

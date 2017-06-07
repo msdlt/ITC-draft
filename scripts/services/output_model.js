@@ -7,7 +7,7 @@ function outputMethod(experimentStatus) {
 	
 
 	//CONSTANTS!
-	output.timeStep = 0.1 // time between calculation
+	output.timeStep = 0.001 // time between calculation
 	output.defaultvCell = 0.000994
 	output.vCell=output.defaultvCell //volume of the cell (l)
 	

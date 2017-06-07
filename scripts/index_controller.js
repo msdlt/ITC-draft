@@ -42,8 +42,8 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 	view.runExperiment = function(newConcA,newConcB,newNumInj,newTBInj,newVInj,newMagnitudeA,newMagnitudeB,newMagnitudeVol){
 		$(window).load(function(){$('#calculating_modal').modal('show');});
 		$('#calculating_modal').modal({backdrop: 'static',keyboard: false});
-		view.experiment.processDisabled=false;
-		setTimeout( function(){
+		
+		// setTimeout( function(){
 		
 		view.experiment.timeOfDayCounter(newNumInj);
 		view.output.magnitudeAdjustA = view.output.magnitudePool[newMagnitudeA];
@@ -55,12 +55,14 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.output.calcConc(newConcA/view.output.magnitudeAdjustA,newConcB/view.output.magnitudeAdjustB,newVInj/view.output.magnitudeAdjustVol,view.system.kOn,view.system.kOff);
 		view.output.calcRate(view.system.kOn,view.system.kOff,view.system.dH);	
 		view.plotData('#flot',view.output.heatPlotData,'HeatData',true);
+		
 		view.output.checkExample(view.currentExample,newConcA/view.output.magnitudeAdjustA,newConcB/view.output.magnitudeAdjustB,newNumInj,newTBInj,newVInj/view.output.magnitudeAdjustVol);
 		view.compileCookieData();
-
+		view.experiment.processDisabled=false;
 		
-	},200);
+	// },200);
 		$('#calculating_modal').modal('hide');
+
 	}
 
 	view.process=function(){
@@ -76,10 +78,6 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		$('#calculating_modal').modal({backdrop: 'static',keyboard: false});
 	}
 	view.runGameExperiment=function(newConcA,newConcB,newNumInj,newTBInj,newVInj,newMagnitudeA,newMagnitudeB,newMagnitudeVol){
-		
-		
-		
-
 		view.experiment.processDisabled=false;
 		view.experiment.timeOfDayCounter(newNumInj);
 		view.output.magnitudeAdjustA = view.output.magnitudePool[newMagnitudeA];
