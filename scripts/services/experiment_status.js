@@ -1,4 +1,4 @@
-angular.module('experiment_status', ['system_model'])
+angular.module('experiment_status', ['system_model',])
 	.service('experimentStatus', ['systemModel', experimentTrack]);
 
 function experimentTrack(systemModel) { 
@@ -59,14 +59,10 @@ experiment.isNoise=false
 		},
 		{
 			id:1,
-			question:'For an association reaction discuss the main factors that affect values of K (and therefore deltaG) in terms of deltaS and deltaH.',
-			1:'',
-			2:'',
-			3:'',
-			4:'',
-			ifCorrect:'',
+			question:'Calculate the reaction entropy change in kJ per mole, quoting your answer to 2dp.',
+			isCorrect:'',
 			ifWrong:'',
-			answer:1,
+			answer:0.12,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
@@ -74,29 +70,23 @@ experiment.isNoise=false
 		},
 		{
 			id:2,
+			question:'Briefly discuss the main factors that affect these theormodynamic parameters in an association reaction.',
+			IsCorrect:null,
+			beenWrong:0,
+			answer:null,
+			mAnswer:null,
+			wAnswer:null,
+		},
+		{
+			id:3,
 			question:'Is the reaction in the example endothermic or exothermic?',
 			1:'A - Exothermic',
 			2:'B - Endothermic',
 			3:'',
 			4:'',
 			ifCorrect:'Because the calorimeter is compensating for changes in temperature, a increase in power is attributed to an endothermic reaction and visa versa for exothermic ',
-			ifWrong:'Consider how the machine works ',
-			answer:2,
-			IsCorrect:null,
-			beenWrong:0,
-			mAnswer:null,
-			wAnswer:null,
-		},
-		{
-			id:3,
-			question:'What are the units of the equilibrium constant for this reaction?',
-			1:'A - moldm⁻³',
-			2:'B - mol⁻¹dm³',
-			3:'C - Unitless',
-			4:'',
-			ifCorrect:'How does this ',
-			ifWrong:'Consider how the machine works',
-			answer:3,
+			ifWrong:'',
+			answer:'2',
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
@@ -104,14 +94,14 @@ experiment.isNoise=false
 		},
 		{
 			id:4,
-			question:'',
-			1:'',
-			2:'',
-			3:'',
+			question:'What are the units of the equilibrium constant for this reaction?',
+			1:'A - moldm⁻³',
+			2:'B - mol⁻¹dm³',
+			3:'C - Unitless',
 			4:'',
 			ifCorrect:'',
 			ifWrong:'',
-			answer:0,
+			answer:2,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
@@ -119,14 +109,10 @@ experiment.isNoise=false
 		},
 		{
 			id:5,
-			question:'',
-			1:'',
-			2:'',
-			3:'',
-			4:'',
+			question:'Calculate a suitable concentration for the macromolecule solution.',
 			ifCorrect:'',
 			ifWrong:'',
-			answer:0,
+			answer:0.000000025,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
@@ -134,14 +120,10 @@ experiment.isNoise=false
 		},
 		{
 			id:6,
-			question:'Congratulations, both of your answers were correct. Consider the experimental values you just calculated: . ',
-			1:'A - Yes',
-			2:'B - No',
-			3:'',
-			4:'',
+			question:' Calculate a suitable concentration for the ligand solution.',
 			ifCorrect:'',
 			ifWrong:'',
-			answer:1,
+			answer:0.000000198800,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
@@ -149,14 +131,10 @@ experiment.isNoise=false
 		},
 		{
 			id:7,
-			question:'(Question 1 analysis - enter the value fromt he lowest box in column F)',
-			1:'A - Yes',
-			2:'B - No',
-			3:'',
-			4:'',
+			question:'Calculate a suitable concentration for the ligand solution with stoichiometry n = 3. ',
 			ifCorrect:'',
 			ifWrong:'',
-			answer:1,
+			answer:0.000000596400,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
@@ -164,46 +142,41 @@ experiment.isNoise=false
 		},
 		{
 			id:8,
-			question:'',
-			1:'',
-			2:'',
-			3:'',
-			4:'',
+			question:'Do you think this experiment would provide suitable results?',
+			1:'A - Yes',
+			2:'B - No',
+			
 			ifCorrect:'',
 			ifWrong:'',
-			answer:0.000000596,
+			answer:2,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
 			wAnswer:null,
 		},
-		//recall section
-		//planning
 		{
 			id:9,
-			question:'',
-			1:'',
-			2:'',
-			3:'',
-			4:'',
+			question:'Last cell from (F)',
+			
 			ifCorrect:'',
 			ifWrong:'',
-			answer:0,
+			answer:0.0000002,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
 			wAnswer:null,
 		},
+		
 		{
 			id:10,
-			question:'',
+			question:'First cell from (H)',
 			1:'',
 			2:'',
 			3:'',
 			4:'',
 			ifCorrect:'',
 			ifWrong:'',
-			answer:0,
+			answer:31500,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
@@ -211,22 +184,63 @@ experiment.isNoise=false
 		},
 		{
 			id:11,
-			question:'',
+			question:'First cell from (K)',
+			ifCorrect:'',
+			ifWrong:'',
+			answer:99.97,
+			IsCorrect:null,
+			beenWrong:0,
+			mAnswer:null,
+			wAnswer:null,
+		},
+		{
+			id:12,
+			question:'Last cell from (O)',
 			1:'',
 			2:'',
 			3:'',
 			4:'',
 			ifCorrect:'',
 			ifWrong:'',
-			answer:0,
+			answer:0.000000000007008,
+			IsCorrect:null,
+			beenWrong:0,
+			mAnswer:null,
+			wAnswer:null,
+		},
+		{
+			id:13,
+			question:'Last cell from (V)',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
+			ifCorrect:'',
+			ifWrong:'',
+			answer:0.0000242,
+			IsCorrect:null,
+			beenWrong:0,
+			mAnswer:null,
+			wAnswer:null,
+		},
+		{
+			id:14,
+			question:'Last cell from (W)',
+			1:'',
+			2:'',
+			3:'',
+			4:'',
+			ifCorrect:'',
+			ifWrong:'',
+			answer:0.0004744,
 			IsCorrect:null,
 			beenWrong:0,
 			mAnswer:null,
 			wAnswer:null,
 		}
-
 	];
 	experiment.examples=[
+		//Double injection
 		{
 			id:0,
 			example:'',
@@ -234,7 +248,7 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.0003,
 			concB:0.00003,
-			tBInj:1,
+			tBInj:100,
 			isComplete:false,
 		},
 		{
@@ -244,9 +258,10 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.0003,
 			concB:0.00003,
-			tBInj:5,
+			tBInj:500,
 			isComplete:false,
 		},
+		//c calculation #1
 		{
 			id:2,
 			example:'',
@@ -254,7 +269,7 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.00000199,
 			concB:0.00000025,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
 		{
@@ -264,7 +279,7 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.0000199,
 			concB:0.0000025,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
 		{
@@ -274,7 +289,7 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.000199,
 			concB:0.000025,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
 		{
@@ -284,9 +299,10 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.00199,
 			concB:0.00025,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
+		//c calculation #2
 		{
 			id:6,
 			example:'',
@@ -294,7 +310,7 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.00000000398,
 			concB:0.0000000005,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
 		{
@@ -304,7 +320,7 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.0000000398,
 			concB:0.000000005,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
 		{
@@ -314,7 +330,7 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.000000398,
 			concB:0.00000005,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
 		{
@@ -324,17 +340,18 @@ experiment.isNoise=false
 			vInj:0.00001,
 			concA:0.00000398,
 			concB:0.0000005,
-			tBInj:5,
+			tBInj:50,
 			isComplete:false,
 		},
+		//noise examples
 		{
 			id:10,
 			example:'',
 			numInj:25,
 			vInj:0.00001,
-			concA:0.0001,
-			concB:0.000795,
-			tBInj:5,
+			concA:0.00000398,
+			concB:0.0000005,
+			tBInj:50,
 			isComplete:false,
 		},
 		{
@@ -342,31 +359,34 @@ experiment.isNoise=false
 			example:'',
 			numInj:25,
 			vInj:0.00001,
-			concA:0.0001,
-			concB:0.000795,
-			tBInj:5,
+			concA:0.000000398,
+			concB:0.00000005,
+			tBInj:50,
 			isComplete:false,
 		},
+		//solution prep example
 		{
 			id:12,
 			example:'',
-			numInj:2,
+			numInj:25,
 			vInj:0.00001,
-			concA:0.0003,
-			concB:0.00003,
-			tBInj:1,
+			concA:0.000018072,
+			concB:0.0000022727,
+			tBInj:50,
 			isComplete:false,
 		},
+		//solution prep with background
 		{
 			id:13,
 			example:'',
 			numInj:25,
 			vInj:0.00001,
-			concA:0.0000000398,
-			concB:0.000000005,
-			tBInj:5,
+			concA:0.000018072,
+			concB:0.0000022727,
+			tBInj:50,
 			isComplete:false,
 		},
+
 		{
 			id:14,
 			example:'',
@@ -423,10 +443,11 @@ experiment.isNoise=false
 		}
 	];
 	experiment.console=[
+		//double injection
 		{
 			id:'0a',
 			show:false,
-			text:'Injection Concentration: 300μM, Sample Cell Concentration: 30μM, Number of Injections: 2, Time Between Injections: 1 seconds, Volume of Injections: 10μL',
+			text:'Injection Concentration: 300μM, Sample Cell Concentration: 30μM, Number of Injections: 2, Time Between Injections: 100 seconds, Volume of Injections: 10μL',
 		},
 		{
 			id:'0b',
@@ -436,133 +457,138 @@ experiment.isNoise=false
 		{
 			id:'1a',
 			show:false,
-			text:'Injection Concentration: 300μM, Sample Cell Concentration: 30μM, Number of Injections: 2, Time Between Injections: 5 seconds, Volume of Injections: 10μL',
+			text:'Injection Concentration: 300μM, Sample Cell Concentration: 30μM, Number of Injections: 2, Time Between Injections: 500 seconds, Volume of Injections: 10μL',
 		},
 		{
 			id:'1b',
 			show:false,
 			text:'Success: Time Between Injections: 5 seconds. In this experiment, the cell is given sufficient time to equilibrate before the second injection. On addition of the second aliquot, the heat output is ONLY due to the addition, and not previous additions.'
 		},
-		{
-			id:'15a',
-			show:false,
-			text:'To Do: c = 1, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
-		},
-		{
-			id:'15b',
-			show:false,
-			text:'Success: c = 1'
-		},
+		//c experiments 1-4
 		{
 			id:'2a',
 			show:false,
-			text:'To Do: c = 10, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 1, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'2b',
 			show:false,
-			text:'Success: c = 10'
+			text:'Success: c = 1'
 		},
 		{
 			id:'3a',
 			show:false,
-			text:'To Do: c = 100, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 10, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'3b',
 			show:false,
-			text:'Success: c = 100'
+			text:'Success: c = 10'
 		},
 		{
 			id:'4a',
 			show:false,
-			text:'To Do: c = 1000, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 100, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'4b',
 			show:false,
-			text:'Success: c = 1000'
+			text:'Success: c = 100'
 		},
 		{
 			id:'5a',
 			show:false,
-			text:'To Do: c = 1, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 1000, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'5b',
 			show:false,
-			text:'Success: c = 1'
+			text:'Success: c = 1000'
 		},
+		//c experiments 5-8
 		{
 			id:'6a',
 			show:false,
-			text:'To Do: c = 10, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 1, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'6b',
 			show:false,
-			text:'Success: c = 10'
+			text:'Success: c = 1'
 		},
 		{
 			id:'7a',
 			show:false,
-			text:'To Do: c = 100, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 10, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'7b',
 			show:false,
-			text:'Success: c = 100'
+			text:'Success: c = 10'
 		},
 		{
 			id:'8a',
 			show:false,
-			text:'To Do: c = 1000, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 100, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'8b',
 			show:false,
-			text:'Success: c = 1000'
+			text:'Success: c = 100'
 		},
 		{
 			id:'9a',
 			show:false,
-			text:'To Do: c = 100000, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 1000, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'9b',
 			show:false,
-			text:'Success: c = 100000'
+			text:'Success: c = 1000'
 		},
+		//noise
 		{
 			id:'10a',
 			show:false,
-			text:'To Do: c = 1000000, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 5s'
+			text:'To Do: c = 1000, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
 		},
 		{
 			id:'10b',
 			show:false,
-			text:'Success: c = 1000000'
+			text:'Success: c = 1000'
 		},
-		
+
+		{
+			id:'11a',
+			show:false,
+			text:'To Do: c = 100, Number of injections: 25, Volume of Injections: 10μl, Time bewtween injections: 50s'
+		},
+		{
+			id:'11b',
+			show:false,
+			text:'Success: c = 100'
+		},
+		//first solution prep
 		{
 			id:'12a',
 			show:false,
-			text:'Injection Concentration: 300μM, Sample Cell Concentration: 30μM, Number of Injections: 2, Time Between Injections: 5 seconds, Volume of Injections: 10μL',
+			text:'c = 100, K = 44000000, Number of Injections: 25, Time Between Injections: 50 seconds, Volume of Injections: 10μL',
 		},
 		{
 			id:'12b',
 			show:false,
-			text:'Success: Time Between Injections: 5 seconds. In this experiment, the cell is not allowed to equilibrate before the second injection. On addition of the second aliquot, the signal jumps as ligand from both the first and second injection are reacting.'
+			text:'Success: Return to the Running overlay'
 		},
+		//second solution prep with background
 		{
 			id:'13a',
 			show:false,
-			text:'Injection Concentration: 300μM, Sample Cell Concentration: 30μM, Number of Injections: 2, Time Between Injections: 5 seconds, Volume of Injections: 10μL',
+			text:'c = 100, K = 44000000, Number of Injections: 25, Time Between Injections: 50 seconds, Volume of Injections: 10μL',
 		},
 		{
 			id:'13b',
 			show:false,
-			text:'Success: Time Between Injections: 5 seconds. In this experiment, the cell is not allowed to equilibrate before the second injection. On addition of the second aliquot, the signal jumps as ligand from both the first and second injection are reacting.'
+			text:'Success: Return to the Running overlay'
 		},
 		//first 'running' eg 
 		{
@@ -685,7 +711,11 @@ experiment.isNoise=false
 	experiment.mQuestionConfirm = function(thisAnswer,question){
 		for (i in experiment.questions){
 			if (experiment.questions[i].id == question){
+				console.log(i)
+				console.log(thisAnswer)
+				console.log(experiment.questions[i].answer)
 				if (thisAnswer == experiment.questions[i].answer){
+
 					experiment.questions[i].IsCorrect = true;
 					
 				} else {
@@ -711,6 +741,24 @@ experiment.isNoise=false
 				experiment.questions[i].wAnswer=thiswAnswer
 				experiment.questions[i].mAnswer=experiment.questions[i][thismAnswer]
 			}
+		}
+	}
+	experiment.cQuestionConfirm = function(thisAnswer,question){
+		for (i in experiment.questions){
+			if (experiment.questions[i].id == question){
+				console.log(i)
+				console.log(thisAnswer)
+				console.log(experiment.questions[i].answer)
+				if (thisAnswer == experiment.questions[i].answer){
+					experiment.questions[i].IsCorrect = true;
+					
+				} else {
+					experiment.questions[i].IsCorrect=false;
+					experiment.questions[i].beenWrong += 1;
+				}
+				experiment.questions[i].mAnswer=thisAnswer
+				
+			}	
 		}
 	}
 
@@ -760,44 +808,28 @@ experiment.isNoise=false
 	experiment.ligand=
 		[
 			{
-				mW:100,
+				mW:292.24,
 				iD:'EDTA',
 				mass:100
-			},
-			{
-				mW:100,
-				iD:'jhh',
-				mass:100
-			},
-			{
-				mW:100,
-				iD:'GTEHDG',
-				mass:100
 			}
+			
 		];
 	//samples available by default
 	experiment.sample=
 		[{
-			mW:100,
-			iD:'Ca',
+			mW:40.1,
+			iD:'Ca2+',
 			K:100,
 			mass:100
-		},
-		{
-			mW:100,
-			iD:'Mg',
-			K:100,
-			mass:100
-		}];
+		}
+		];
 	experiment.ligandSample=[experiment.ligand,experiment.sample]
 	//Buffers available by default
 	experiment.buffer=[
 		{
-			iD:'A',
-		},
-		{
-			iD:'B'
+			iD:'HEPES',
 		}
+		
 	]
 	//Contains the deltH and K values for ligand-sample-buffer triads - checked by checkPairs()
 	experiment.pairs=[
@@ -895,9 +927,9 @@ experiment.isNoise=false
 	]
 
 	//defaiult ligand solutions 
-	experiment.ligandSolutions=[{iD:'Buffer A', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'A'},{iD:'Buffer B', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'B'}];
+	experiment.ligandSolutions=[{iD:'HEPES', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'HEPES'}];
 	//default sample solutions
-	experiment.sampleSolutions=[{iD:'Buffer B', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'B'},{iD:'Buffer A', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'A'}];
+	experiment.sampleSolutions=[{iD:'HEPES', concentration:0, volume:100, isDialysed:true,isDegassed:true,buffer:'HEPES'}];
 	
 	//SETS system VALUES BASED ON STRING INPUTS (ligand,sample,buffer) OF iD VALUE OF OBJECT IN ligandSolutions AND sampleSolutions
 	experiment.checkPairs=function(ligand,sample,buffer){
@@ -936,12 +968,12 @@ experiment.isNoise=false
 	
 	//GAMEFICATION ELEMENTS-------->
 	//checks game combo 1-5; GC 6,7 set in runGameExpt
-	experiment.gameComboCheck=function(concA, concB,numInj, tBInj, vInj){
+	experiment.gameComboCheck=function(concA, concB,numInj, tBInj, vInj, ratio){
 		experiment.considerations=0;
 		experiment.gameCombo1(concB);
 		experiment.gameCombo2();
 		experiment.gameCombo3();
-		experiment.gameCombo4();
+		experiment.gameCombo4(ratio);
 		experiment.gameCombo5(numInj);
 		experiment.gameCombo7(concA,concB);
 	}
@@ -980,12 +1012,12 @@ experiment.isNoise=false
 		}
 	}
 	//checks molar ratio range is correct for stoichiometry (2x stoichiometry) - molar ratio from experiment.ratio, stoichiometry from experiment.pairs then system.stoichiometry
-	experiment.gameCombo4=function(){
-		if (1.5 < experiment.output.ratio && 2.5>experiment.output.ratio){
+	experiment.gameCombo4=function(ratio){
+		if (1.5 < ratio && 2.5>ratio){
 			experiment.consoleTF(['GC4c'],true);
 			experiment.comsiderations++;
 		}
-		if (2.5<experiment.output.ratio || 1.5>experiment.output.ratio){
+		if (2.5<ratio || 1.5>ratio){
 			experiment.consoleTF(['GC4a'],true);
 		}
 		
@@ -1202,17 +1234,17 @@ experiment.isNoise=false
 		b=0;
 		c=0;
 		for (i in areNull){
-			if (experiment.questions[i].IsCorrect==null){
+			if (experiment.questions[areNull[i]].IsCorrect==null){
 				a++
 			}
 		}
 		for (i in areTrue){
-			if (experiment.questions[i].IsCorrect==true){
+			if (experiment.questions[areTrue[i]].IsCorrect==true){
 				b++
 			}
 		}
 		for (i in areFalse){
-			if (experiment.questions[i].IsCorrect==false){
+			if (experiment.questions[areFalse[i]].IsCorrect==false){
 				c++
 			}
 		}

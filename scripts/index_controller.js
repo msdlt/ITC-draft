@@ -24,7 +24,9 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 	//when true, experiment tracking is showm
 	view.experimentTracking=false;
 	//when true, change system box enabled
-	view.changeSystem=false
+	view.changeSystem=false;
+	//when tru, conosle prompts enabled
+	view.showConsole=false;
 	
 	//RUNNING THE EXPERIMENT
 	//plotData - adds label then binds the data from compile to the chart dataset then calls replot
@@ -38,7 +40,11 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 	}
 
 	view.runExperiment = function(newConcA,newConcB,newNumInj,newTBInj,newVInj,newMagnitudeA,newMagnitudeB,newMagnitudeVol){
+		$(window).load(function(){$('#calculating_modal').modal('show');});
+		$('#calculating_modal').modal({backdrop: 'static',keyboard: false});
 		view.experiment.processDisabled=false;
+		setTimeout( function(){
+		
 		view.experiment.timeOfDayCounter(newNumInj);
 		view.output.magnitudeAdjustA = view.output.magnitudePool[newMagnitudeA];
 		view.output.magnitudeAdjustB = view.output.magnitudePool[newMagnitudeB];
@@ -51,6 +57,10 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.plotData('#flot',view.output.heatPlotData,'HeatData',true);
 		view.output.checkExample(view.currentExample,newConcA/view.output.magnitudeAdjustA,newConcB/view.output.magnitudeAdjustB,newNumInj,newTBInj,newVInj/view.output.magnitudeAdjustVol);
 		view.compileCookieData();
+
+		
+	},200);
+		$('#calculating_modal').modal('hide');
 	}
 
 	view.process=function(){
@@ -60,21 +70,15 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.table.compileTableData(view.output.outputData);
 	}
 	
-	
+	view.openCalc=function(){
+		console.log('WTF')
+		$(window).load(function(){$('#calculating_modal').modal('show');});
+		$('#calculating_modal').modal({backdrop: 'static',keyboard: false});
+	}
 	view.runGameExperiment=function(newConcA,newConcB,newNumInj,newTBInj,newVInj,newMagnitudeA,newMagnitudeB,newMagnitudeVol){
-		for (i in view.experiment.console){
-			view.experiment.console[i].show=false
-		}
-		view.experiment.consoleTF(['GC8'],true)
-		if (newConcA.buffer==newConcB.buffer){
-			view.experiment.consoleTF(['GC6b'],true)
-			view.experiment.considerations++;
-			view.experiment.checkPairs(newConcA.iD,newConcB.iD,newConcA.buffer);
-			
-		}else{
-			view.experiment.checkPairs('a','b','');
-			view.experiment.consoleTF(['GC6a'],true);
-		}
+		
+		
+		
 
 		view.experiment.processDisabled=false;
 		view.experiment.timeOfDayCounter(newNumInj);
@@ -89,10 +93,29 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		view.output.calcConc(newConcA.concentration,newConcB.concentration,newVInj/view.output.magnitudeAdjustVol,view.system.kOn,view.system.kOff);
 		view.output.calcRate(view.system.kOn,view.system.kOff,view.system.dH);	
 		view.plotData('#flot',view.output.heatData,'HeatData',true);
+		console.log(view.currentExample)
 		view.output.checkGameExample(view.currentExample,newConcA.concentration,newConcB.concentration,newNumInj,newTBInj,newVInj/view.output.magnitudeAdjustVol,newConcA.iD,newConcB.iD);
-		view.experiment.gameComboCheck(newConcA,newConcB,newNumInj,newTBInj,newVInj/view.output.magnitudeAdjustVol);
+		if (view.showConsole==true){
+			for (i in view.experiment.console){
+				view.experiment.console[i].show=false
+			}
+
+			view.experiment.consoleTF(['GC8'],true)
+			if (newConcA.buffer==newConcB.buffer){
+				view.experiment.consoleTF(['GC6b'],true)
+				view.experiment.considerations++;
+				view.experiment.checkPairs(newConcA.iD,newConcB.iD,newConcA.buffer);
+				
+			}else{
+				view.experiment.checkPairs('a','b','');
+				view.experiment.consoleTF(['GC6a'],true);
+			}
+			view.experiment.gameComboCheck(newConcA,newConcB,newNumInj,newTBInj,newVInj/view.output.magnitudeAdjustVol,view.output.ratio);
+			}
+		
 		view.table.compileRunData(newConcA,newConcB,newNumInj,newTBInj,newVInj,newMagnitudeVol);
 		view.compileCookieData();
+		$('#calculating_modal').modal('hide');
 	}
 
 	view.loadGame=function(game){
@@ -142,7 +165,6 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 	view.mQuestion=function(answer,question){
 		view.experiment.mQuestionConfirm(answer,question);
 		view.compileCookieData();
-		view.cookies.putObject('storedData', view.cookiesData);
 		view.experiment.questionCount();
 		view.table.compileAnswersTableData();
 	}
@@ -162,7 +184,12 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 	view.wQuestion=function(mAnswer,wAnswer,question){
 		view.experiment.wQuestionConfirm(mAnswer,wAnswer,question);
 		view.compileCookieData();
-		view.cookies.putObject('storedData', view.cookiesData);
+		view.experiment.questionCount();
+		view.table.compileAnswersTableData();
+	}
+	view.cQuestion=function(answer,question){
+		view.experiment.cQuestionConfirm(answer,question);
+		view.compileCookieData();
 		view.experiment.questionCount();
 		view.table.compileAnswersTableData();
 	}
@@ -180,6 +207,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		}
 		}
 		view.compileCookieData();
+		console.log(view.experiment.isNoise)
 	}
 	
 	
@@ -189,32 +217,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 		$('#overview2_modal').modal({backdrop: 'static',keyboard: false});
 		view.compileCookieData();
 	}
-	//reload 
-	view.reload=function(){
-		view.data=view.local.get('localData')
-		console.log(view.data)
-
-		view.experiment.questions=view.data.questions;
-		view.experiment.examples=view.data.examples;
-		view.experiment.worked=view.data.worked;
-		view.experimentTracking=view.data.experimentTracking;
-		view.experiment.console=view.data.console;
-		view.experiment.recallActive=view.data.recall;
-		view.experiment.isNoise=view.data.noise;
-		view.experiment.solutionPrep=view.data.solutionPrep;
-		view.experiment.steps=view.data.steps;
-		view.experiment.timeOfDay=view.data.timeOfDay;
-		view.experiment.ligand=view.data.ligand;
-		view.experiment.sample=view.data.sample;
-		view.experiment.buffer=view.data.buffer;
-		view.experiment.pairs=view.data.pairs;
-		view.experiment.ligandSolutions=view.data.ligandSolutions;
-		view.experiment.sampleSolutions=view.data.sampleSolutions;
-		view.changeSystem=view.data.changeSystem;
-		console.log(view.changeSystem)
-		view.experiment.questionCount();
-	}
-	//complileCookieData saves all status data on most buttton clicks
+	//complileCookieData saves all status data to local storage on most buttton clicks
 	view.compileCookieData=function(){
 		view.storageData={
 			questions: view.experiment.questions,
@@ -236,8 +239,33 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, $co
 			changeSystem: view.changeSystem
 		}
 		view.local.set('localData',view.storageData);
+	}
+	//reload stored data from local storage
+	view.reload=function(){
+		view.data=view.local.get('localData')
+		view.experiment.questions=view.data.questions;
+		view.experiment.examples=view.data.examples;
+		view.experiment.worked=view.data.worked;
+		view.experimentTracking=view.data.experimentTracking;
+		view.experiment.console=view.data.console;
+		view.experiment.recallActive=view.data.recall;
+		view.experiment.isNoise=view.data.noise;
+		view.experiment.solutionPrep=view.data.solutionPrep;
+		view.experiment.steps=view.data.steps;
+		view.experiment.timeOfDay=view.data.timeOfDay;
+		view.experiment.ligand=view.data.ligand;
+		view.experiment.sample=view.data.sample;
+		view.experiment.buffer=view.data.buffer;
+		view.experiment.pairs=view.data.pairs;
+		view.experiment.ligandSolutions=view.data.ligandSolutions;
+		view.experiment.sampleSolutions=view.data.sampleSolutions;
+		view.changeSystem=view.data.changeSystem;
+		view.experiment.questionCount();
+		view.table.compileAnswersTableData();
+		console.log(view.experiment.solutionPrep)
 		
 	}
+	
 
 	// IF THERE ARE COOKIES, LOAD THEM AND DISPLAY COOKIES MODAL. ELSE LOAD INITIALIZING MODAL
 	console.log(view.local.get("localData"))

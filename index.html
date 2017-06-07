@@ -131,7 +131,15 @@
 		</div>
 	</div>
 	
-	
+	<div id="calculating_modal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalLabel">Calculating...</h4>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- INITIALIZATION MODAL -->
 	<div id="initialising_modal" class="modal fade in" tabindex="-1" role="dialog">
@@ -150,8 +158,8 @@
 					However, before you plan and run an investigation to practice your experimental design skills, we want to teach you the theory and practice behind the technique. By reading the informaion available here, integrating it with your prior knowledge, and answering questions you will have a strong grounding in ITC. <br><br>
 
 					<font color="#51A7F9">Hence this lab is broken into 2 parts:</font><br>
-					(1) <font color="#c5b552">Interactive Tutorial:</font> You explore the software and answer questions on the presented material. Answering some questions will unlock other questions and information while answering other questions will unlock aspects of the software.<br>
-					(2) <font color="#c5b552">Investigation:</font> : You use the knowlege you gained in exploration to design, run and analyse an ITC investigation into reactions of your choice. The investigation becomes avaialable on completion of the interactive tutorial <br><br>
+					<font color="#c5b552">(1) Interactive Tutorial:</font> You explore the software and answer questions on the presented material. Answering some questions will unlock other questions and information while answering other questions will unlock aspects of the software.<br>
+					<font color="#c5b552">(2) Investigation:</font> : You use the knowlege you gained in exploration to design, run and analyse an ITC investigation into reactions of your choice. The investigation becomes avaialable on completion of the interactive tutorial <br><br>
 
 					First, we will show you how the questions work...<br><br>
 
@@ -234,43 +242,158 @@
 					<h4 class="modal-title" id="modalLabel">THEORY</h4>
 				</div>
 				<div class="modal-body">
-					WHAT IS THE PURPOSE OF AN ITC EXPERIMENT?<br><br>
+					<font color="#51A7F9"><b>WHAT IS THE PURPOSE OF AN ITC EXPERIMENT?</b></font><br><br>
 
-					ITC is a biophysical technique that is used to determine the thermodynamic parameters of association reactions. In just one well designed ITC experiment, the parameters &Delta;H<sub>R</sub>, K<sub>eq</sub> and the stoichiometry (n) can all be determined. From these, &Delta;G<sub>R</sub> and &Delta;S<sub>R</sub> can also easily be calculated. It is the only biophysical technique where all of these thermodynamic parameters can be determined simultaneously.<br><br>
+					Isothermal Titration Calorimetry (ITC) is a biophysical technique that is used to determine the thermodynamic parameters of association reactions. In just one well designed ITC experiment, the parameters &Delta;H<sub>R</sub>, K<sub>a</sub> and the stoichiometry (n) can all be determined. From these, &Delta;G<sub>R</sub> and &Delta;S<sub>R</sub> can also easily be calculated. <br><br>
 
-					It is achieved by measuring the heat rate (absorbed or realeased) during a binding event after an injection of titrant into the titrand. <br><br>
-
-					(add more on how useful it is vs other calorimeters - power vs total heat, sensitivity (power compensation))
+					This is achieved by measuring the energy change during a binding event across a range of solution compositions.<br><br>
 
 				</div>
+				<!-- CALCULATING THERMO PARAMETERS -->
+				<!-- question -->
 				<div class=question-box ng-show='view.experiment.questions[1].IsCorrect==null'>
-					<div class='modal-question-title'>Question!</div>
-					<div class=modal-question-content>
+					<div class='modal-question-question'>Calculation</div>
+					<div class='modal-question-content'>
+						Given that:<br><br>
+
+						&Delta;H<sub>R</sub> = 11.60kJmol<sup>-1</sup><br>
+						K<sub>a</sub> = 3.10x10<sup>5</sup><br>
+						at T = 328K<br><br>
+
 						{{view.experiment.questions[1].question}}
+
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								<input class="form" name="macroConc" ng-model='macroConc' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(macroConc,1)">Answer</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- correct -->
+				<div class=question-box ng-show='view.experiment.questions[1].IsCorrect'>
+					<div class='modal-question-title-correct'>Correct!</div>
+					<div class=modal-question-content>
+					Congratulations, you answered the question right! <br><br>
+
+					&Delta;G<sub>R</sub> = -RT ln (K<sub>a</sub>)<br>
+					&Delta;G<sub>R</sub> = &Delta;H<sub>R</sub> - T&Delta;S<sub>R</sub>
+
+					</div>
+					<div class='modal-question-footer'>
+					</div>
+				</div>
+				<!-- WRONG1x  try again-->
+				<div class=question-box ng-show='view.experiment.questions[1].IsCorrect==false && view.experiment.questions[1].beenWrong==1'>
+					<div class='modal-question-title-incorrect'>Calculation <b>Incorrect</b></div>
+					<div class='modal-question-content'>
+					<b>Your answer is wrong - please try again!</b><br><br>
+
+					Given that:<br><br>
+
+					&Delta;H<sub>R</sub> = 11.60kJmol<sup>-1</sup><br>
+					K<sub>a</sub> = 3.10x10<sup>5</sup><br>
+					at T = 328K<br><br>
+
+					{{view.experiment.questions[1].question}}
+
+
+					The calculation is carried out using basic thermodynamic expressions.<br>
+
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								Please try again<br>
+								<input class="form" name="macroConc" ng-model='macroConc' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(macroConc,1)">Answer</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- WRONG 2X try again-->
+				<div class=question-box ng-show='view.experiment.questions[1].IsCorrect==false && view.experiment.questions[1].beenWrong==2'>
+					<div class='modal-question-title-incorrect'>Calculation <b>Incorrect</b></div>
+					<div class=modal-question-content>
+					Your answer is incorrect for the 2nd time. <br><br>
+
+					Given that:<br><br>
+
+					&Delta;H<sub>R</sub> = 11.60kJmol<sup>-1</sup><br>
+					K<sub>a</sub> = 3.10x10<sup>5</sup><br>
+					at T = 328K<br><br>
+
+					N.B. <br><br>
+					&Delta;G<sub>R</sub> = -RT ln (K<sub>a</sub>)<br>
+					&Delta;G<sub>R</sub> = &Delta;H<sub>R</sub> - T&Delta;S<sub>R</sub><br><br>
+
+					{{view.experiment.questions[1].question}}<br><br>
+
+					Please try again.
+					</div>
+					<div class='modal-question-footer'>
+						<input class="form" name="macroConc" ng-model='macroConc' type="number" required>
+						<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(macroConc,1)">Answer</button>
+					</div>
+				</div>
+				<!-- Wrong 3x - talk to demonstrator -->
+				<div class=question-box ng-show='view.experiment.questions[1].IsCorrect==false && view.experiment.questions[1].beenWrong==3'>
+					<div class='modal-question-title-incorrect'>Calculation <b>Incorrect</b></div>
+					<div class=modal-question-content>
+					Your answer is incorrect again. <br><br>
+
+					N.B. <br><br>
+					&Delta;G<sub>R</sub> = -RT ln (K<sub>a</sub>)<br>
+					&Delta;G = &Delta;H<sub>R</sub> - T&Delta;S<sub>R</sub>
+
+					Please talk to the demonstrator.
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								Demonstrator Input:<br>
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,1)">Answer</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- factors affecting thermo parameters questions -->
+				<div class=question-box ng-show='view.experiment.questions[2].IsCorrect==null'>
+					<div class='modal-question-question'>Question</div>
+					<div class=modal-question-content>
+						ITC is the only biophysical technique where all of &Delta;H<sub>R</sub>, K<sub>a</sub>, &Delta;G<sub>R</sub> and &Delta;S<sub>R</sub>, can be determined simultaneously.
+
+						{{view.experiment.questions[2].question}}
 					</div>
 					<div class='modal-question-footer'>
 						<form novalidate name='writtenAnswer'>
 							<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
 							
-							<button type='button' class='button clickable2' ng-click="view.wQuestion(answer,WrittenAnswer,1)">SUBMIT</button>
+							<button type='button' class='button clickable2' ng-click="view.wQuestion(null,WrittenAnswer,2)">SUBMIT</button>
 						</form>
 					</div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[1].IsCorrect==!null'>
-					<div class='modal-question-title-correct'>Correct!</div>
+				<div class=question-box ng-show='view.experiment.questions[2].IsCorrect==true'>
+					<div class='modal-question-title-correct'>Submitted</div>
 					<div class=modal-question-content>
-					Thank you for your answer, it will be checked by the demnstrator at the end of the tutorial.<br><br>
+					Thank you for your answer, it will be checked by the demonstrator at the end of the tutorial.<br><br>
 
-					
 					</div>
 					<div class='modal-question-footer'></div>
 				</div>
 			
 					
 				<div class='modal-body'>
-					HOW ARE THE MEASUREMENTS TAKEN?<br><br>
+					<font color="#51A7F9"><b>HOW ARE THE MEASUREMENTS TAKEN?</b></font><br><br>
 
-					In a standard ITC machine there are two cells (shown below): the SAMPLE CELL (filled with a sample solution) and the REFERENCE CELL (filled with buffer solution); both are in good thermal contact with a large heat sink (an ADIABATIC JACKET), and a small amount of heat power (a baseline) is applied equally to both cells via separate heaters. The ligand is injected into the sample cell with a very sensitive, programable mechanical SYRINGE. The temperature difference between the two cells is measured continuously and heat power to the sample cell is adjusted via a FEEDBACK LOOP to maintain the cells at exactly equal temperatures. Hence, if the reaction is exothermic the power applied to the SAMPLE CELL (relative to the baseline power) is reduced, and visa versa for endothermic reactions. This differential power is the direct observable of the experiment and is used to calculate how much heat is released or absorbed during each injection. <br><br>
+					In a standard ITC machine there are two cells (shown below):<br>
+					<font color="#c5b552"><b>the sample cell</b></font> (filled with a sample solution) and <br>
+					<font color="#c5b552"><b>the reference cell</b></font> (filled with buffer solution);<br>
+					Both are in good thermal contact with a large heat sink (an<font color="#c5b552"><b> adiabatic jacket</b></font>), and a small amount of heat power (a baseline) is applied equally to both cells via separate heaters. The ligand is injected into the sample cell with a very sensitive, programable mechanical<font color="#c5b552"><b> syringe</b></font>. The temperature difference between the two cells is measured continuously and heat power to the sample cell is adjusted via a <font color="#c5b552"><b>feedback loop</b></font> to maintain the cells at exactly equal temperatures. Hence, if the reaction is exothermic the power applied to the <font color="#c5b552"><b>sample cell</b></font> (relative to the baseline power) is reduced, and visa versa for endothermic reactions. This differential power is the direct observable of the experiment and is used to calculate how much heat is released or absorbed during each injection. <br><br>
 
 					<img src="images/itcDiagram.png" alt='Diagram of ITC machine' style="width:300px;height:260px;display:block;margin:auto"></img><br><br>
 
@@ -281,19 +404,19 @@
 					<div class=modal-question-content>
 					Its time to run your first ITC experiment!<br><br> 
 
-					In this example we want you to get used to how the machine works by running two double injection experiments with different equilibration times (injection interval/time between injections).<br><br>
+					In this example we want you to get used to how the machine works by running two double injection experiments with different equilibration times (Injection Interval).<br><br>
 
-					Objectives:<br>
+					<font color="#51A7F9"><b>Objectives:</b></font><br>
 					+ Learn how the inputs of the machine work.<br>
-					+ Understand the shape of the single injection output and how it relates to the required time between injection.<br>
+					+ Understand the shape of the single injection output and how it relates to the injection interval.<br>
 					+ Understand if an output is exothermic or endothermic.<br><br>
 
-					Here are the parameters we want you to enter to the input fields on the right (all stay constant apart from time between injections):<br>
+					Here are the parameters we want you to enter to the input fields on the right (all stay constant apart from injection interval):<br><br>
 					Number of Injections: 1,<br>
 					Volume of injections: 10μl,<br>
 					[ligand]: 300μM<br>
 					[macromolecule]: 30μM<br>
-					Time between injections: 1 and 5<br><br>
+					Injection interval: 100s and 500s<br><br>
 
 					<i>When you 'Process' the results the software integrates each individual injection peak and plots it against the molar ratio of ligand to sample. It outputs these data to the 'Results Table' below the Console. These data can be exported by clicking the menu item on the table and then clicking 'export to .csv'.<br><br>
 
@@ -308,97 +431,108 @@
 					<div class=modal-question-content>
 					Well Done!<br><br> 
 
-					That was an example with just two injections. The power profile is defined by a sharp change, followed by an exponential return to equilibrium value. Initially when the ligand is injected the net rate (forwards vs reverse) is at its highest, hence the large heat output. As the mixture comes closer to equilibrium, the net rate gets closer and closer to 0 (forwards rate ≈ backwards rate) and less and less heat is released.<br><br>
+					That was an example with just two injections. The power profile is defined by a sharp change, followed by a return to equilibrium value. Initially when the ligand is injected the net rate (forwards vs reverse) is at its highest, hence the large heat output. As the mixture comes closer to equilibrium, the net rate gets closer and closer to 0 (forwards rate ≈ backwards rate) and less and less heat is released.<br><br>
 
-					During ITC, it is very important that the cell is allowed to equilibrate between injections. Equilibration time changes is due to kinetic factors - a lower rate results in longer equilibration time. It may be useful to check using a similar two injection experiment whether the time between injections is long enough to achieve equilibration. Do not just use an unneccessarily long equillibration time because the experiment will take much longer than it should! 
+					During ITC, it is very important that the cell is allowed to equilibrate between injections. Equilibration time changes is due to kinetic factors - a lower rate results in longer equilibration time. It may be useful to check using a similar two injection experiment whether the time between injections is long enough to achieve equilibration. <b>Do not just use an unneccessarily long equillibration time because the experiment will take much longer than it should!</b>
 					</div>		
 				</div>
 				<!-- QUESTION: TWO INJECTIONS -->
-				<div class=question-box ng-show='view.experiment.questions[2].IsCorrect==null && view.experiment.examples[0].isComplete==true && view.experiment.examples[1].isComplete==true'>
+				<div class=question-box ng-show='view.experiment.questions[3].IsCorrect==null && view.experiment.examples[0].isComplete==true && view.experiment.examples[1].isComplete==true'>
 					<div class='modal-question-question'>Question</div>
 					<div class=modal-question-content>
-					{{view.experiment.questions[2].question}}<br><br>
-					{{view.experiment.questions[2].A}}<br>
-					{{view.experiment.questions[2].B}}<br>
-					{{view.experiment.questions[2].C}}<br>
-					{{view.experiment.questions[2].D}}<br>
+					{{view.experiment.questions[3].question}}<br><br>
+					{{view.experiment.questions[3][1]}}<br>
+					{{view.experiment.questions[3][2]}}<br>
+					{{view.experiment.questions[3][3]}}<br>
+					{{view.experiment.questions[3][4]}}<br>
 
 					</div>
 					<div class='modal-question-footer'>
 						<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=1">
 							<option ng-value="1">A</option>
 							<option ng-value="2">B</option>
-							<option ng-value="3">C</option>
-							<option ng-value="4">D</option>
+							
 						</select>
-						<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,2)">SUBMIT</button>
+						<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,3)">SUBMIT</button>
 					</div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[2].IsCorrect && view.experiment.examples[0].isComplete==true'>
-					<div class='modal-question-title-correct'>Correct!</div>
+				<div class=question-box ng-show='view.experiment.questions[3].IsCorrect'>
+					<div class='modal-question-title-correct'>Correct</div>
 					<div class=modal-question-content>
 					Congratulations, you answered the question right! <br><br>
 
-					{{view.experiment.questions[2].ifCorrect}}
+					{{view.experiment.questions[3].ifCorrect}}
 					</div>
 					<div class='modal-question-footer'></div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[2].IsCorrect==false && view.experiment.questions[2].beenWrong==1 && view.experiment.examples[0].isComplete==true'>
-					<div class='modal-question-title'>Example Written Question</div>
+				<div class=question-box ng-show='view.experiment.questions[3].IsCorrect==false && view.experiment.questions[3].beenWrong==1 '>
+					<div class='modal-question-title-incorrect'>Incorrect</div>
 					<div class=modal-question-content>
-						Your answer is incorrect. <br><br>
-						{{view.experiment.questions[2].ifWrong}}
-						{{view.experiment.questions[2].question}}<br><br>
-						{{view.experiment.questions[2].A}}<br>
-						{{view.experiment.questions[2].B}}<br>
-						{{view.experiment.questions[2].C}}<br>
-						{{view.experiment.questions[2].D}}<br>
+						Remember that the calorimeter works by power compenstation. That is, if the heat of the cell increases then the power supplied to the cell decreases to keep the difference in temperature between the two cells as low as possible.<br><br>
+
+						So an increase in power corresponds to an endothermic reaction.<br><br>
+
+						{{view.experiment.questions[3].question}}<br><br>
+						{{view.experiment.questions[3][1]}}<br>
+						{{view.experiment.questions[3][2]}}<br>
+						{{view.experiment.questions[3][3]}}<br>
+						{{view.experiment.questions[3][4]}}<br>
 					</div>
 					
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								Demonstrator Input:<br>
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,3)">Answer</button>
+							</div>
+						</form>
+
+					</div>
 				</div>
 				
 				
 				<div class="modal-body">
-					WHAT DOTHE RESULTS OF AN ITC EXPERIMENT LOOK LIKE AND WHY?<br><br>
+					<font color="#51A7F9"><b>WHAT DO THE RESULTS OF AN ITC EXPERIMENT LOOK LIKE AND WHY?</b></font><br><br>
 
-					An ITC experiment consists of not just one or two injections but a series of injections (25-30 is normal). The molar ratio of titrant to titrand (ligand:sample) increases stepwise over the course of the experiment. The heat change is not constant for each injection due to the increasing saturation of the sample. If the experiment is well designed then the set of injections will produce very varied heats of injection over the molar ratio range.  <br><br>
+					An ITC experiment consists of not just one or two injections but a series of injections (25-30 is normal). The molar ratio of titrant to titrand (ligand:sample) increases stepwise over the course of the experiment and importantly, the saturation of the sample is higher with each injection. The heat change is therfore not constant for each injection due to the increasing saturation of the sample. If the experiment is well designed then the set of injections will produce very varied heats of injection over the molar ratio range.  <br><br>
 
-					Lets consider why the total heat produced per injection varies over the course of the experiment (an exothermic example): on the first few injections, almost all of the ligand associates with the sample, producing the most heat for one injection. With subsequent injections, the sample already has more ligand associated to it, and hence less of the injected ligand will bind, producing less heat per injection. As the sample heads past the equivalence point and into the late stages of the experiment, less and less ligand binds to a more saturated sample, until the sample is fully saturated and no heat is released upon injection.<br><br>
+					Lets consider why the total heat produced per injection varies over the course of the experiment (an exothermic example): on the first few injections, almost all of the ligand associates with the sample. With subsequent injections, the sample already has more ligand associated to it, and hence less of the injected ligand will bind, producing less heat per injection. The sample passes through an equivalence point and into the late stages of the experiment and less and less ligand binds to a more saturated sample, until the sample is fully saturated and no heat is released upon injection.<br><br>
 					
 					The resulting graph takes a sigmoidal shape with the inflection point of the graph representing the stoichiometry of the reaction. A typical ITC experimental output is seen below. The graph on top is the raw data output. By integrating each peak, you get a total heat output per injection, which is plotted in the lower half of the figure below. It is possible to change the x-axis to molar ratio for convienience. <br><br>
 
-					The thermodynamic parameters can be extracted from this graph, either using an computer based iterative method, or a less robust manual method. <br><br>
+					The thermodynamic parameters can be extracted from this graph, either using an computer based iterative method, or a manual method. <br><br>
 
 					<img src="images/itcOutput.png" style='width:300px;height:360px;display:block;margin:auto'>
 
-					ANALYSIS<br><br>
+					<font color="#51A7F9"><b>ANALYSIS</b></font><br><br>
 
 					The thermodynamic parameters can be extracted from this graph, either using an computer based iterative method, or a less robust manual method. Both will breifly be discussed here: <br><br>
 
 					The stoichiometry (n) is easy: it is represented by the position of the infection point. For instance, if the inflection point is located at a molar ratio of 1, then n=1. If it is at 3, then n = 3.<br><br> 
 
-					<u>(1) Iterative Method</u><br>
+					<font color="#51A7F9"><u>(1) Iterative Method</u></font><br>
 
-					The method solves for &Delta;H<sub>R</sub> and K<sub>eq</sub> simultaneously by starting from an approximate K<sub>eq</sub> and then calculating hypothetical &Delta;H<sub>R</sub> for each addition of titrant. Based on the variation between these enthalpy figures, the approximate K<sub>eq</sub> value is adjusted, and the enthalpies recalculated. Over a large number of iterations, the variation between the individual &Delta;H<sub>R</sub> is minimised, to yield the values of K<sub>eq</sub> and &Delta;H<sub>R</sub>.<br><br>
+					The method solves for &Delta;H<sub>R</sub> and K<sub>a</sub> simultaneously by starting from an approximate K<sub>a</sub> and then calculating hypothetical &Delta;H<sub>R</sub> for each addition of titrant. Based on the variation between these enthalpy figures, the approximate K<sub>a</sub> value is adjusted, and the enthalpies recalculated. Over a large number of iterations, the variation between the individual &Delta;H<sub>R</sub> is minimised, to yield the values of K<sub>a</sub> and &Delta;H<sub>R</sub>.<br><br>
 
 
-					<u>(2) Asymptote Method</u>
+					<font color="#51A7F9"><u>(2) Asymptote Method</u></font>
 
-					First, &Delta;H<sub>R</sub> is calculated from a non-zero asymptote of the sigmoidal curve binding isotherm. The complete reaction of a vanishingly small addition of titrant can be assumed (the relative extent of reaction approaches unity as the concentration approaches zero).<br><br>
+					First, &Delta;H<sub>R</sub> is calculated from a non-zero asymptote of the sigmoidal curve binding isotherm. The complete reaction of a vanishingly small addition of titrant can be assumed (the relative extent of reaction approaches unity as the concentration approaches zero). In other words, we assume that all of the ligand binds in the first injection, and calcuate &Delta;H<sub>R</sub> from that <br><br>
 
-					Once the figure for &Delta;H<sub>R</sub> is known, the extent of reaction for each injection can be calculated (from total heat evolved through to that addition relative to the total moles of titrant added through that same point) and hence values for K<sub>eq</sub> can be found for each injection (from total amounts of product formed and reactant remaining based on each total extent of reaction). Importantly, the value of K<sub>eq</sub> is calculated with the least error in the inflection region of the experiment. For the earliest or latest points in the titration, there is very high relative error resulting from very little product formed or very little reactant remaining, hence the lowest-uncertainty association constant results will come from the middle part of the titration curve.<br><br>
+					Once the figure for &Delta;H<sub>R</sub> is known, the true extent of reaction for each injection can be calculated (from total heat evolved through to that addition relative to the total moles of titrant added through that same point) and hence values for K<sub>a</sub> can be found for each injection (from total amounts of product formed and reactant remaining based on each total extent of reaction). Importantly, the value of K<sub>a</sub> is calculated with the least error in the inflection region of the experiment. For the earliest or latest points in the titration, there is very high relative error resulting from very little product formed or very little reactant remaining, hence the lowest-uncertainty association constant results will come from the middle part of the titration curve.<br><br>
 
-					The analysis using the asymptote method will be covered in detail later in the tutorial, when you will create a spreadsheet that will allow you to complete many sets of data analysis. 
+					Do not worry if you do not undertstand this fully - the analysis using the asymptote method will be covered in detail later in the tutorial, when you will create a spreadsheet that will allow you to complete many sets of data analysis. The most important thing to know for now is that you want the shape of the graph to be sigmoidal.
 					</div>
 					
-				<div class=question-box ng-show='view.experiment.questions[3].IsCorrect==null'>
-					<div class='modal-question-question'>Question 3</div>
+				<div class=question-box ng-show='view.experiment.questions[4].IsCorrect==null'>
+					<div class='modal-question-question'>Question</div>
 					<div class=modal-question-content>
-					{{view.experiment.questions[3].question}}<br><br>
-					{{view.experiment.questions[3].A}}<br>
-					{{view.experiment.questions[3].B}}<br>
-					{{view.experiment.questions[3].C}}<br>
-					{{view.experiment.questions[3].D}}<br>
+					{{view.experiment.questions[4].question}}<br><br>
+					{{view.experiment.questions[4][1]}}<br>
+					{{view.experiment.questions[4][2]}}<br>
+					{{view.experiment.questions[4][3]}}<br>
+					{{view.experiment.questions[4][4]}}<br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -406,55 +540,63 @@
 							<option ng-value="1">A</option>
 							<option ng-value="2">B</option>
 							<option ng-value="3">C</option>
-							<option ng-value="4">D</option>
+							
 						</select>
-						<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,3)">CONFIRM ANSWER</button>
+						<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,4)">CONFIRM ANSWER</button>
 					</div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[3].IsCorrect'>
+				<div class=question-box ng-show='view.experiment.questions[4].IsCorrect'>
 					<div class='modal-question-title-correct'>Correct!</div>
 					<div class=modal-question-content>
 					Congratulations, you answered the question right! <br><br>
 
-					Positive reinforcement placeholder
+					This tyoe of equilibrium constant is known as a concentration equilibrium constant. Normally, the units of K<sub>a</sub> would be unitless, but in thies case, we use units of mol<sup>-1</sup>dm<sup>3</sup>.
 					</div>
 					<div class='modal-question-footer'></div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[3].IsCorrect==false && view.experiment.questions[3].beenWrong==1'>
-					<div class='modal-question-title'>Written Answer 3</div>
+				<div class=question-box ng-show='view.experiment.questions[4].IsCorrect==false && view.experiment.questions[4].beenWrong==1'>
+					<div class='modal-question-title-incorrect'>Incorrect</div>
 					<div class=modal-question-content>
-						Your answer is incorrect. Please answer the question again, but this time explain your answer in the box below.<br><br>
-						This written answer will be checked by the demonstrator at the end of the exploration. <br><br>
+						Your answer is incorrect. <br><br>
+						
+
 						<b>Contact the demonstrator now if you are having problems. If you are incorrect again the demonstrator will help you before you can continue.</b><br><br>
 						
-						{{view.experiment.questions[3].question}}<br><br>
-						{{view.experiment.questions[3].A}}<br>
-						{{view.experiment.questions[3].B}}<br>
-						{{view.experiment.questions[3].C}}<br>
-						{{view.experiment.questions[3].D}}<br>
+						{{view.experiment.questions[4].question}}<br><br>
+						{{view.experiment.questions[4][1]}}<br>
+						{{view.experiment.questions[4][2]}}<br>
+						{{view.experiment.questions[4][3]}}<br>
+						{{view.experiment.questions[4][4]}}<br>
 						
 					</div>
 					<div class='modal-question-footer'>
-						<form novalidate name='writtenAnswer'>
-							<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
+						
 
 							<select id='mquestion' class='units_dropdown' ng-model='answer' ng-init="answer=A" >
 								<option ng-value="1">A</option>
 								<option ng-value="2">B</option>
 								<option ng-value="3">C</option>
-								<option ng-value="4">D</option>
+								
 							</select>
-							<button type='button' class='button clickable2' ng-click="view.wQuestion(answer,WrittenAnswer,3)">CONFIRM BOTH ANSWERS</button>
+							<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,4)">CONFIRM</button>
 						</form>
 					</div>
 				</div>
 
-				<div class=question-box ng-show='view.experiment.questions[3].IsCorrect==false && view.experiment.questions[3].beenWrong==2'>
-					<div class='modal-question-title'>Incorrect!</div>
+				<div class=question-box ng-show='view.experiment.questions[4].IsCorrect==false && view.experiment.questions[4].beenWrong==2'>
+					<div class='modal-question-title-incorrect'>Incorrect!</div>
 					<div class=modal-question-content>
 					Your answer is incorrect for the 2nd time, please contact a demonstrator to discuss.
 					</div>
-					<div class='modal-question-footer'></div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								Demonstrator Input:<br>
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,4)">Answer</button>
+							</div>
+						</form>
+					</div>
 				</div>
 
 				
@@ -525,30 +667,32 @@
 					<h4 class="modal-title" id="modalLabel">PLANNING</h4>
 				</div>
 				<div class="modal-body">
-					Before you try to design a good experiment, you need to first understand the technique you are using and what you are expecting. Review your knowledge on ITC in the Theory Tab, or ask a demonstrator if you need any help.<br><br>
+					<i>Before you try to design a good experiment, you need to first understand the technique you are using and what you are expecting. Review your knowledge on ITC in the Theory Tab, or ask a demonstrator if you need any help.</i><br><br>
 
-					Planning of an ITC experiment is very important. Being able to determine &Delta;H<sub>R</sub> and K<sub>eq</sub> relies on choosing the correct concentrations of ligand and sample macromolecule because:<br><br>
+					<font color="#51A7F9">Planning of an ITC experiment is very important.</font> Being able to determine &Delta;H<sub>R</sub> and K<sub>a</sub> relies on choosing the correct concentrations of ligand and sample macromolecule because:<br><br>
 
-					+ finding &Delta;H<sub>R</sub> is constrained by the sensitivity of the instrument - if not enough heat is produced per injection because concentrations are too low (signal to noise ratio is to low) then you cannot find &Delta;H<sub>R</sub>.<br><br>
+					<font color="#c5b552">+ finding &Delta;H<sub>R</sub> </font> is constrained by the sensitivity of the instrument - if not enough heat is produced per injection because concentrations are too low (signal to noise ratio is to low) then you cannot find &Delta;H<sub>R</sub>.<br><br>
 
-					+ finding K<sub>eq</sub> depends on the heat change varying between injections to produce a smooth sigmoid that was discussed in 'Theory'. The shape of the curve is a function of K<sub>eq</sub> and the concentration of macromolecule in the samle cell. <br><br>
+					<font color="#c5b552">+ finding K<sub>a</sub></font> depends on the heat change varying between injections to produce a smooth sigmoid that was discussed in 'Theory'. The shape of the curve is a function of K<sub>a</sub> and the concentration of macromolecule in the sample cell. <br><br>
 
-					How is the shape affected by changing K<sub>eq</sub> and [Macromolecule]? Lets find out!<br><br>
+					<font color="#51A7F9"><b>How is the shape affected by changing K<sub>a</sub> and [Macromolecule]? Lets find out!</font></b><br><br>
 
 					Brandt's experimental parameter (c) is defined by:<br><br>
-					<div style='text-align: center'><i>c =  K<sub>eq</sub> x [Macromolecule] x n</i> </div><br><br>
+					<font color="#ED621D"><div style='text-align: center'><b><i>c =  K<sub>a</sub> x [Macromolecule] x n</i></b> </div></font> <br><br>
 
-					It has been determined that for the sigmoidal curve to be the correct shape to acheive characterisation, c should lie between 10 and 1000, with best results found in the middle of the range. Hence, in order to plan an ITC experiment, you need to have a rough idea of K<sub>eq</sub>, so that you can choose a concentration of macromolecule which brings c into the acceptable range. <br><br>
+					For the sigmoidal curve to be the correct shape to achieve characterisation, <font color="#ED621D">c should lie between 10 and 1000</font>, with best results found in the middle of the range.<font color="#c5b552"> Hence, in order to plan an ITC experiment, you need to have a rough idea of K<sub>a</sub>,</font> so that you can choose a concentration of macromolecule which brings c into the acceptable range. <br><br>
 
-					It seems counterintuitive that in order to design a good experiment and determine the parameters &Delta;H<sub>R</sub> and K<sub>eq</sub> and the stoichiometry you need to have a rough estimate of those parameters! Normally when attempting to run an ITC, data will be gathered to asertain a rough estimate of them beforehand. Techniques that are used to find estimates of K<sub>eq</sub> include:<br>
-					+ Fluorescence spectroscopy<br>
-					+ Surface plasmon resonance<br>
-					+ etc<br>
-					ITC is then used to determine a much more accurate value of K<sub>eq</sub> and &Delta;H<sub>R</sub>.<br><br>
+					<font color="#ED621D"><div style='text-align: center'><b><i>10 &#60; c &#60; 1000</i></b> </div></font> <br><br>
 
-					So [Macromolecule] is chosen to keep c within the acceptable range based on an estimate of K<sub>eq</sub>. How then, do you select the [ligand]? If you consider the stoichiometry of the reaction then it should become clear. We want the equivalence point of the reaction to occur halfway though the experiment, so select the concentrations that will achive this based on the stoichiometry. You will get some practice determining these concentrations shortly.<br><br>
+					It seems counterintuitive that in order to design a good experiment and determine K<sub>a</sub> you need to have a rough estimate of that parameter! Normally when attempting to run an ITC, data will be gathered to find a rough estimate of them beforehand. Techniques that are used to find estimates of K<sub>a</sub> include:<br>
+					<font color="#c5b552">+ Fluorescence spectroscopy</font><br>
+					<font color="#c5b552">+ Surface plasmon resonance</font><br><br>
+		
+					ITC is then used to determine a much more accurate value of K<sub>a</sub> and additionally &Delta;H<sub>R</sub>.<br><br>
 
-					When researchers were looking into the effect of c on the shape of the ITC curve, they simulated many ITC runs to work out exactly the acceptable range. Lets run a range of experiments to show the effect directly. From these results, we can discuss how best to select c values, and the specific limitations of high and low K<sub>eq</sub> values.<br><br> 
+					So [Macromolecule] is chosen to keep c within the acceptable range based on an estimate of K<sub>a</sub>. <font color="#51A7F9">How then, do you select the [ligand]?</font> Consider the stoichiometry. We want the equivalence point of the reaction to occur halfway though the experiment, so select the concentrations that will achieve this based on the stoichiometry, injection volume and number of injections. You will get some practice determining these concentrations shortly.<br><br>
+
+					When researchers were looking into the effect of c on the shape of the ITC curve, they simulated many ITC runs to work out exactly the acceptable range. Lets run a range of experiments to show the effect directly. From the results, we can discuss how best to select c values, and the specific limitations of high and low K<sub>a</sub> values.<br><br> 
 
 					But first, we need to be sure that we can calculate the concentrations of ligand and macromolecule required based on the Brandt's c parameter...
 
@@ -563,20 +707,20 @@
 					Volume syringe = 0.000250l (250μl)<br><br>
 
 					In this example:<br>
-					K<sub>eq</sub> ≈ 4.0 x 10<sup>6</sup><br>
+					K<sub>a</sub> ≈ 4.0 x 10<sup>6</sup><br>
 					&Delta;H<sub>R</sub> ≈ -10 kJ/mol<br><br>
 
-					1) Calculate a suitable concentration for the macromolecule solution.<br>
-					2) Calculate a suitable concentration for the ligand solution.<br><br>
+					<font color="#51A7F9">1) Calculate a suitable concentration for the macromolecule solution.</font><br>
+					<font color="#c5b552">2) Calculate a suitable concentration for the ligand solution.</font><br><br>
 
-					1) Recall that ideal conditions are 10&lt;c&lt;1000, where c = K<sub>eq</sub> x [Macromolecule] x n</i>. We select c = 50.<br><br>
+					<font color="#51A7F9">1) Recall that ideal conditions are 10&lt;c&lt;1000, where c = K<sub>a</sub> x [Macromolecule] x n</i>. We select c = 50.<br><br>
 
 					c = 50 = (4.0 x 10<sup>6</sup>) x [macromolecule],<br>
-					[macromolecule] = 50/(4.0 x 10<sup>6</sup>) = 12.5μM<br><br>
+					[macromolecule] = 50/(4.0 x 10<sup>6</sup>) = 12.5μM<br><br></font>
 
-					2) We want the equivalence point to occur halfway through the titration, so moles of titrant should be twice the moles of ligand n<sub>macro</sub>=994μl*12.5μM = 12.425nM, thus n<sub>ligand</sub>=24.85nM.<br><br>
+					<font color="#c5b552">2) We want the equivalence point to occur halfway through the titration, so moles of titrant should be twice the moles of ligand n<sub>macro</sub>=994μl*12.5μM = 12.425nM, thus n<sub>ligand</sub>=24.85nM.<br><br>
 
-					Assuming that we use the total volume of the syringe for the titration: [ligand] = 24.85nM/250μl = 99.4μM<br><br>
+					Assuming that we use the total volume of the syringe for the titration: [ligand] = 24.85nM/250μl = 99.4μM<br><br></font>
 
 					When you are happy with this calculation click continue, you will be asked to complete a similar calculation before we move on.
 					</div>
@@ -587,8 +731,8 @@
 				<!-- CALCULATION QUESTION  -->
 				
 				<!-- QUESITON 1a [macromolecule]-->
-				<div class=question-box ng-show='view.experiment.worked[0].stage==2 && view.experiment.questions[4].IsCorrect==null'>
-					<div class='modal-example-title-'>Calculation 1a</div>
+				<div class=question-box ng-show='view.experiment.worked[0].stage==2 && view.experiment.questions[5].IsCorrect==null'>
+					<div class='modal-question-question'>Calculation (a)</div>
 					<div class='modal-question-content'>
 					N.B. In this ITC machine the following is true:<br>
 
@@ -596,7 +740,7 @@
 					Volume syringe = 0.000250l<br><br>
 
 					In this example:<br>
-					K<sub>eq</sub> ≈ 2.0 x 10<sup>9</sup><br>
+					K<sub>a</sub> ≈ 2.0 x 10<sup>9</sup><br>
 					&Delta;H<sub>R</sub> ≈ -21 kJ/mol<br><br>
 
 					<b>1) Calculate a suitable concentration for the macromolecule solution.</b><br>
@@ -612,13 +756,13 @@
 							<div>
 								Macromolecule<br>
 								<input class="form" name="macroConc" ng-model='macroConc' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(macroConc,4)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(macroConc,5)">Answer</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<!-- CORRECT -->
-				<div class=question-box ng-show='view.experiment.questions[4].IsCorrect && view.experiment.worked[0].stage==2'>
+				<div class=question-box ng-show='view.experiment.questions[5].IsCorrect && view.experiment.worked[0].stage==2'>
 					<div class='modal-question-title-correct'>Correct!</div>
 					<div class=modal-question-content>
 					Congratulations, you answered the question right! <br><br>
@@ -629,8 +773,8 @@
 					</div>
 				</div>
 				<!-- WRONG -->
-				<div class=question-box ng-show='view.experiment.worked[0].stage==2 && view.experiment.questions[4].IsCorrect==false && view.experiment.questions[4].beenWrong==1'>
-					<div class='modal-example-title-'>Calculation 1a <b>Incorrect</b></div>
+				<div class=question-box ng-show='view.experiment.worked[0].stage==2 && view.experiment.questions[5].IsCorrect==false && view.experiment.questions[5].beenWrong==1'>
+					<div class='modal-question-title-incorrect'>Calculation (a) <b>Incorrect</b></div>
 					<div class='modal-question-content'>
 					<b>Your answer is wrong - please try again!</b><br><br>
 
@@ -640,7 +784,7 @@
 					Volume syringe = 0.000250l<br><br>
 
 					In this example:<br>
-					K<sub>eq</sub> ≈ 2.0 x 10<sup>9</sup><br>
+					K<sub>a</sub> ≈ 2.0 x 10<sup>9</sup><br>
 					&Delta;H<sub>R</sub> ≈ -21 kJ/mol<br><br>
 
 					<b>1) Calculate a suitable concentration for the macromolecule solution.</b></b><br>
@@ -656,30 +800,30 @@
 							<div>
 								Please try again - Macromolecule<br>
 								<input class="form" name="macroConc" ng-model='macroConc' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(macroConc,4)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(macroConc,5)">Answer</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<!-- WRONG 2X -->
-				<div class=question-box ng-show='view.experiment.questions[4].IsCorrect==false && view.experiment.questions[4].beenWrong==2'>
-					<div class='modal-question-title'>Incorrect!</div>
+				<div class=question-box ng-show='view.experiment.questions[5].IsCorrect==false && view.experiment.questions[5].beenWrong==2'>
+					<div class='modal-question-title-incorrect'>Incorrect!</div>
 					<div class=modal-question-content>
 					Your answer is incorrect for the 2nd time. The worked example can be found below:<br><br>
 
-					c = 50 = (2.0 x 10⁹) x [macromolecule],
-					[macromolecule] = 50/(2.0 x 1⁹) = 25nM
+					c = 50 = (2.0 x 10⁹) x [macromolecule],<br>
+					[macromolecule] = 50/(2.0 x 1⁹) = 25nM<br><br>
 
-					You will have to perfrom this calculation multiple times from here on. 
+					<i>You will have to perfrom this calculation multiple times from here on. </i>
 					</div>
 					<div class='modal-question-footer'>
-						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=3;view.experiment.questions[4].IsCorrect=true">Continue</button>
+						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=3;view.experiment.questions[5].IsCorrect=true">Continue</button>
 					</div>
 				</div>
 
 				<!-- QUESTION 1B [ligand]-->
-				<div class=question-box ng-show='view.experiment.worked[0].stage==3 && view.experiment.questions[5].IsCorrect==null'>
-					<div class='modal-example-title-'>Calculation 1b</div>
+				<div class=question-box ng-show='view.experiment.worked[0].stage==3 && view.experiment.questions[6].IsCorrect==null'>
+					<div class='modal-question-question'>Calculation (b)</div>
 					<div class='modal-question-content'>
 					N.B. In this ITC machine the following is true:<br>
 
@@ -687,11 +831,11 @@
 					Volume syringe = 0.000250l<br><br>
 
 					In this example:<br>
-					K<sub>eq</sub> ≈ 2.0 x 10<sup>9</sup><br>
+					K<sub>a</sub> ≈ 2.0 x 10<sup>9</sup><br>
 					&Delta;H<sub>R</sub> ≈ -21 kJ/mol<br><br>
 
 					1) Calculate a suitable concentration for the macromolecule solution.<br>
-					answer to 1): {{view.experiment.questions[4].answer}}<br>
+					answer to 1): {{view.experiment.questions[5].answer}}M<br>
 					<b>2) Calculate a suitable concentration for the ligand solution.</b><br><br>
 
 					Select c = 50 as previously.<br>
@@ -703,13 +847,13 @@
 							<div>
 								Ligand Concentration<br>
 								<input class="form" name="ligandConc" ng-model='ligandConc' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,5)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,6)">Answer</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<!-- CORRECT -->
-				<div class=question-box ng-show='view.experiment.questions[5].IsCorrect && view.experiment.worked[0].stage==3'>
+				<div class=question-box ng-show='view.experiment.questions[6].IsCorrect && view.experiment.worked[0].stage==3'>
 					<div class='modal-question-title-correct'>Correct!</div>
 					<div class=modal-question-content>
 					Congratulations, you answered the question right! <br><br>
@@ -719,8 +863,8 @@
 					</div>
 				</div>
 				<!-- WRONG -->
-				<div class=question-box ng-show='view.experiment.worked[0].stage==3 && view.experiment.questions[5].IsCorrect==false && view.experiment.questions[5].beenWrong==1'>
-					<div class='modal-example-title-'>Calculation 1b <b>Incorrect</b></div>
+				<div class=question-box ng-show='view.experiment.worked[0].stage==3 && view.experiment.questions[6].IsCorrect==false && view.experiment.questions[6].beenWrong==1'>
+					<div class='modal-question-title-incorrect'>Calculation (b) <b>Incorrect</b></div>
 					<div class='modal-question-content'>
 					Your answer is wrong - please try again!<br><br>
 
@@ -730,11 +874,11 @@
 					Volume syringe = 0.000250l<br><br>
 
 					In this example:<br>
-					K<sub>eq</sub> ≈ 2.0 x 10<sup>9</sup><br>
+					K<sub>a</sub> ≈ 2.0 x 10<sup>9</sup><br>
 					&Delta;H<sub>R</sub> ≈ -21 kJ/mol<br><br>
 
 					1) Calculate a suitable concentration for the macromolecule solution.<br>
-					afterwards you will be asked to:
+					answer to 1): {{view.experiment.questions[5].answer}}M<br>
 					<b>2) Calculate a suitable concentration for the ligand solution.</b><br><br>
 
 					Select c = 50 as previously.<br>
@@ -746,14 +890,14 @@
 							<div>
 								Please try again - Macromolecule<br>
 								<input class="form" name="macroConc" ng-model='ligandConc' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,5)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,6)">Answer</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<!-- WRONG 2x -->
-				<div class=question-box ng-show='view.experiment.questions[5].IsCorrect==false && view.experiment.questions[5].beenWrong==2 && view.experiment.worked[0].stage==3'>
-					<div class='modal-question-title'>Incorrect!</div>
+				<div class=question-box ng-show='view.experiment.questions[6].IsCorrect==false && view.experiment.questions[6].beenWrong==2 && view.experiment.worked[0].stage==3'>
+					<div class='modal-question-title-incorrect'>Incorrect!</div>
 					<div class=modal-question-content>
 					Your answer is incorrect for the 2nd time. The worked example can be found below:<br><br>
 
@@ -764,13 +908,13 @@
 					You will have to perfrom this calculation multiple times from here on so please study it.
 					</div>
 					<div class='modal-question-footer'>
-						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=4; view.experiment.questions[5].IsCorrect=true">Continue</button>
+						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=4; view.experiment.questions[6].IsCorrect=true;view.compileCookieData()">Continue</button>
 					</div>
 				</div>
 
 				<!-- CALCULATION WITH 3X STOICHIOMETRY -->
-				<div class=question-box ng-show='view.experiment.worked[0].stage==4 && view.experiment.questions[6].IsCorrect==null'>
-					<div class='modal-example-title-'>Calculation 1b</div>
+				<div class=question-box ng-show='view.experiment.worked[0].stage==4 && view.experiment.questions[7].IsCorrect==null'>
+					<div class='modal-question-question'>Calculation (c)</div>
 					<div class='modal-question-content'>
 					N.B. In this ITC machine the following is true:<br>
 
@@ -780,9 +924,9 @@
 					In the previous examples we assumed that the stoichiometry (n) ≈ 1.0. Consider the case with higher n.<br><br>
 
 					In this example:<br>
-					K<sub>eq</sub> ≈ 2.0 x 10<sup>9</sup><br>
-					&Delta;H<sub>R</sub> ≈ -21 kJ/mol<br><br>
-					The stoichiometry (n) ≈ 3.0
+					K<sub>a</sub> ≈ 2.0 x 10<sup>9</sup><br>
+					&Delta;H<sub>R</sub> ≈ -21 kJ/mol<br>
+					The stoichiometry (n) ≈ 3.0<br><br>
 
 					1) Calculate a suitable concentration for the macromolecule solution.<br>
 					answer to 1): {{view.experiment.questions[4].answer}}<br>
@@ -797,24 +941,24 @@
 							<div>
 								Ligand Concentration<br>
 								<input class="form" name="ligandConc" ng-model='ligandConc' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,6)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,7)">Answer</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<!-- CORRECT -->
-				<div class=question-box ng-show='view.experiment.questions[6].IsCorrect && view.experiment.worked[0].stage==4'>
+				<div class=question-box ng-show='view.experiment.questions[7].IsCorrect && view.experiment.worked[0].stage==4'>
 					<div class='modal-question-title-correct'>Correct!</div>
 					<div class=modal-question-content>
 					Congratulations, you answered the question right! <br><br>
 					</div>
 					<div class='modal-question-footer'>
-						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=50">Continue</button>
+						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=5;view.compileCookieData()">Continue</button>
 					</div>
 				</div>
 				<!-- WRONG -->
-				<div class=question-box ng-show='view.experiment.worked[0].stage==4 && view.experiment.questions[6].IsCorrect==false && view.experiment.questions[6].beenWrong==1'>
-					<div class='modal-example-title-'>Calculation 1b <b>Incorrect</b></div>
+				<div class=question-box ng-show='view.experiment.worked[0].stage==4 && view.experiment.questions[7].IsCorrect==false && view.experiment.questions[7].beenWrong==1'>
+					<div class='modal-question-title-incorrect'>Calculation (c) <b>Incorrect</b></div>
 					<div class='modal-question-content'>
 					Your answer is wrong - please try again!<br><br>
 
@@ -826,7 +970,7 @@
 					In the previous examples we assumed that the stoichiometry (n) ≈ 1.0. Consider the case with higher n.<br><br>
 
 					In this example:<br>
-					K<sub>eq</sub> ≈ 2.0 x 10<sup>9</sup><br>
+					K<sub>a</sub> ≈ 2.0 x 10<sup>9</sup><br>
 					&Delta;H<sub>R</sub> ≈ -21 kJ/mol<br><br>
 					The stoichiometry (n) ≈ 3.0
 
@@ -843,14 +987,14 @@
 							<div>
 								Please try again - Macromolecule<br>
 								<input class="form" name="macroConc" ng-model='ligandConc' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,6)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(ligandConc,7)">Answer</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<!-- WRONG 2x -->
-				<div class=question-box ng-show='view.experiment.questions[6].IsCorrect==false && view.experiment.questions[6].beenWrong==2 && view.experiment.worked[0].stage==4'>
-					<div class='modal-question-title'>Incorrect!</div>
+				<div class=question-box ng-show='view.experiment.questions[7].IsCorrect==false && view.experiment.questions[7].beenWrong==2 && view.experiment.worked[0].stage==4'>
+					<div class='modal-question-title-incorrect'>Incorrect!</div>
 					<div class=modal-question-content>
 					Your answer is incorrect for the 2nd time. The worked example can be found below:<br><br>
 
@@ -861,7 +1005,7 @@
 					You will have to perfrom this calculation multiple times from here on so please study it.
 					</div>
 					<div class='modal-question-footer'>
-						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=5; view.experiment.questions[6].IsCorrect=true">Continue</button>
+						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=5; view.experiment.questions[7].IsCorrect=true;view.compileCookieData()">Continue</button>
 					</div>
 				</div>
 				
@@ -872,21 +1016,21 @@
 					Now that we have shown you how to perform the calculations to select suitable concentrations based on c, lets run some experiments to have a look at the effect that changing c has on the results. Then we can use this data to inform future decisions on the value of c.<br><br>
 
 					We want to know:<br>
-					(1) how changing c affects the shape of the curve,<br>
-					(2) whether these changes are consistent across more than one K<sub>eq</sub> value.<br><br>
+					<font color="#51A7F9">(1) how changing c affects the shape of the curve,<br>
+					(2) whether these changes are consistent across more than one K<sub>a</sub> value.<br><br></font>
 
 					So lets run 8 experiments:<br>
-					4 with a value of K<sub>eq</sub> ≈ 4.0 x 10<sup>6</sup> with c values of 1, 10, 100, 1000,<br>
-					4 with a value of K<sub>eq</sub> ≈ 4.0 x 10<sup>9</sup> with c values of 1, 10, 100, 1000.<br><br>
+					<font color="#c5b552">4 with a value of K<sub>a</sub> ≈ 4.0 x 10<sup>6</sup> with c values of 1, 10, 100, 1000,<br></font>
+					<font color="#c5b552">4 with a value of K<sub>a</sub> ≈ 4.0 x 10<sup>9</sup> with c values of 1, 10, 100, 1000.<br><br></font>
 
 					Lets run these experiments!<br><br> 
 
-					<i>In order to complete this example, you must run the 4 experiments with a K<sub>eq</sub> ≈ 4.0 x 10<sup>6</sup>. You will know you have completed each experiment correctly when a 'Success' reading is displayed on the console. This time we are going to plot the data in excel, so make sure you use the 'export to .csv' function after <b>EACH RUN</b> - the data is not maintained in the results table after that. </i><br><br>
+					<i>In order to complete this example,<font color="#ED621D"> <b>you must run the 4 experiments with a K<sub>a</sub> ≈ 4.0 x 10<sup>6</sup></b></font>. You will know you have completed each experiment correctly when a 'Success' reading is displayed on the console. This time we are going to plot the data in excel, <font color="#ED621D"><b>so make sure you use the 'export to .csv' function after EACH RUN</b></font> - the data is not maintained in the results table after that. </i><br><br>
 
 					The remaining parameters are set out below:<br>
 					Number of injections: 25<br>
 					Volume of Injections: 10μl<br>
-					Time bewtween injections: 5s<br><br>
+					Time bewtween injections: 50s<br><br>
 
 					ENSURE YOU EXPORT THE DATA FROM EACH RUN TO EXCEL!<br><br>
 
@@ -903,12 +1047,12 @@
 					
 					Well Done!<br><br> 
 
-					Now we need to run the next 4 experiments with K<sub>eq</sub> ≈ 2.0 x 10<sup>9</sup> to compare.<br><br>
+					Now we need to run the next 4 experiments with K<sub>a</sub> ≈ 2.0 x 10<sup>9</sup> to compare.<br><br>
 
 					The remaining parameters are the same as before:<br>
 					Number of injections: 25<br>
 					Volume of Injections: 10μl<br>
-					Time bewtween injections: 5s<br><br>
+					Time bewtween injections: 50s<br><br>
 
 					When you are successful with the next four, return here!<br><br>
 					</div>
@@ -924,23 +1068,22 @@
 
 					Well Done!<br><br> 
 
-					Now you have run 8 ITC experiments, with 4 different c values, and 2 different K<sub>eq</sub> values. You should have also exported all of the data to excel. Notice that when exporting, the software exports three columns of data:<br>
-					(1) Injection numben<br>
-					(2) Heat for injection.<br>
-					(3) Heat for injection per mole of injectant.<br><br>
+					Now you have run 8 ITC experiments, with 4 different c values, and 2 different K<sub>a</sub> values. You should have also exported all of the data to excel. Notice that when exporting, the software exports two columns of data:<br>
+					<font color="#51A7F9">(1) Injection number<br>
+					(2) Heat for injection.<br></font><br>
+					
+					The first step is to normalise the heat per injection with respect to number of moles of injectant added for that injection. Do that now.<br>
 
-					So the third column is a version of the second column, normalised for moles of injectant. This normailies the two sets of 4 runs, since they occur at different concentrations.<br><br>
-
-					First, plot the normailised data into a scatter graph - all on the same graph.<br>
+					Second, plot the normailised data into a scatter graph - all on the same graph.<br>
 					Then plot the non-normalised data into a scatter graph - all on the same graph.<br><br>
 
 					You can add connecting lines between the points for clarity, but remember that these lines are simply connectors, not a trendline or line of best fit!<br><br>
 
-					Take a look at the graphs. What do you notice?<br>
+					<font color="#51A7F9">Take a look at the graphs. What do you notice?<br>
 					+ How does changing c effect the shape of the curve?<br>
-					+ Are these changes consistent over different values of K<sub>eq</sub>?<br><br>
+					+ Are these changes consistent over different values of K<sub>a</sub>?<br><br></font>
 
-					Click continue when you are ready.
+					<i>Click continue when you are ready.</i>
 					</div>
 					<div class="modal-question-footer">
 						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.consoleChange(['6b','7b','8b','9b']); view.experiment.worked[0].stage=8" ng-show="view.experiment.worked[0].stage==7">Continue</button>
@@ -948,38 +1091,46 @@
 				</div>
 
 				<div class="modal-body" ng-show="view.experiment.worked[0].stage==8">
-					Lets look at the normalised graphs first. The answer to our second question is hopefully straightforward when we see what has happened. The normalised heats of injection are identical for both values of K<sub>eq</sub>. Hence, the graphs at each c both follow exactly the same shape - they are exactly the same points on the graph!<br><br>
+					Lets look at the normalised graphs first. The answer to our second question is hopefully straightforward when we see what has happened. The normalised heats of injection are identical for both values of K<sub>a</sub>. Hence, the graphs at each c both follow exactly the same shape - they are exactly the same points on the graph!<br><br>
 
-					Now lets consider how the shape changes with c, looking at the normalised graphs again:<br>
-					<u>c=1:</u><br>
-					These are flat, featureless lines whose values slowly decrease in magnitude from low molar ratio to high. It is not possible to determine the K<sub>eq</sub> value from these graphs, since there is no sigmoidal shape. However, it is possible to determine the &Delta;H<sub>R</sub> values (more on how later).<br>
-					<u>c=10:</u><br>
-					The sigmaoid shape is slightly more pronounced in this example. You would still struggle to calculate K<sub>eq</sub> though, as the change in heats is not that big.<br>
-					<u>c=100:</u><br>
-					A significant sigmoid shape. All thermodynamics could be characterised.<br>
-					<u>c=1000:</u><br>
-					Very steep sigmoid function. Not many points in the infection region, so difficult to characterise c. As values of c get larger, the sigmoid become more and more like a step function - the inflection region occurs all in one injection so is not well defined. In these cases, it can be impossible to discern between two ligand-macromlecule pairs with K<sub>eq</sub> values even as far apart as an order of magnitude - the step functions are not different enough - both are simple step functions.<br><br>
+					Now lets consider how the shape changes with c, looking at the normalised graphs again:<br><br>
+					
+					<font color="#51A7F9"><u><b>c=1:</u></b><br></font>
+					These are flat, featureless lines whose values slowly decrease in magnitude from low molar ratio to high. It is not possible to determine the K<sub>a</sub> value from these graphs, since there is no sigmoidal shape. However, it is possible to determine the &Delta;H<sub>R</sub> values (more on how later).<br><br>
 
-					Does it seem strange that we are talking about potentially using a range of c values equivalent to 2 orders of magnitude? Why do we not just used a value of c=100 every time?<br><br>
-					Consider the Example of K<sub>eq</sub> ≈ 4.0 x 10<sup>9</sup>, &Delta;H<sub>R</sub> = -10kJmol<sup>-1</sup>, c=100 that you just ran. 
+					<font color="#51A7F9"><b><u>c=10:</u></b><br></font>
+					The sigmaoid shape is slightly more pronounced in this example. You would still struggle to calculate K<sub>a</sub> though, as the change in heats is not that large.<br><br>
+
+					<font color="#51A7F9"><b><u>c=100:</u></b><br></font>
+					A significant sigmoid shape. All thermodynamics could be characterised.<br><br>
+
+					<font color="#51A7F9"><b><u>c=1000:</u></b><br></font>
+					Very steep sigmoid function. There are not many points in the infection region, so difficult to characterise c. As values of c get larger, the sigmoid become more and more like a step function - the inflection region occurs all in one injection so is not well defined. In these cases, it can be impossible to discern between two ligand-macromlecule pairs with K<sub>a</sub> values even as far apart as an order of magnitude - the shapes become indiscernible - both are simple step functions.<br><br>
+
+					Does it seem strange that we are talking about potentially using a range of c values equivalent to 2 orders of magnitude? Why do we not just used a value of c = 100 every time?<br><br>
+
+					Consider the Example of:<br>
+					K<sub>a</sub> ≈ 4.0 x 10<sup>9</sup>,<br>
+					&Delta;H<sub>R</sub> = -10kJmol<sup>-1</sup>,<br>
+					c=100<br>
 					</div>
 
-					<div class=question-box ng-show='(view.experiment.worked[0].stage==8 || view.experiment.worked[0].stage==9) && view.experiment.questions[7].IsCorrect==null'>
+					<div class=question-box ng-show='(view.experiment.worked[0].stage==8 || view.experiment.worked[0].stage==9) && view.experiment.questions[8].IsCorrect==null'>
 						<div class='modal-question-question'>Question</div>
 						<div class=modal-question-content>
-						{{view.experiment.questions[6].question}}<br><br>
-						K<sub>eq</sub> ≈ 4.0 x 10<sup>9</sup><br>
+						
+						K<sub>a</sub> ≈ 4.0 x 10<sup>9</sup><br>
 						&Delta;H<sub>R</sub> ≈ -10 kJ/mol<br>
 						[Macromolecule] = 0.000000025<br>
 						[Ligand] = 0.000198<br>
 						c = 100<br><br>
 
-						Do you see any reason why this experiment would not provide suitable results?<br><br>
+						{{view.experiment.questions[8].question}}<br><br>
 
-						{{view.experiment.questions[6].A}}<br>
-						{{view.experiment.questions[6].B}}<br>
-						{{view.experiment.questions[6].C}}<br>
-						{{view.experiment.questions[6].D}}<br>
+						{{view.experiment.questions[8][1]}}<br>
+						{{view.experiment.questions[8][2]}}<br>
+						{{view.experiment.questions[8][3]}}<br>
+						{{view.experiment.questions[8][4]}}<br>
 
 						</div>
 						<div class='modal-question-footer'>
@@ -987,45 +1138,47 @@
 								<option ng-value="1">A</option>
 								<option ng-value="2">B</option>
 							</select>
-							<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,7)">CONFIRM ANSWER</button>
+							<button type='button' class='button clickable2' ng-click="view.mQuestion(answer,8)">CONFIRM</button>
 						</div>
 					</div>
 					<!-- CORRECT -->
-					<div class=question-box ng-show='view.experiment.questions[7].IsCorrect && (view.experiment.worked[0].stage==8 || view.experiment.worked[0].stage==9)'>
+					<div class=question-box ng-show='view.experiment.questions[8].IsCorrect && (view.experiment.worked[0].stage==8 || view.experiment.worked[0].stage==9)'>
 						<div class='modal-question-title-correct'>Correct!</div>
 						<div class=modal-question-content>
 						Congratulations, you answered the question right! <br><br>
 
-						Because the value of k<sub>eq</sub> is much higher, and therefore the concentrations are much lower, the signal to noise ratio of the calorimeter will be TOO LOW to gather any useful data. In this case, we must choose a much higher value of c, so that the concentrations used cause a larger heat change upon addition.
+						Because the value of K<sub>a</sub> is much higher, and therefore the concentrations are much lower, the signal to noise ratio of the calorimeter will be <font color="#ED621D"><b>TOO LOW</font></b>to gather any useful data. In this case, we must choose a much higher value of c, so that the concentrations used cause a larger heat change upon addition.
 						</div>
 						<div class='modal-question-footer'>
-							<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=9">Continue</button>
+							<button type="button" class="modal-button clickable2" ng-show="view.experiment.worked[0].stage==8" ng-click="view.experiment.worked[0].stage=9">Continue</button>
 						</div>
 					</div>
 						
-					<div class=question-box ng-show='view.experiment.questions[7].IsCorrect==false && view.experiment.questions[7].beenWrong==1 && (view.experiment.worked[0].stage==8 || view.experiment.worked[0].stage==9)'>
-						<div class='modal-question-title'>Incorrect!</div>
+					<div class=question-box ng-show='view.experiment.questions[8].IsCorrect==false && view.experiment.questions[8].beenWrong==1 && (view.experiment.worked[0].stage==8 || view.experiment.worked[0].stage==9)'>
+						<div class='modal-question-title-incorrect'>Incorrect!</div>
 						<div class=modal-question-content>
 						Your answer is incorrect. <br><br>
 
-						Lets run another experiment to show why.
+						Because the value of K<sub>a</sub> is much higher, and therefore the concentrations are much lower, the signal to noise ratio of the calorimeter will be <font color="#ED621D"><b>TOO LOW</font></b> to gather any useful data. In this case, we must choose a much higher value of c, so that the concentrations used cause a larger heat change upon addition.<br><br>
+
+						Lets run another experiment to demonstrate this effect.
 						</div>
 						<div class='modal-question-footer'>
-							<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked[0].stage=9; view.experiment.isNoise=true">Continue</button>
+							<button type="button" class="modal-button clickable2" ng-show="view.experiment.worked[0].stage==8"  ng-click="view.experiment.worked[0].stage=9; view.experiment.isNoise=true">Continue</button>
 						</div>
 					</div>
 
 					<div class=question-box ng-show='(view.experiment.examples[10].isComplete==false || view.experiment.example[11].isComplete==false) && view.experiment.worked[0].stage==9'>
 						<div class='modal-example-title'>EXAMPLE!</div>
 						<div class=modal-question-content>
-						In this example we will investigate the effects of noise on the readings. In previous examples, the machine has produced 'perfect' results, that is results with no added noise, based on the mathmatics behind ITC. In the next experiments, a level of experimental noise has been added. The noise is absolute not relative (the standard deviation is constant, not based on the value of the mean).<br><br>
+						In this example we will investigate the effects of noise on the readings. In previous examples, the machine has produced 'perfect' results, that is results with no added noise, based on the mathematics behind ITC. In the next experiments, a level of experimental noise has been added. The noise is absolute not relative (the standard deviation is constant, not based on the value of the mean).<br><br>
 
-						Objectives:<br>
+						<font color="#51A7F9">Objectives:<br>
 						+ Learn how noise effects the results.<br>
-						+ Understand how we must adjust our solution concentration selection to account for noise.<br><br>
+						+ Understand how we must adjust our solution concentration selection to account for noise.<br><br></font>
 
 						Lets run two experiments. Both with:
-						K<sub>eq</sub> ≈ 4.0 x 10<sup>9</sup> <br>
+						K<sub>a</sub> ≈ 4.0 x 10<sup>9</sup> <br>
 						&Delta;H<sub>R</sub> ≈ -10 kJ/mol<br> 
 						Number of Injections: 25,<br>
 						Volume of injections: 10&Mu;l,<br>
@@ -1034,10 +1187,10 @@
 
 						Come back here when you are done.<br><br>
 						
-						You do not need to export the data from this experiment. 
+						<i>You do not need to export the data from this experiment. </i>
 						</div>
 						<div class='modal-question-footer'>
-							<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click="view.runExample([10,11])">Start Example</button>
+							<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click="view.runExample([10,11]);view.experiment.isNoise=true">Start Example</button>
 						</div>	
 					</div>
 					<div class=question-box ng-show='view.experiment.examples[10].isComplete==true && view.experiment.examples[11].isComplete==true'>
@@ -1045,16 +1198,14 @@
 						<div class=modal-question-content>
 						Well Done!<br><br> 
 
-						The example shows a consideration that must be taken into account: the signal to noise ratio. With large values of K<sub>eq</sub>, such small concentrations are used when choosing intermediate values of c, that the signal is washed out by noise of the machine. If you do not know the value of &Delta;H<sub>R</sub>, it can be helpful to run a very short experiment (1 or 2 injections) to check if the signal is strong enough.<br><br>
+						The example shows a consideration that must be taken into account: the signal to noise ratio. With large values of K<sub>a</sub>, small concentrations are used when choosing intermediate values of c, and the signal is washed out by noise of the machine. If you do not know the value of &Delta;H<sub>R</sub>, it can be helpful to run a very short experiment (1 or 2 injections) to check if the signal is strong enough.<br><br>
 
-						Now let us consider the implications of a relatively low K<sub>eq</sub>. When the value of K<sub>eq</sub> is low, we have to use high concentrations of sample and ligand. One limitation of this can be solubility - perhaps the ligand is not very soluble, and we cannot make up solutions that are concentrated enough to give the value of c that we want. In this case, we would have to use a lower value of c than optimum. It may also be the case that the calorimeter has a maximum sensitivity rating, and if the heat change is too high, it will not be able to give proper readings. This causes flattening of the tips of the peaks.<br><br>
+						Now let us consider the implications of a relatively low K<sub>a</sub>. When the value of K<sub>a</sub> is low, we have to use high concentrations of sample and ligand. One limitation of this can be solubility - perhaps the ligand is not very soluble, and we cannot make up solutions that are concentrated enough to give the value of c that we want. In this case, we would have to use a lower value of c than optimum. It may also be the case that the calorimeter has a maximum sensitivity rating, and if the heat change is too high, it will not be able to give proper readings. This causes flattening of the tips of the peaks.<br><br>
 
-						From here on, noise will be enabled on the machine, and you should take these considerations into account when planning your experiment.
+						From here on, noise will be enabled on the machine, and you should take these considerations into account when planning your experiments.
 
 						</div>	
-					<div class='modal-question-footer'>
-						<button type="button" class="modal-button clickable2"  ng-click="view.experiment.worked">Start Example</button>
-					</div>		
+					
 				</div>
 
 				
@@ -1070,47 +1221,45 @@
 					<h4 class="modal-title" id="modalLabel">Running the Experiment</h4>
 				</div>
 				<div class="modal-body">
-					<u>OVERVIEW</u><br><br>
+					<u><font color="#51A7F9"><b>OVERVIEW</u></b></font><br><br>
 
 					Once the experiment has been planned we can move on to running the experiment, which involves three basic steps:<br>
 					+ Solution preparation<br>
 					+ Collecting the raw data<br>
 					+ Correcting the raw data<br><br>
 
-					<u>SOLUTION PREPARATION</u><br><br>
+					<font color="#51A7F9"><b><u>SOLUTION PREPARATION</u></b></font><br><br>
 
-					Concentrations:<br>
-					Solution preparation in ITC is very important because the analysis relies on accurate knowledge of the solution concentration. An incorrect concentration in the sample cell will result in difficulty assigning the stoichiometry (n), if the concentration of ligand solution is incorrect, then &Delta;H<sub>R</sub>, K<sub>eq</sub> and n cannot be determined properly.<br><br>
+					<font color="#51A7F9">Concentrations:</font><br>
+					Solution preparation in ITC is very important because the analysis relies on accurate knowledge of the solution concentration. An incorrect concentration in the sample cell will result in difficulty assigning the stoichiometry (n), if the concentration of ligand solution is incorrect, then &Delta;H<sub>R</sub>, K<sub>a</sub> and n cannot be determined properly.<br><br>
 
-					If possible, solutions should be made by volumetric dilution of stock solutions that were made up by weight, this should give the most accurate concentrations... compared to what? Once the solutions have been made up, when possible, the concentrations should be verified using another analytical technique (e.g. absorbance, kinetic activity, or other....!)<br><br>
+					If possible, solutions should be made by volumetric dilution of stock solutions that were made up by weight. Once the solutions have been made up, when possible, the concentrations should be verified using another analytical technique (e.g. absorbance, kinetic activity)<br><br>
 
-					Buffers:<br>
-					Both the sample solution and ligand solutions should be prepared in identical buffers or large heats of dilutions could overwhelm the desired observation. That is, the two solutions should be matched exactly with respect to pH, salt concetration, and buffer. Both solutions should be exhausitvely dialysed in the same container if possible. For small molecule ligands, where dialysis is not possible, use the final dialysis/flow through buffer to make up the ligand solutions after thorough desalting (for an overview of dialysis click here).<br><br>
+					<font color="#51A7F9">Buffers:</font><br>
+					Both the sample solution and ligand solutions should be prepared in identical buffers or large heats of dilutions could overwhelm the desired observation. That is, the two solutions should be matched exactly with respect to pH, salt concetration, and buffer. Both solutions should be exhausitvely dialysed in the same container if possible. <br><br>
 
-					When selecting a buffer, also consider the heat of ionisation. The reaction under study could involve proination/deprotonation, leading to large heat change if the buffer has a large heat of ionisation (the proton is transferred to the congugate base of the buffer). It is possible to correct for these effects, but is mostly easier to just run the experiment in unionizable buffer, or one which has a very small heat of ionisation. <br><br> 
-
-					(In some cases this effect can be useful - consider a reaction with a very small &Delta;H<sub>R</sub> value but also releases a proton. By using a buffer with a large heat of ionisation, the reaction can be studied in an ITC machine)<br><br>
+					When selecting a buffer, also consider the heat of ionisation. The reaction under study could involve proination/deprotonation, leading to a large heat change if the buffer has a large heat of ionisation (the proton is transferred to the congugate base of the buffer). It is possible to correct for these effects, but is mostly easier to just run the experiment in unionizable buffer, or one which has a very small heat of ionisation. <br><br> 
 
 					If the heat of dilution is large, and masking the reaction heat change (perhaps concentrations are low to give desirable c), it is most likely due to buffer solution mismatch or ionisation of the buffer. Often samples will carry with them traces of solvent used in their synthesis - hence the need for exhaustive dialysis.<br><br>
 
 					Degassing:<br>
 					The generation of bubbles in the sample (or reference) solutions during an ITC experiment will generate spurious heat signals. Hence the solutions should be degassed prior to filling the cell and injection syringe. This is normally achived using vacuum degassing equipment provided with the machine. <br><br>
-					{{view.experiment.examples[14].isComplete==null}}
+					
 				</div>
 
-				<div class=question-box ng-show='view.experiment.examples[14].isComplete==false'>
+				<div class=question-box ng-show='view.experiment.examples[12].isComplete==false'>
 					<div class='modal-example-title'>Solution Preparation Introduction</div>
 					<div class=modal-question-content>
-					Now that you have learnt about some considerations for solution preparation, we are going to practice using the solution preparation module of this ITC machine. The module is a simulation of the steps required to make up a solution, and the associated handling procedures. It is not designed to perfectly replicate the mechanical process - that involves weighing out masses of reactants and proper use of equipment (stuff better learnt in the lab). (It will hopefully force you to plan your experiments more closely.) It is difficult to make any wrong descisions using this modlule, instead, it gives you practice in the basic calculations and sequence of solution preparation so that it is second nature when in the wet lab. It changes the mechanics of the machine - now you do not just enter concnetrations of ligand and sample, but are required to make up soutions before running them. You are given a set mass of ligand and sample, and could be given more than one pair!<br><br>
+					Now that you have learnt about some considerations for solution preparation, we are going to practice using the solution preparation module of this ITC machine. The module is a simulation of the steps required to make up a solution, and the associated handling procedures. It is not designed to replicate the mechanical process - that involves weighing out masses of reactants and proper use of equipment which you wil learn in the 'wet' lab. The way you enter concnetrations has nw changed - now you do not just enter concentrations of ligand and sample, but are required to make up soutions before running them. <br><br>
 
 					The module will become available after you click continue below. <br><br>
 
 					The module has 3 basic functions:<br>
 					(1) MakeUp - select which ligand/sample you want to make up, then enter mass of sample/ligand and volumes of buffer to use to make up your solution. The molecular weight is displayed in this section. <br>
 					(2) Handling - select which solution you want to dialyse and degass, then click the buttons to perform the desired action.<br>
-					(3) Solution/Mass Tracking - any solutions ready to be used in experiments are kept here. The volume of prepared solutions you have available to use in experiments is listed here.<br><br>
+					(3) Solution Tracking - any solutions ready to be used in experiments are kept here. The volume of prepared solutions you have available to use in experiments is listed here.<br><br>
 
-					Solutions only appear in solution tracking (and hence available for experiments) when they have been properly dialysed and degassed. Any volume used in an experiment will be subtracted from your available volumes.<br><br>
+					Solutions only appear in solution tracking when they have been properly dialysed and degassed. Any volume used in an experiment will be subtracted from your available volumes.<br><br>
 
 					So lets practice a bit!<br><br>
 
@@ -1122,18 +1271,18 @@
 					Volume syringe = 0.000250l (250μl)<br><br>
 					
 					Use:<br>
-					[EDTA] = placeholder<br>
-					[Ca] = placeholder<br>
+					c = 100,<br>
+					k = 44000000,<br>
 					Number of Injections: 25,<br>
 					Volume of injections: 10&Mu;l,<br>
-					Time between injections: 5s<br>
+					Time between injections: 50s<br>
 
 					</div>
 					<div class='modal-question-footer'>
-						<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click="view.runExample([12]);view.experiment.solutionPrep=1">Continue</button>
+						<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click="view.experiment.solutionPrep=1;view.compileCookieData();view.runExample([12])">Continue</button>
 					</div>	
 				</div>
-				<div class=question-box ng-show='view.experiment.examples[14].isComplete==true'>
+				<div class=question-box ng-show='view.experiment.examples[12].isComplete==true'>
 					<div class='modal-example-title'>Solution Preparation Introduction</div>
 					<div class=modal-question-content>
 					Well Done!<br><br> 
@@ -1142,7 +1291,7 @@
 					</div>		
 				</div>
 
-				<div class='modal-body'
+				<div class='modal-body'>
 					<u>COLLECTING DATA</u><br><br>
 					The experiment should be run using the parameters calulated during the planning stage. The number and volume of injections can vary: when the same concentrations are used, a titration programmed to deliver a large number of injections of a smaller volume will result more data points and hence better anaysis. However, the length of time the run takes increases with increasing number of injections - the equilibration time between smaller injections is similar to large injections - so it is important to balance time constraints vs error constraints. <br><br>
 
@@ -1157,14 +1306,15 @@
 
 				</div>
 
-				<div class=question-box ng-show='view.experiment.examples[15].isComplete==false'>
+				<div class=question-box ng-show='view.experiment.examples[13].isComplete==false'>
 					<div class='modal-example-title'>Correcting Raw Data</div>
 					<div class=modal-question-content>
-					Now you have an overview of the steps required to correct raw ITC data, we will run though an example of how you can correct for this on this software. To keep things simple, the software automatically subtacts the heat of dilution and blank data from the raw data PROVIDED THAT YOU RUN BACKGROUND EXPERIMENTS BEFOREHAND. That is, you are expected to run:<br>
+					Now you have an overview of the steps required to correct raw ITC data, we will run though an example of how you can correct for this on the software. To keep things simple, the software automatically subtacts the heat of dilution and blank data from the raw data PROVIDED THAT YOU RUN BACKGROUND EXPERIMENTS BEFOREHAND. That is, you are expected to run:<br><br>
+
 					(1) Ligand solution against buffer<br>
 					(2) Sample solution against buffer<br><br>
 
-					These background are automatic if you click 'Background' when either concentrations are 0M.<br><br>
+					These background are automatic if you click 'Background' when you run a buffer vs sample or buffer vs ligand.<br><br>
 
 					It is not necessary to run the blank-blank experiment - the heat produced during this run is almost always negligable, it is most often used as a way to clean the machine between runs.<br><br>
 
@@ -1176,18 +1326,18 @@
 					Volume syringe = 0.000250l (250μl)<br><br>
 					
 					Use:<br>
-					[EDTA] = placeholder<br>
-					[Ca] = placeholder<br>
+					c = 100,<br>
+					k = 44000000<br>
 					Number of Injections: 25,<br>
 					Volume of injections: 10&Mu;l,<br>
-					Time between injections: 5s<br>
+					Time between injections: 50s<br>
 
 					</div>
 					<div class='modal-question-footer'>
-						<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click="view.runExample([13]);view.experiment.solutionPrep=2">Continue</button>
+						<button type="button" class="modal-button clickable2" ng-show='view.experiment.examples[12].isComplete==true' data-dismiss="modal" ng-click="view.runExample([13]);view.experiment.solutionPrep=2; view.experiment.consoleChange(['12b']);view.compileCookieData()">Continue</button>
 					</div>	
 				</div>
-				<div class=question-box ng-show='view.experiment.examples[15].isComplete==true'>
+				<div class=question-box ng-show='view.experiment.examples[13].isComplete==true'>
 					<div class='modal-example-title'>Solution Preparation Introduction</div>
 					<div class=modal-question-content>
 					Well Done!<br><br> 
@@ -1216,21 +1366,21 @@
 					<h4 class="modal-title" id="modalLabel">Analysis</h4>
 				</div>
 				<div class="modal-body">
-					The last stage of the experiment (before we decide if the experiment is successfull or not) is to analyse the raw data. As discussed, there are two methods available for this task:<br>
-					(1) Iterative method - computer based<br>
-					(2) Asymptote method - manual spreadsheet<br><br>
+					The last stage of the experimental cycle is to analyse the raw data. As discussed, there are two methods available for this task:<br>
+					<font color="#51A7F9">(1) Iterative method - computer based<br>
+					(2) Asymptote method - manual spreadsheet<br><br></font>
 
-					For the purposes of this tutorial, we will focus on using the asymptote method, but a broef overview of the iterative method will be provided. While slightly more longwinded than the iterative method, using the asymptote method will encorage you to think critically about the technique and the pitfalls ascociated with it, and also help you to understand the process behind the analysis. We will give a brief overview of the method then step by step will talk you through how to make a spreadsheet to do the calculations automatically. <br><br>
+					For the purposes of this tutorial, we will focus on using the asymptote method, but a brief overview of the iterative method will be provided. While slightly more longwinded than the iterative method, using the asymptote method will encorage you to think critically about the technique and the pitfalls ascociated with it, and also help you to understand the process behind the analysis. We will give a brief overview of the method then step by step will talk you through how to make a spreadsheet to do the calculations automatically. <br><br>
 
-					(1) Iterative:<br>
-					The method solves for &Delta;H<sub>R</sub> and K<sub>eq</sub> simultaneously by starting from an approximate K<sub>eq</sub> and then calculating hypothetical &Delta;H<sub>R</sub> for each addition of titrant. Based on the variation between these enthalpy figures, the approximate K<sub>eq</sub> value is adjusted, and the enthalpies recalculated. Over a large number of iterations, the variation between the individual &Delta;H<sub>R</sub> is minimised, to yield the values of K<sub>eq</sub> and &Delta;H<sub>R</sub>.<br><br>
+					<font color="#51A7F9">(1) Iterative:<br></font>
+					The method solves for &Delta;H<sub>R</sub> and K<sub>a</sub> simultaneously by starting from an approximate K<sub>a</sub> and then calculating hypothetical &Delta;H<sub>R</sub> for each addition of titrant. Based on the variation between these enthalpy figures, the approximate K<sub>a</sub> value is adjusted, and the enthalpies recalculated. Over a large number of iterations, the variation between the individual &Delta;H<sub>R</sub> is minimised, to yield the values of K<sub>a</sub> and &Delta;H<sub>R</sub>.<br><br>
 
-					(2) Asymptote:<br>
+					<font color="#51A7F9">(2) Asymptote:<br></font>
 					This method requires many repetitive calculations. For this reason, we will make a spreadsheet that allows us to easily complete them for many different ITC experiments.<br><br>
 
-					&Delta;H<sub>R</sub> is first calculated from a non-zero asymptote of the sigmoidal curve binding isotherm. During the first few injections, it is assumed that all of the added ligand reacts with the sample. The assumption is that: the complete reaction of a vanishingly small addition of titrant can be assumed (the relative extent of reaction approaches unity as the concentration approaches zero), hence the non-zero asymptote gives &Delta;H<sub>R</sub>.
+					&Delta;H<sub>R</sub> is first calculated from a non-zero asymptote of the sigmoidal curve binding isotherm. During the first few injections, it is assumed that all of the added ligand reacts with the sample. The assumption is that: the complete reaction of a vanishingly small addition of titrant can be assumed (the relative extent of reaction approaches unity as the concentration approaches zero), hence the non-zero asymptote gives &Delta;H<sub>R</sub>.<br><br>
 
-					Once the figure for &Delta;H<sub>R</sub> is known, the extent of reaction for each injection can be calculated because we know the total enthalpy change and the enthalpy change per injection. Using the extent of reaction we can find the actual concentrations of ligand and sample in the cell, and hence values for K<sub>eq</sub> can be found for each injection. Importantly, the value of K<sub>eq</sub> is calculated with the least error in the inflection region of the experiment. For the earliest or latest points in the titration, there is very high relative error resulting from very little product formed or very little reactant remaining, hence the lowest-uncertainty association constant results will come from the middle part of the titration curve. Hence the need for as many points through the inflection regoin as possbile, and an intermediate value of c.<br><br>
+					Once the figure for &Delta;H<sub>R</sub> is known, the extent of reaction for each injection can be calculated because we know the total enthalpy change and the enthalpy change per injection. Using the extent of reaction we can find the actual concentrations of ligand and sample in the cell, and hence values for K<sub>a</sub> can be found for each injection. Importantly, the value of K<sub>a</sub> is calculated with the least error in the inflection region of the experiment. For the earliest or latest points in the titration, there is very high relative error resulting from very little product formed or very little reactant remaining, hence the lowest-uncertainty association constant results will come from the middle part of the titration curve. Hence the need for as many points through the inflection regoin as possbile, and an intermediate value of c.<br><br>
 
 					A sigmoidal curve is defined by the equation:<br><br>
 					<img src="images/sigmoid.jpeg" style='display:block;margin:auto;width:150px'></img><br><br>
@@ -1243,8 +1393,8 @@
 					(ii) Fit sigmoidal curve to data.<br>
 					(iii) Extract &Delta;H<sub>R</sub> from the sigmoidal curve.<br>
 					(iv) Use &Delta;H<sub>R</sub> to calculate the extent of reaction after each injection.<br>
-					(v) Calculate a value of K<sub>eq</sub> for each injection based on extent of reaction.<br>
-					(vi) Average high certainty values of K<sub>eq</sub> to get an answer.<br>
+					(v) Calculate a value of K<sub>a</sub> for each injection based on extent of reaction.<br>
+					(vi) Average high certainty values of K<sub>a</sub> to get an answer.<br>
 
 				</div>
 				<div class=question-box ng-show='true'>
@@ -1252,13 +1402,13 @@
 					<div class=modal-question-content>
 					In order to help you create the analysis spreadsheet through which you can analyse your ITC data, we have put together a backbone spreadsheet, with some cells and calculations filled in already.<br><br>
 
-					Please click here to download the sheet.<br><br>
+					Please <a href='https://www.dropbox.com/s/aju9rh0uicrj2s0/Analysis_Spreadsheet.xlsx?dl=0' target='_blank'>click here</a> to download the sheet.<br><br>
 
 					There is data already entered into the spreadsheet. This is a real ITC experiment that we are going to analyse together.<br><br>
 
-					Have a look around the spreadsheet - familiarise yourself with it. The calculation takes place from left to right. Orange boxes are reserved for data input, yellow boxes are adjusted by you, and the green box on the far right will output the answer for K<sub>eq</sub>.<br><br>
+					Have a look around the spreadsheet - familiarise yourself with it. The calculation takes place from left to right. Orange boxes are reserved for data input, yellow boxes are adjusted by you, and the green box on the far right will output the answer for K<sub>a</sub>.<br><br>
 
-					Before we start adjusting and plotting the data onto the graph, we want you to have a quick play aroud with the parametters A, B and C in the yellow boxes. These are the parameters in the equation above and they adjust the shape of the sigmoid displayed on the graph (we have entered the sigmoidal curve equation for you). Make sure that you understand the effect of adjusting the values on the shape. <br>
+					
 					</div>
 				</div>
 					<!-- <div class="modal-question-footer">
@@ -1270,23 +1420,24 @@
 					(A) The input data is inputted in units of μJ. <br>
 
 					(B) Corrected data column. <br><br>
-					Create a cell where you can enter the constant correction, and apply it to (A) to give the cells in (B). (We need to be able to correct the data for heat of dilution effects described in the 'Running' tab)<br><br>
+
+					Create a cell where you can enter the constant correction, and apply it to (A) to give the cells in (B). (We need to be able to correct the data for heat of dilution effects described in the 'Running' tab - however, because the software automatically removes the background reading, this can be set to 0 for our purposes)<br><br>
 
 					(D) Is the second input column. This is where the volume of titrant (in liters) is added. <br>
 
-					(E) Calulates the amount of titrant added for each individual injection, while <br>
+					(E) Calulates the amount of titrant added for each individual injection <br>
 
 					(F) Calculates the cumulative amount of titrant added after each subsequent injection.<br>
 
 					
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[7].IsCorrect==null'>
-					<div class='modal-example-title'>(ia) Plot the data!</div>
+				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==null'>
+					<div class='modal-question-question'>(E) & (F)</div>
 					<div class=modal-question-content>
 					
 					Complete the formulae for (E) and (F) now. <br><br>
 
-					When you are finished, using titration volumes of 10μl, titrant concentrations of (placeholder), and a correction of 0μJ, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br>
+					When you are finished, using titration volumes of 10μl, titrant concentrations of 0.001M, and a correction of 0μJ, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -1294,27 +1445,27 @@
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,7)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,9)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[7].IsCorrect==true'>
-					<div class='modal-example-title'>(ia) Plot the data - CORRECT!</div>
+				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==true'>
+					<div class='modal-question-title-correct'>(E) & (F) CORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your value is correct. Please proceed. <br><br>
 
 					</div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[7].IsCorrect==false && view.experiment.questions[7].beenWrong<=4'>
-					<div class='modal-example-title'>(ia) Plot the data - INCORRECT!</div>
+				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==false && view.experiment.questions[9].beenWrong<=4'>
+					<div class='modal-question-title-incorrect'>(E) & (F) INCORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your answer is wrong, please try again.<br><br>
 
-					Using titration volumes of 10μl, titrant concentrations of (placeholder), and a correction of 0, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br><br>
+					Using titration volumes of 10μl, titrant concentrations of 0.001M, and a correction of 0, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br><br>
 
 					Enusre that you have entered the volumes and concentrations in liters and M respectively.
 
@@ -1324,19 +1475,19 @@
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,7)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,9)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[7].IsCorrect==false && view.experiment.questions[7].beenWrong>4'>
-					<div class='modal-example-title'>(ia) Plot the data - INCORRECT!</div>
+				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==false && view.experiment.questions[9].beenWrong>4'>
+					<div class='modal-question-title-incorrect'>(E) & (F) INCORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing
 
-					Using titration volumes of 10μl, titrant concentrations of (placeholder), and a correction of 0, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br><br>
+					Using titration volumes of 10μl, titrant concentrations of 0.001M, and a correction of 0, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br><br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -1344,25 +1495,25 @@
 							<div>
 								Demonstrator Input:<br>
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,7)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,9)">Answer</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<div class='modal-body'>					
-					Now we complete the calculation in order to plot the graph. <br><br>
+					Now we complete the calculation in order to plot the normalised graph of heat per mole of injectant vs moles of injectant. <br><br>
 					
 					(G) Is a units swap (for the graph) from mol to nmol<br>
 
 					(H) Is the enthalpy change for each injection, in units of J/mol
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[8].IsCorrect==null'>
-					<div class='modal-example-title'>(i) Plot the data!</div>
+				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==null'>
+					<div class='modal-question-question'>(G) & (H)</div>
 					<div class=modal-question-content>
 					
 					Complete the formulae for (G) and (H) now. <br><br>
 
-					When you are finished, using titration volumes of 10μl, titrant concentrations of (placeholder), and a correction of 0μJ, enter the contents of the first cell in column (H) into the box below to check you are proceeding correctly.<br>
+					When you are finished, using titration volumes of 10μl, titrant concentrations of 0.001M, and a correction of 0μJ, enter the contents of the first cell in column (H) into the box below to check you are proceeding correctly.<br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -1370,27 +1521,27 @@
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,8)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,10)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[8].IsCorrect==true'>
-					<div class='modal-example-title'>(ib) Plot the data - CORRECT!</div>
+				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==true'>
+					<div class='modal-question-title-correct'>(G) & (H) CORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your value is correct. Please proceed. <br><br>
 
 					</div>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[8].IsCorrect==false && view.experiment.questions[8].beenWrong<=4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
+				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==false && view.experiment.questions[10].beenWrong<=4'>
+					<div class='modal-question-title-incorrect'>(G) & (H) INCORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your answer is wrong, please try again.<br><br>
 
-					Using titration volumes of 10μl, titrant concentrations of (placeholder), and a correction of 0, enter the contents of the last cell in column (H) into the box below to check you are proceeding correctly.<br><br>
+					Using titration volumes of 10μl, titrant concentrations of 0.001M, and a correction of 0, enter the contents of the last cell in column (H) into the box below to check you are proceeding correctly.<br><br>
 
 					Enusre that you have entered the volumes and concentrations in liters and M respectively.
 
@@ -1400,19 +1551,19 @@
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,8)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,10)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[8].IsCorrect==false && view.experiment.questions[8].beenWrong>4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
+				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==false && view.experiment.questions[10].beenWrong>4'>
+					<div class='modal-question-title-incorrect'>(G) & (H) INCORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing
 
-					Using titration volumes of 10μl, titrant concentrations of (placeholder), and a correction of 0, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br><br>
+					Using titration volumes of 10μl, titrant concentrations of 0.001M, and a correction of 0, enter the contents of the last cell in column (F) into the box below to check you are proceeding correctly.<br><br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -1420,7 +1571,7 @@
 							<div>
 								Demonstrator Input:<br>
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,8)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,10)">Answer</button>
 							</div>
 						</form>
 					</div>
@@ -1438,195 +1589,15 @@
 
 					Hence, (K) is the percentage extent of reaction for each injection. It is not an overall extent of reaction, but shows the percentage of ligand for THAT PARTICULAR INJECTION that has reacted. Based on what we know about the shape of the curve, we expect the values to be close to 100% for the first few injections, decreasing rapidly though the equivalence point, and close to 0% for the final few injections.<br>
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==null'>
-					<div class='modal-example-title'>(i) Plot the data!</div>
-					<div class=modal-question-content>
-					
-					Complete the formulae for (K) now. <br><br>
-
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
-
-					When you are finished, enter the contents of the first cell in column (K) into the box below to check you are proceeding correctly.<br>
-
-					</div>
-					<div class='modal-question-footer'>
-						<form novalidate name='answer_form'>
-							<div>
-								
-								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,9)">Answer</button>
-							</div>
-						</form>
-					</div>
-					
-				</div>
-				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==true'>
-					<div class='modal-example-title'>(ib) Plot the data - CORRECT!</div>
-					<div class=modal-question-content>
-					
-					Your value is correct. Please proceed. <br><br>
-
-					</div>
-				</div>
-				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==false && view.experiment.questions[9].beenWrong<=4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
-					<div class=modal-question-content>
-					
-					Your answer is wrong, please try again.<br><br>
-
-					Complete the formulae for (K) now. <br><br>
-
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
-
-					When you are finished, enter the contents of the first cell in column (K) into the box below to check you are proceeding correctly.<br>
-					</div>
-					<div class='modal-question-footer'>
-						<form novalidate name='answer_form'>
-							<div>
-								
-								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,9)">Answer</button>
-							</div>
-						</form>
-					</div>
-					
-				</div>
-				<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==false && view.experiment.questions[9].beenWrong>4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
-					<div class=modal-question-content>
-					
-					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing.<br><br>
-
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
-
-					When you are finished, enter the contents of the first cell in column (K) into the box below to check you are proceeding correctly.<br>
-
-					</div>
-					<div class='modal-question-footer'>
-						<form novalidate name='answer_form'>
-							<div>
-								Demonstrator Input:<br>
-								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,9)">Answer</button>
-							</div>
-						</form>
-					</div>
-				</div>
-				
-				<div class='modal-body'>
-					We can now use these data on the extent of reaction to calculate a value of K<sub>eq</sub> for each injection. In order to find K<sub>eq</sub>, we need to know:<br>
-					+ the concentration of the ligand after each injection<br>
-					+ the concentration of the reacted sample after each injection<br>
-					+ the concentration of the unreacted sample after each injection<br>
-
-					These calculations should not be too difficult, considering that we know how much of each aliquot has reacted! We just need to remember to account for increasing volume of sample cell which leads to dilution of the solutions, and also the stoichiometry of the reaction - found from the infection point of the graph.<br><br>
-
-					(L) Turns the relative extent (K) into moles of titrant reacted (individual injection)(using amount of titrant, stoichiometry, relative extent)<br>
-					(M) Finds the number of moles of unreacted titrant (individal injection)<br>
-					(N) Finds the cumulative amount of reacted titrant<br>
-					(O) Finds the cumulative amount of unreacted titrant<br>	
-				</div>
-				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==null'>
-					<div class='modal-example-title'>(i) Plot the data!</div>
-					<div class=modal-question-content>
-					
-					Complete the formulae for (L), (M), (N) and (O) now. <br><br>
-
-					Do not forget to consider the stoichiometry when calculating (L) - moles of titrant reacted. Remember that the stoichiometry can be found from the inflection point in the graph.<br><br>
-
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
-
-					When you are finished, enter the contents of the LAST cell in column (O) into the box below to check you are proceeding correctly.<br>
-
-					</div>
-					<div class='modal-question-footer'>
-						<form novalidate name='answer_form'>
-							<div>
-								
-								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,10)">Answer</button>
-							</div>
-						</form>
-					</div>
-					
-				</div>
-				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==true'>
-					<div class='modal-example-title'>(ib) Plot the data - CORRECT!</div>
-					<div class=modal-question-content>
-					
-					Your value is correct. Please proceed. <br><br>
-
-					</div>
-				</div>
-				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==false && view.experiment.questions[10].beenWrong<=4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
-					<div class=modal-question-content>
-					
-					Your answer is wrong, please try again.<br><br>
-
-					Complete the formulae for (L), (M), (N) and (O) now. <br><br>
-
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
-
-					When you are finished, enter the contents of the ast cell in column (O) into the box below to check you are proceeding correctly.<br>
-					</div>
-					<div class='modal-question-footer'>
-						<form novalidate name='answer_form'>
-							<div>
-								
-								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,10)">Answer</button>
-							</div>
-						</form>
-					</div>
-					
-				</div>
-				<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==false && view.experiment.questions[10].beenWrong>4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
-					<div class=modal-question-content>
-					
-					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing
-
-					Complete the formulae for (L), (M), (N) and (O) now. <br><br>
-
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
-
-					When you are finished, enter the contents of the last cell in column (O) into the box below to check you are proceeding correctly.<br>
-					</div>
-					<div class='modal-question-footer'>
-						<form novalidate name='answer_form'>
-							<div>
-								Demonstrator Input:<br>
-								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,10)">Answer</button>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="modal-body">
-					We are almost there now! The last two steps in finding K<sub>eq</sub> have already been discussed:<br>
-					+ find the total amount of unreacted sample left in the cell<br>
-					+ turn the amounts of reacted ligand, unreacted ligand, and unreacted sample into concentrations to use to find K<sub>eq</sub><br><br>
-
-					(R) Gives the amount of sample remaining after each injection.
-					(S) Is the volume of the cell after each injection.
-					(T) Is the concentration of sample-ligand complex after equilibration.
-					(U) Is the concentration of unreacted sample after equilibration.
-					(V) Is the concentration of unreacted ligand after equilibration.
-
-					To find the amount of unreacted sample: start with the total amount of sample before the first injection, and take away the amount that reacts each time<br><br>
-
-					Remember that in this ITC machine, the volume of the cell increases after each injection.
-				</div>
 				<div class=question-box ng-show='view.experiment.questions[11].IsCorrect==null'>
-					<div class='modal-example-title'>(i) Plot the data!</div>
+					<div class='modal-question-question'>(K)</div>
 					<div class=modal-question-content>
 					
-					Complete the formulae for (R), (S), (T), (U) and (V) now. <br><br>
+					Complete the formulae for (K) now. <br><br>
 
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
 
-					When you are finished, enter the contents of the LAST cell in column (O) into the box below to check you are proceeding correctly.<br>
+					When you are finished, enter the contents of the first cell in column (K) into the box below to check you are proceeding correctly.<br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -1634,14 +1605,14 @@
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,11)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,11)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[11].IsCorrect==true'>
-					<div class='modal-example-title'>(ib) Plot the data - CORRECT!</div>
+					<div class='modal-question-title-correct'>(K) - CORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your value is correct. Please proceed. <br><br>
@@ -1649,38 +1620,38 @@
 					</div>
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[11].IsCorrect==false && view.experiment.questions[11].beenWrong<=4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
+					<div class='modal-question-title-incorrect'>(K) INCORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your answer is wrong, please try again.<br><br>
 
-					Complete the formulae for (R), (S), (T), (U) and (V) now. <br><br>
+					Complete the formulae for (K) now. <br><br>
 
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
 
-					When you are finished, enter the contents of the ast cell in column (O) into the box below to check you are proceeding correctly.<br>
+					When you are finished, enter the contents of the first cell in column (K) into the box below to check you are proceeding correctly.<br>
 					</div>
 					<div class='modal-question-footer'>
 						<form novalidate name='answer_form'>
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,11)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,11)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[11].IsCorrect==false && view.experiment.questions[11].beenWrong>4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
+					<div class='modal-question-title-incorrect'>(K) - INCORRECT!</div>
 					<div class=modal-question-content>
-					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing
+					
+					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing.<br><br>
 
-					Complete the formulae for (R), (S), (T), (U) and (V) now. <br><br>
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
 
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
+					When you are finished, enter the contents of the first cell in column (K) into the box below to check you are proceeding correctly.<br>
 
-					When you are finished, enter the contents of the last cell in column (O) into the box below to check you are proceeding correctly.<br>
 					</div>
 					<div class='modal-question-footer'>
 						<form novalidate name='answer_form'>
@@ -1692,23 +1663,31 @@
 						</form>
 					</div>
 				</div>
-				<div class="modal-body">
-					Congratulations! We are there! We can finally calculate the value of K<sub>eq</sub>. We find K<sub>eq</sub> for each injection, and then average the values over the inflection region. The reason we use the infection region is because of very high relative erro in the early and late parts of the experiment (why?).<br><br>
+				
+				<div class='modal-body'>
+					We can now use these data on the extent of reaction to calculate a value of K<sub>a</sub> for each injection. In order to find K<sub>a</sub>, we need to know:<br>
+					+ the concentration of the ligand after each injection<br>
+					+ the concentration of the reacted sample after each injection<br>
+					+ the concentration of the unreacted sample after each injection<br>
 
-					We have set up the average for you - you can adjust the range that it averages over for EACH EXPERIMENT in order to get the most accurate results. For example - if the infection regoin is only 2 or 3 points wide then you take those points. If you have managed to get 10 points into the infection region, then use all of them!<br>
+					These calculations should not be too difficult, considering that we know how much of each aliquot has reacted! We just need to remember to account for increasing volume of sample cell which leads to dilution of the solutions, and also the stoichiometry of the reaction - found from the infection point of the graph.<br><br>
 
-					Lets complete:<br>
-					(W) The K<sub>eq</sub> value after each injection.
+					(L) Turns the relative extent (K) into moles of titrant reacted<br>
+					(M) Finds the number of moles of unreacted titrant <br>
+					(N) Finds the cumulative amount of reacted titrant<br>
+					(O) Finds the cumulative amount of unreacted titrant<br>	
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[12].IsCorrect==null'>
-					<div class='modal-example-title'>(i) Plot the data!</div>
+					<div class='modal-question-question'>(L) & (M) & (N) & (O)</div>
 					<div class=modal-question-content>
 					
-					Complete the formulae for (W) now. <br><br>
+					Complete the formulae for (L), (M), (N) and (O) now. <br><br>
 
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
+					Do not forget to consider the stoichiometry when calculating (L) - moles of titrant reacted. Remember that the stoichiometry can be found from the inflection point in the graph.<br><br>
 
-					When you are finished, enter the contents of the LAST cell in column (W) into the box below to check you are proceeding correctly.<br>
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
+
+					When you are finished, enter the contents of the LAST cell in column (O) into the box below to check you are proceeding correctly.<br>
 
 					</div>
 					<div class='modal-question-footer'>
@@ -1716,14 +1695,14 @@
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,12)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,12)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[12].IsCorrect==true'>
-					<div class='modal-example-title'>(ib) Plot the data - CORRECT!</div>
+					<div class='modal-question-title-correct'>(L) & (M) & (N) & (O) - CORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your value is correct. Please proceed. <br><br>
@@ -1731,14 +1710,189 @@
 					</div>
 				</div>
 				<div class=question-box ng-show='view.experiment.questions[12].IsCorrect==false && view.experiment.questions[12].beenWrong<=4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
+					<div class='modal-question-title-incorrect'>(L) & (M) & (N) & (O) - INCORRECT!</div>
+					<div class=modal-question-content>
+					
+					Your answer is wrong, please try again.<br><br>
+
+					Complete the formulae for (L), (M), (N) and (O) now. <br><br>
+
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
+
+					When you are finished, enter the contents of the ast cell in column (O) into the box below to check you are proceeding correctly.<br>
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,12)">Answer</button>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[12].IsCorrect==false && view.experiment.questions[12].beenWrong>4'>
+					<div class='modal-question-title-incorrect'>(L) & (M) & (N) & (O) - INCORRECT!</div>
+					<div class=modal-question-content>
+					
+					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing
+
+					Complete the formulae for (L), (M), (N) and (O) now. <br><br>
+
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
+
+					When you are finished, enter the contents of the last cell in column (O) into the box below to check you are proceeding correctly.<br>
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								Demonstrator Input:<br>
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,12)">Answer</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-body">
+					We are almost there now! The last two steps in finding K<sub>a</sub> have already been discussed:<br>
+
+					But first, look at (P) and (Q) - they are set up as <i>checks</i>. They calculate the total moles of titrant from two different data sources but should be the same!<br><br>
+
+					+ find the total amount of unreacted sample left in the cell<br>
+					+ turn the amounts of reacted ligand, unreacted ligand, and unreacted sample into concentrations to use to find K<sub>a</sub><br><br>
+
+					(R) Gives the amount of sample remaining after each injection.
+					(S) Is the volume of the cell after each injection.
+					(T) Is the concentration of sample-ligand complex after equilibration.
+					(U) Is the concentration of unreacted sample after equilibration.
+					(V) Is the concentration of unreacted ligand after equilibration.
+
+					To find the amount of unreacted sample: start with the total amount of sample before the first injection, and take away the amount that reacts each time<br><br>
+
+					Remember that in this ITC machine, the volume of the cell increases after each injection.
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[13].IsCorrect==null'>
+					<div class='modal-question-question'>(R) & (S) & (T) & (U) & (V)</div>
+					<div class=modal-question-content>
+					
+					Complete the formulae for (R), (S), (T), (U) and (V) now. <br><br>
+
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
+
+					When you are finished, enter the contents of the LAST cell in column (V) into the box below to check you are proceeding correctly.<br>
+
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,13)">Answer</button>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[13].IsCorrect==true'>
+					<div class='modal-question-title-correct'>(R) & (S) & (T) & (U) & (V) - CORRECT!</div>
+					<div class=modal-question-content>
+					
+					Your value is correct. Please proceed. <br><br>
+
+					</div>
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[13].IsCorrect==false && view.experiment.questions[13].beenWrong<=4'>
+					<div class='modal-question-title-incorrect'>(R) & (S) & (T) & (U) & (V) - INCORRECT!</div>
+					<div class=modal-question-content>
+					
+					Your answer is wrong, please try again.<br><br>
+
+					Complete the formulae for (R), (S), (T), (U) and (V) now. <br><br>
+
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
+
+					When you are finished, enter the contents of the ast cell in column (O) into the box below to check you are proceeding correctly.<br>
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,13)">Answer</button>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[13].IsCorrect==false && view.experiment.questions[13].beenWrong>4'>
+					<div class='modal-question-title-incorrect'>(i) Plot the data - INCORRECT!</div>
+					<div class=modal-question-content>
+					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing
+
+					Complete the formulae for (R), (S), (T), (U) and (V) now. <br><br>
+
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
+
+					When you are finished, enter the contents of the last cell in column (O) into the box below to check you are proceeding correctly.<br>
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								Demonstrator Input:<br>
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,13)">Answer</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-body">
+					Congratulations! You are there! You can calculate the value of K<sub>a</sub>. We find K<sub>a</sub> for each injection, and then average the values over the inflection region. The reason we use the infection region is because of very high relative error in the early and late parts of the experiment.<br><br>
+
+					The average is set up for you - you can adjust the range that it averages over for EACH EXPERIMENT in order to get the most accurate results. For example - if the infection regoin is only 2 or 3 points wide then you take those points. If you have managed to get 10 points into the infection region, then use all of them!<br>
+
+					Lets complete:<br>
+					(W) The K<sub>a</sub> value after each injection.
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[14].IsCorrect==null'>
+					<div class='modal-question-question'>(W)</div>
+					<div class=modal-question-content>
+					
+					Complete the formulae for (W) now. <br><br>
+
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
+
+					When you are finished, enter the contents of the LAST cell in column (W) into the box below to check you are proceeding correctly.<br>
+
+					</div>
+					<div class='modal-question-footer'>
+						<form novalidate name='answer_form'>
+							<div>
+								
+								<input class="form" name="macroConc" ng-model='answer' type="number" required>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,14)">Answer</button>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[14].IsCorrect==true'>
+					<div class='modal-question-title-correct'>(W) - CORRECT!</div>
+					<div class=modal-question-content>
+					
+					Your value is correct. Please proceed. <br><br>
+
+					</div>
+				</div>
+				<div class=question-box ng-show='view.experiment.questions[14].IsCorrect==false && view.experiment.questions[14].beenWrong<=4'>
+					<div class='modal-question-title-incorrect'>(W) - INCORRECT!</div>
 					<div class=modal-question-content>
 					
 					Your answer is wrong, please try again.<br><br>
 
 					Complete the formulae for (W) now. <br><br>
 
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
 
 					When you are finished, enter the contents of the LAST cell in column (W) into the box below to check you are proceeding correctly.<br>
 					</div>
@@ -1747,20 +1901,20 @@
 							<div>
 								
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.mQuestion(answer,12)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.cQuestion(answer,14)">Answer</button>
 							</div>
 						</form>
 					</div>
 					
 				</div>
-				<div class=question-box ng-show='view.experiment.questions[12].IsCorrect==false && view.experiment.questions[12].beenWrong>4'>
-					<div class='modal-example-title'>(i) Plot the data - INCORRECT!</div>
+				<div class=question-box ng-show='view.experiment.questions[14].IsCorrect==false && view.experiment.questions[14].beenWrong>4'>
+					<div class='modal-question-title-incorrect'>(W) - INCORRECT!</div>
 					<div class=modal-question-content>
 					Your answer is wrong for the 5th time. Please contact a demonstrator before continuing
 
 					Complete the formulae for (W) now. <br><br>
 
-					Select A = , B = , C = as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of (placeholder) and a correction of 0μJ for now.<br><br>
+					Select A = 37500, B = 0.0515, C = 122 as the curve fitting parameters, titration volumes of 10μl, titrant concentrations of 0.001M and a correction of 0μJ for now.<br><br>
 
 					The demonstrator will set your answer to 'correct' when they have spoken to you. 
 					</div>
@@ -1769,7 +1923,7 @@
 							<div>
 								Demonstrator Input:<br>
 								<input class="form" name="macroConc" ng-model='answer' type="number" required>
-								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,12)">Answer</button>
+								<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,14)">Answer</button>
 							</div>
 						</form>
 					</div>
@@ -1821,9 +1975,9 @@
 						Volume of Buffer:&nbsp;&nbsp;
 						<input class="form" name="volume" ng-model='volume2' type="number" required placeholder='number' min=">0">
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" ng-disabled='solution_makeup.mass.$invalid || solution_makeup.volume.$invalid || whichSolution1==-1 || whichBuffer==-1' class="modal-button clickable2" ng-click="view.experiment.concentrations(mass2,volume2,whichSolution1,view.ligandOrSample,whichBuffer);console.log(view.experiment.solutions)">MakeUp</button>
+						<button type="button" ng-disabled='solution_makeup.mass.$invalid || solution_makeup.volume.$invalid || whichSolution1==-1 || whichBuffer==-1' class="modal-button clickable2" ng-click="view.experiment.concentrations(mass2,volume2,whichSolution1,view.ligandOrSample,whichBuffer);view.compileCookieData()">MakeUp</button>
 					</form><br>
-					Concentration:  {{view.experiment.concentration}}&nbsp;&nbsp;moldm<sup>-3</sup>
+					Concentration:  {{view.experiment.concentration.toPrecision([4])}}&nbsp;&nbsp;moldm<sup>-3</sup>
 					<br><br><br>
 
 					<b>2. SOLUTION HANDLING</b><br><br>
@@ -1836,22 +1990,22 @@
 					Select:
 					<select ng-show="view.ligandOrSample2==1" class="units_dropdown" ng-model="whichSolution2" ng-init="whichSolution2=-1">
 						<option ng-value='-1'>Select</option>
-						<option  ng-repeat="(key, value) in view.experiment.ligandSolutions" ng-value="key" ng-show="view.experiment.ligandSolutions[key].isDialysed==false || view.experiment.ligandSolutions[key].isDegassed==false">{{view.experiment.ligandSolutions[key].iD}}, {{view.experiment.ligandSolutions[key].concentration}}M</option>
+						<option  ng-repeat="(key, value) in view.experiment.ligandSolutions" ng-value="key" ng-show="view.experiment.ligandSolutions[key].isDialysed==false || view.experiment.ligandSolutions[key].isDegassed==false">{{view.experiment.ligandSolutions[key].iD}}, {{view.experiment.ligandSolutions[key].concentration.toPrecision([4])}}M</option>
 					</select>
 				
 					<select ng-show="view.ligandOrSample2==2" class="units_dropdown" ng-model="whichSolution2" ng-init="whichSolution2=-1">
 						<option ng-value='-1'>Select</option>
-						<option  ng-repeat="(key, value) in view.experiment.sampleSolutions" ng-value="key" ng-show="view.experiment.sampleSolutions[key].isDialysed==false || view.experiment.sampleSolutions[key].isDegassed==false" >{{view.experiment.sampleSolutions[key].iD}}, {{view.experiment.sampleSolutions[key].concentration}}M</option>
+						<option  ng-repeat="(key, value) in view.experiment.sampleSolutions" ng-value="key" ng-show="view.experiment.sampleSolutions[key].isDialysed==false || view.experiment.sampleSolutions[key].isDegassed==false" >{{view.experiment.sampleSolutions[key].iD}}, {{view.experiment.sampleSolutions[key].concentration.toPrecision}}M</option>
 					</select>
 
 					<div class='modal-question-footer' ng-show="view.ligandOrSample2==1">
 						<button type="button" class="modal-button clickable2" ng-disabled="whichSolution2==-1 || view.experiment.ligandSolutions[whichSolution2].isDialysed==true" ng-click="view.experiment.ligandSolutions[whichSolution2].isDialysed=true;view.experiment.degassDialyse()">Dialyse</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="modal-button clickable2" ng-disabled="view.experiment.ligandSolutions[whichSolution2].isDegassed==true || whichSolution2==-1" ng-click="view.experiment.ligandSolutions[whichSolution2].isDegassed=true;view.experiment.degassDialyse()">Degass</button>
+						<button type="button" class="modal-button clickable2" ng-disabled="view.experiment.ligandSolutions[whichSolution2].isDegassed==true || whichSolution2==-1" ng-click="view.experiment.ligandSolutions[whichSolution2].isDegassed=true;view.experiment.degassDialyse();view.compileCookieData()">Degass</button>
 
 					</div>
 					<div class='modal-question-footer' ng-show="view.ligandOrSample2==2">
 						<button type="button" class="modal-button clickable2" ng-disabled="whichSolution2==-1 || view.experiment.sampleSolutions[whichSolution2].isDialysed==true" ng-click="view.experiment.sampleSolutions[whichSolution2].isDialysed=true;view.experiment.degassDialyse()">Dialyse</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="modal-button clickable2" ng-disabled="view.experiment.sampleSolutions[whichSolution2].isDegassed==true || whichSolution2==-1" ng-click="view.experiment.sampleSolutions[whichSolution2].isDegassed=true;view.experiment.degassDialyse()">Degass</button>
+						<button type="button" class="modal-button clickable2" ng-disabled="view.experiment.sampleSolutions[whichSolution2].isDegassed==true || whichSolution2==-1" ng-click="view.experiment.sampleSolutions[whichSolution2].isDegassed=true;view.experiment.degassDialyse();view.compileCookieData()">Degass</button>
 					</div>
 				</div>
 				
@@ -1866,110 +2020,30 @@
 					<h4 class="modal-title" id="modalLabel">Experimental Overview</h4>
 				</div>
 				<div class="modal-body">
-					Recall the basics steps that make up an ITC experiment:<br><br>
-
-					In this section, we will ask you to recall as much as you can from each stage of the procedure. As a reminder, the title headings are laid out below. We will also ask you some questions about the theory of the technique. Take your time answering the questions, your answers will be saved and marked by the demonstrator beofre you continue onto the next part of the tutorial. During the recall task, try to understand how the things your recall are interconnected, and how you will put them into practice while designing an experiment. Before you try to design a good experiment, you need to first understand the technique you are using and what you are expecting.<br><br>
-
-					<i>You cannot leave this section until you have enetered answers to all of the questions. Take your time, and do not click confirm unitl you are happy with your answer!</i><br><br>
+					Here is a reminder of the basics steps that make up an ITC experiment:<br><br>
 
 					+ <b>Planning</b><br>
-					Select: concentrations, volume of injection, number of injections, time between injections<br><br>
-
-					+ <b>Solution Preparation</b><br>
-					Do: make solutions, ?test solutions for concenrations<br><br>
-
-					+ <b>Collect Raw Data</b><br>
-					Run the experiment<br><br>
-
-					+ <b>Correct Raw Data</b><br>
-					Determine other contributions to heat release and adjust raw data<br><br>
-
-					+ <b>Process and Analyse Data</b><br>
-					Determine if hypothesis has been tested and/or disproved/proved<br><br>
-
-					+ <b>Repeat</b><br>
-					If results are inconclusive, adjust parameters/hypothesis accordingly and re-run experiment.<br><br>
-
 					
 
-				<div class='modal-body' id='center_buttons'>
-					<button ng-show="view.experiment.recallActive==false" type="button" class="modal-button clickable2" ng-click='view.experiment.recallActive=true'>Continue</button>&nbsp;&nbsp;&nbsp;
+					+ <b>Solution Preparation</b><br>
+					
+
+					+ <b>Collect Raw Data</b><br>
+					
+
+					+ <b>Correct Raw Data</b><br>
+					
+
+					+ <b>Process and Analyse Data</b><br>
+					
+
+					+ <b>Repeat</b><br><br>
+
+					When you approach an experimental design problem, you hould treat the problem as cyclical. Iterate a plan-test-reflect cycle quickly and effectively. You should form a hypothesis, then design an experiment to prove or disprove the hypothesis. If you do not gather enough data to prove or disprove it, then consider the errors in the experimental design, and iterate the plan-test-reflect cycle again. This is how an expert approaches experimental design,a nd science in general. There is no problem in making mistakes, so long as the mistakes are identified, and corrected. 
+					
 				</div>
+					
 
-				</div>
-
-				<div ng-show='view.experiment.recallActive'>
-					<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==null'>
-						<div class='modal-question-title'>Planning</div>
-						<div class=modal-question-content>
-							In the box below, please RECALL as much as you can about the PLANNING stage of the ITC experiment. Some questions you might want to consider are:<br>
-						<!-- PLANNING RECALL -->
-						</div>
-						<div class='modal-question-footer'>
-							<form novalidate name='writtenAnswer'>
-								<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
-
-								<button type='button' class='button clickable2' ng-click="view.wQuestion(1,WrittenAnswer,9)">SUBMIT</button>
-							</form>
-						</div>
-					</div>
-					<div class=question-box ng-show='view.experiment.questions[9].IsCorrect==false'>
-						<div class='modal-question-title'>Planning - submitted!</div>
-						<div class=modal-question-content>
-						Thank you for submitting your answer.
-						</div>
-						<div class='modal-question-footer'></div>
-					</div>
-					<!-- RUNNING RECALL-->
-					<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==null'>
-						<div class='modal-question-title'>Running</div>
-						<div class=modal-question-content>
-							In the box below, please RECALL as much as you can about the RUNNING stage of the ITC experiment. Some questions you might want to consider are:<br>
-							
-						</div>
-						<div class='modal-question-footer'>
-							<form novalidate name='writtenAnswer'>
-								<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
-
-								<button type='button' class='button clickable2' ng-click="view.wQuestion(1,WrittenAnswer,10)">SUBMIT</button>
-							</form>
-						</div>
-					</div>
-					<div class=question-box ng-show='view.experiment.questions[10].IsCorrect==false'>
-						<div class='modal-question-title'>Running - submitted!</div>
-						<div class=modal-question-content>
-						Thank you for submitting your answer.
-						</div>
-						<div class='modal-question-footer'></div>
-					</div>
-					<!-- ANALYSING RECALL -->
-					<div class=question-box ng-show='view.experiment.questions[11].IsCorrect==null'>
-						<div class='modal-question-title'>Analysis</div>
-						<div class=modal-question-content>
-							In the box below, please RECALL as much as you can about the ANALYSIS stage of the ITC experiment. Some questions you might want to consider are:<br>
-							
-						</div>
-						<div class='modal-question-footer'>
-							<form novalidate name='writtenAnswer'>
-								<textarea class='answer-form' name='WrittenAnswer' ng-model='WrittenAnswer' type='string' rows='4' placeholder='Written answer here...'></textarea>
-
-								<button type='button' class='button clickable2' ng-click="view.wQuestion(1,WrittenAnswer,11)">SUBMIT</button>
-							</form>
-						</div>
-					</div>
-					<div class=question-box ng-show='view.experiment.questions[11].IsCorrect==false'>
-						<div class='modal-question-title'>Analysis - submitted!</div>
-						<div class=modal-question-content>
-						Thank you for submitting your answer.
-						</div>
-						<div class='modal-question-footer'></div>
-					</div>
-					<div class='modal-body' id='center_buttons' ng-show="view.experiment.questions[9].IsCorrect==false && view.experiment.questions[10].IsCorrect==false && view.experiment.questions[11].IsCorrect==false" >
-						<button type="button" class="modal-button clickable2" data-dismiss='modal'>Continue</button>&nbsp;&nbsp;&nbsp;
-					</div>
-
-				</div>
-				
 			</div>
 		</div>
 	</div>
@@ -1984,13 +2058,11 @@
 				<div class="modal-body">
 				In this inquiry your task is to discover more about the mechanism of EDTA binding to metal ions. You will have access to Ca<sup>2+</sup>, EDTA, and 4 different buffers. Use you knowlege of ITC to discover more about the binding process in different buffers.<br><br>
 
-				You will not get much help during the designing process - but occasionally a HINT will appear in the console. These hints refer to CONSIDERATIONS that you should try to make during the experiment. These considerations are based on the tutorial you just did - see if you can work out what all of the considerations are as you go through the designing process.<br><br>
-
 				This part of the practical is designed as an INQUIRY section - try to work out what the CONSIDERATIONS are as you progress through it. Whenever you complete a CONSIDERATION, a SUCCESS console message will appear - make sure you read them!<br><br>
 
 				SOME INFORMATION:<br>
 				Ca<sup>2+</sup> + EDTA ⟶ [CaEDTA]<sup>2+</sup><br>
-				K<sub>eq</sub> ≈ 10<sup>6</sup><br>
+				K<sub>a</sub> ≈ 10<sup>6</sup><br>
 				&Delta;H<sub>R</sub> Unknown<br><br>
 
 				You have 4 buffers available to you:<br>
@@ -1999,9 +2071,9 @@
 				MOPS pH=7.5<br>
 				PIPES pH =7.5<br><br>
 
-				You do not have to use all buffers. Consider that you are trying to gain information about the reaction mechanism - K<sub>eq</sub> and &Delta;H<sub>R</sub> will yield &Delta;G and &Delta;S and then decide which buffer(s) to choose.<br><br>
+				You do not have to use all buffers. Consider that you are trying to gain information about the reaction mechanism - K<sub>a</sub> and &Delta;H<sub>R</sub> will yield &Delta;G and &Delta;S and then decide which buffer(s) to choose.<br><br>
 
-				You have been given a limited mass of the sample and ligands, so you need to make sure that you plan your experiment in advance. Treat this like a real experiment  make sure that you know what you are going to do before you start. However, if your plan does not work like you think it will (this is normal in science!) then reflect on what you did, and adjust your plan before starting again. You will be given two chances to restart - come back to this tab to use your restarts!<br><br>
+				Write down the amount of time you used at the end.<br>
 
 				Click Start below to get going!<br><br>
 				
@@ -2044,7 +2116,7 @@
 
 					By clicking the start button below, you will load EDTA and these metal ions into the lab. You have only been given one buffer in which to run these eperiments.<br><br>
 
-					In this Inquiry, you are not limited in the amount of time you have to experiment (like you would be in a real lab). However, this does not mean that you should be thoughtless with your time managment. Consider the fact that dialysation and degassing can take up to 2h, and a single ITC experiment normally takes around 2h30m. The number of ITC runs will be recorded, along with the number of times you degass and dialyse. These data will be presented to the demonstrator along with your lab report and compared with the data you put forward. 
+					
 				</div>
 				<div class='modal-body' id='center_buttons' ng-show="view.experiment.worked[1].stage==0">
 					<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click='view.loadGame(0);view.experiment.worked[1].stage=1;view.experiment.solutionPrep=2'>Start</button>&nbsp;&nbsp;&nbsp;
@@ -2062,9 +2134,9 @@
 					<h4 class="modal-title" id="modalLabel">Inquiry 3</h4>
 				</div>
 				<div class="modal-body">
-					In this inquiry, your task is to create a procedure for ITC which allows you to characterise ANY unknown complexation reaction between two species in as little time as possible. To help you create this prcedure, you should use the software liberally. This time, when you click continue, the ITC machine will randomly assign you a ligand-sample pair with a K<sub>a</sub> and &Delta;H<sub>R</sub> within reasonable bounds. The solution preparation module will be disabled to allow you to quickly run experiments. If you want, you can change the value of K<sub>a</sub> and &Delta;H<sub>R</sub> to check that your procedure works for a wide range of reactions.<br><br>
+					In this inquiry, your task is to create a procedure for ITC which allows you to characterise ANY unknown complexation reaction between two species in as little time as possible. To help you create this prcedure, you should use the software liberally - iterating your plan-test-reflect cycle. The solution preparation module will be disabled to allow you to quickly run experiments. You can change the value of K<sub>a</sub> and &Delta;H<sub>R</sub> to help you design a procedure that works for a wide range of values.<br><br>
 
-					The procedure is most likely more than one experiment. Remember that shorter ITC runs take less time. 
+					The procedure is most likely more than one experiment. Remember that shorter ITC runs take less time. <br><br>
 				</div>
 				<div class='modal-body' id='center_buttons' ng-show="view.experiment.worked[3].stage==0">
 					<button type="button" class="modal-button clickable2" data-dismiss="modal" ng-click='view.loadGame(2);view.experiment.worked[3].stage=1;view.experiment.solutionPrep=3'>Start</button>&nbsp;&nbsp;&nbsp;
@@ -2091,6 +2163,10 @@
 					The second investigation looks at EDTA complexing with Ca<sup>2+</sup> in different buffers. We want you to investigate the effect of changing the buffer, and develop a hypothesis on why the effects are present.<br><br>
 
 					The third investigation is an experimental design problem. You will be asked to design a procedure that allows characterisation of ANY ligand-sample pair, with K<sub>a</sub> an &Delta;H<sub>R</sub> values within known ranges.<br><br>
+
+					In these inquiries, you are not limited in the amount of time you have to experiment (like you would be in a real lab). However, this does not mean that you should be thoughtless with your time managment. Within the simulation, everything you do takes a certain amount of time - solution makeup, dialysation and degassing take 30m each. The ITC run time is related to the number of injections and the injection interval. The number of ITC runs will be recorded, along with amount of virtual time you use! These data will be presented to the demonstrator along with your lab report and compared with the data you put forward. You can see the experiments you have completed by clicking the 'Completed Runs' button.As mentioned - interate your test-plan-reflect cycle. Identify a hypothesis, write it down, and test it! Use the demonstrator for help if you need it. And most of all - ENJOY!<br><br>
+
+					You will not get much help during the designing process - but occasionally a HINT will appear in the console. These hints refer to CONSIDERATIONS that you should try to make during the experiment. These considerations are based on the tutorial you just did - see if you can work out what all of the considerations are as you go through the designing process.<br><br>
 				</div>
 			</div>
 		</div>
@@ -2108,7 +2184,7 @@
 				</div>
 				<div class='modal-body' id='center_buttons'>
 				<button type="button" class="modal-button clickable2" data-dismiss='modal'>Restart</button>&nbsp;&nbsp;&nbsp;
-				<button type="button" class="modal-button clickable2" data-dismiss='modal' ng-click='view.reload()'>Continue</button>
+				<button type="button" class="modal-button clickable2" data-dismiss='modal' ng-click='view.reload()'>Reload</button>
 				</div>
 			</div>
 		</div>
@@ -2193,17 +2269,21 @@
 					<div id='hints-heading' class="col-md-12">BASICS</div>
 					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#initialising_modal" >START</button>
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#basics_modal" ng-disabled="!view.experiment.tQuestionLogic([],[0],[])">THEORY</button>
+					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#basics_modal" ">THEORY</button>
+					<!-- ng-disabled="!view.experiment.tQuestionLogic([],[0],[]) -->
 				</div>
 
 				<!-- EXPERIMENT MODAL BUTTONS -->
 				<div class='select-hints-box'>
 					<div id='hints-heading' class="col-md-12">EXPERIMENT</div>
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#planning_modal" >PLANNING</button>
+					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#planning_modal"  >PLANNING</button>
+					<!-- ng-disabled="!view.experiment.tQuestionLogic([],[1,2,3,4],[])" -->
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#running_modal" >RUNNING</button>
-					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#analysis_modal" >ANALYSIS</button>
-					<button type="button" class="button clickable1 col-md-6" ng-click="view.runRecall()" >OVERVIEW</button>
+					<button type="button" class="button clickable1 col-md-6"  data-toggle="modal" data-target="#running_modal" >RUNNING</button>
+					<!-- ng-disabled='!view.experiment.exampleLogic([2,3,4,5,6,7,8,9,10,11])' -->
+					<button type="button" class="button clickable1 col-md-6"  ng-click='view.experiment.consoleTF(["13b"],false)' data-toggle="modal" data-target="#analysis_modal" >ANALYSIS</button>
+					<!-- ng-disabled='!view.experiment.exampleLogic([12,13])' -->
+					<button type="button" class="button clickable1 col-md-6" data-toggle="modal" data-target="#overview2_modal" ng-disabled="!view.experiment.tQuestionLogic([],[9,10,11,12,12,14],[])" >OVERVIEW</button>
 					
 					<!--button type='button' class='button clickable1 col-md-6' data-toggle='modal' data-target='#modal1'>Modal1</button-->
 					
@@ -2313,7 +2393,7 @@
 			<div class="panel-body clickable-box" ng-show=' view.experiment.solutionPrep==0 || view.experiment.solutionPrep==3'>
 				<!-- START BUTTON -->
 				<div class="box-left-btn">
-					<button type="button" class="button clickable col-md-12" ng-click="view.runExperiment(input_concA,input_concB,input_numInj,input_tBInj,input_vInj,magnitudeSelected_inputA,magnitudeSelected_inputB,magnitudeSelected_volInj)" ng-disabled="concA_Form1.concA.$invalid || concB_Form1.concB.$invalid || numInj_Form1.numInj.$invalid || tBInj_Form1.tBInj.$invalid || vInj_Form1.vInj.$invalid || input_vInj*input_numInj>250">RUN</button>
+					<button type="button" class="button clickable col-md-12" ng-click=" view.runExperiment(input_concA,input_concB,input_numInj,input_tBInj,input_vInj,magnitudeSelected_inputA,magnitudeSelected_inputB,magnitudeSelected_volInj)" ng-disabled="concA_Form1.concA.$invalid || concB_Form1.concB.$invalid || numInj_Form1.numInj.$invalid || tBInj_Form1.tBInj.$invalid || vInj_Form1.vInj.$invalid || input_vInj*input_numInj>250">RUN</button>
 				</div>
 
 				<!-- PROCESS BUTTON -->
@@ -2384,7 +2464,7 @@
 			<div class="panel-body clickable-box" ng-show='view.experiment.solutionPrep==1'>
 				<!-- START BUTTON -->
 				<div class="box-left-btn">
-					<button type="button" class="button clickable col-md-12" ng-click="view.runGameExperiment(gameInput_concA,gameInput_concB,gameInput_numInj,gameInput_tBInj,gameInput_vInj,magnitudeSelected_inputA,magnitudeSelected_inputB,magnitudeSelected_volInj)" ng-disabled="gameInput_concA==-1 || gameInput_concB==-1 || numInj_Form.numInj.$invalid || tBInj_Form.tBInj.$invalid || vInj_Form.vInj.$invalid || input_vInj*input_numInj>250 || gameInput_concA.concentration==0 || gameInput_concB.concentration==0">RUN</button>
+					<button type="button" class="button clickable col-md-12"  ng-click="view.openCalc();view.runGameExperiment(gameInput_concA,gameInput_concB,gameInput_numInj,gameInput_tBInj,gameInput_vInj,magnitudeSelected_inputA,magnitudeSelected_inputB,magnitudeSelected_volInj)" ng-disabled="gameInput_concA==-1 || gameInput_concB==-1 || numInj_Form.numInj.$invalid || tBInj_Form.tBInj.$invalid || vInj_Form.vInj.$invalid || input_vInj*input_numInj>250 || gameInput_concA.concentration==0 || gameInput_concB.concentration==0">RUN</button>
 				</div>
 
 				<!-- PROCESS BUTTON -->
@@ -2406,7 +2486,7 @@
 					<div>[Ligand]</div><br>
 					<select class="units_dropdown" ng-model="gameInput_concA" ng-init="gameInput_concA=-1" min='0'>
 						<option ng-value="-1">Select</option>
-						<option ng-repeat="(key, value) in view.experiment.ligandSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration}}M</option>
+						<option ng-repeat="(key, value) in view.experiment.ligandSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration.toPrecision([4])}}M</option>
 					</select>
 				</div>
 
@@ -2416,7 +2496,7 @@
 					<div>[Sample]</div><br>
 					<select class="units_dropdown" ng-model="gameInput_concB" ng-init="gameInput_concB=-1" min='0'>
 						<option ng-value="-1">Select</option>
-						<option ng-repeat="(key, value) in view.experiment.sampleSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration}}M</option>
+						<option ng-repeat="(key, value) in view.experiment.sampleSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration.toPrecision([4])}}M</option>
 					</select>
 				</div>
 
@@ -2455,7 +2535,7 @@
 			<div class="panel-body clickable-box" ng-show='view.experiment.solutionPrep==2'>
 				<!-- START BUTTON -->
 				<div class="box-left-btn">
-					<button type="button" class="button clickable col-md-12" ng-click="view.runGameExperiment(gameInput_concA,gameInput_concB,gameInput_numInj,gameInput_tBInj,gameInput_vInj,magnitudeSelected_inputA,magnitudeSelected_inputB,magnitudeSelected_volInj)" ng-disabled="gameInput_concA==-1 || gameInput_concB==-1 || numInj_Form.numInj.$invalid || tBInj_Form.tBInj.$invalid || vInj_Form.vInj.$invalid || input_vInj*input_numInj>250 || gameInput_concA.background==false || gameInput_concB.background==false || gameInput_concA.concentration==0 || gameInput_concB.concentration==0">RUN</button>
+					<button type="button" class="button clickable col-md-12"  ng-click="view.openCalc(); view.runGameExperiment(gameInput_concA,gameInput_concB,gameInput_numInj,gameInput_tBInj,gameInput_vInj,magnitudeSelected_inputA,magnitudeSelected_inputB,magnitudeSelected_volInj)" ng-disabled="gameInput_concA==-1 || gameInput_concB==-1 || numInj_Form.numInj.$invalid || tBInj_Form.tBInj.$invalid || vInj_Form.vInj.$invalid || input_vInj*input_numInj>250 || gameInput_concA.background==false || gameInput_concB.background==false || gameInput_concA.concentration==0 || gameInput_concB.concentration==0">RUN</button>
 				</div>
 
 				<!-- PROCESS BUTTON -->
@@ -2477,7 +2557,7 @@
 					<div>[Ligand]</div><br>
 					<select class="units_dropdown" ng-model="gameInput_concA" ng-init="gameInput_concA=-1">
 						<option ng-value="-1">Select</option>
-						<option ng-repeat="(key, value) in view.experiment.ligandSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration}}M in {{value.buffer}}</option>
+						<option ng-repeat="(key, value) in view.experiment.ligandSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration.toPrecision([4])}}M in {{value.buffer}}</option>
 					</select>
 				</div>
 
@@ -2487,7 +2567,7 @@
 					<div>[Sample]</div><br>
 					<select class="units_dropdown" ng-model="gameInput_concB" ng-init="gameInput_concB=-1">
 						<option ng-value="-1">Select</option>
-						<option ng-repeat="(key, value) in view.experiment.sampleSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration}}M in {{value.buffer}}</option>
+						<option ng-repeat="(key, value) in view.experiment.sampleSolutions" ng-value="value" ng-show='value.isDialysed==true && value.isDegassed==true'>{{value.iD}}, {{value.concentration.toPrecision([4])}}M in {{value.buffer}}</option>
 					</select>
 				</div>
 
@@ -2526,13 +2606,13 @@
 			
 		
 			<br><div ng-show='view.experiment.solutionPrep==1 || view.experiment.solutionPrep==2'>
-				<div class='panel-heading'>Ligand Solutions</div>
-				<div id='dashboard' class='panel-body' ng-show='true'>
+				<div class='panel-heading'>LIGAND SOLUTIONS</div>
+				<div ng-show='true'>
 					<table class=panel-heading id='table-heading'>
 						<tr id='tr'>
 							<td id='td'>Type</td>
 							<td id='td'>Concentration</td>
-							<td id='td'>Volume</td>
+							
 							<td id='td'>Buffer</td>
 						</tr>
 						
@@ -2541,68 +2621,63 @@
 					
 						<tr ng-repeat="(key, value) in view.experiment.ligandSolutions" ng-show='value.isDialysed==true && value.isDegassed==true && !(value.buffer==value.iD)'>
 							<td id='td2'>{{value.iD}}</td>
-							<td id='td3'>{{value.concentration}}</td>
-							<td id='td4'>{{value.volume}}</td>
+							<td id='td3'>{{value.concentration.toPrecision([4])}}M</td>
+							
 							<td id='td5'>{{value.buffer}}</td>
 						</tr>
 					</table>
-				</div>
+				</div><br>
 
-				<div class='panel-heading'>Sample Solutions</div>
-				<div id='dashboard' class='panel-body' ng-show='true'>
+				<div class='panel-heading'>SAMPLE SOLUTIONS</div>
+				<div ng-show='true'>
 					<table class=panel-heading id='table-heading'>
 						<tr id='tr'>
 							<td id='td'>Type</td>
 							<td id='td'>Concentration</td>
-							<td id='td'>Volume</td>
+							
 							<td id='td'>Buffer</td>
 						</tr>
 						
-				</div>
+				
 
-				<div class='panel-body' id='dashboard'>		
+						
 					
 						<tr ng-repeat="(key, value) in view.experiment.sampleSolutions" ng-show='value.isDialysed==true && value.isDegassed==true && !(value.buffer==value.iD)'>
 							<td id='td2'>{{value.iD}}</td>
-							<td id='td3'>{{value.concentration}}</td>
-							<td id='td4'>{{value.volume}}</td>
+							<td id='td3'>{{value.concentration.toPrecision([4])}}M</td>
+							
 							<td id='td5'>{{value.buffer}}</td>
 						</tr>
 
 					</table>
 				</div>
+
 				<br>
-				<div class='panel-heading'>Sample Solids</div>
-				<div id='dashboard' class='panel-body' ng-show='true'>
+				<div class='panel-heading'>SAMPLES</div>
+				<div ng-show='true'>
 					<table class=panel-heading id='table-heading'>
-						<tr id='tr'>
-							<td id='td'>Type</td>
-							<td id='td'>Mass Remaining</td>
-						</tr>
+						
 						
 				</div>
 				<div class='panel-body' id='dashboard'>		
 					
 						<tr ng-repeat="(key, value) in view.experiment.sample" ng-show='true'>
 							<td >{{value.iD}}</td>
-							<td >{{value.mass}}</td>
+							
 						</tr>
 					</table>
-				</div>
-				<div class='panel-heading'>Ligand Solids</div>
-				<div id='dashboard' class='panel-body' ng-show='true'>
+				</div><br>
+				<div class='panel-heading'>LIGANDS</div>
+				<div  ng-show='true'>
 					<table class=panel-heading id='table-heading'>
-						<tr id='tr'>
-							<td id='td'>Type</td>
-							<td id='td'>Mass Remaining</td>
-						</tr>
+						
 						
 				</div>
-				<div class='panel-body' id='dashboard'>		
+				<div >		
 					
 						<tr ng-repeat="(key, value) in view.experiment.ligand" ng-show='true'>
 							<td >{{value.iD}}</td>
-							<td >{{value.mass}}</td>
+							
 						</tr>
 					</table>
 				</div><br>

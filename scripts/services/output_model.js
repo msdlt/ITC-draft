@@ -7,7 +7,7 @@ function outputMethod(experimentStatus) {
 	
 
 	//CONSTANTS!
-	output.timeStep = 0.01 // time between calculation
+	output.timeStep = 0.1 // time between calculation
 	output.defaultvCell = 0.000994
 	output.vCell=output.defaultvCell //volume of the cell (l)
 	
@@ -55,6 +55,7 @@ function outputMethod(experimentStatus) {
 	output.checkExample=function(example,newConcA,newConcB,newNumInj,newTBInj,newVInj){
 		for (n in example){
 			i = example[n]
+
 			if (experiment.examples[i].concA == newConcA && experiment.examples[i].concB==newConcB && experiment.examples[i].numInj==newNumInj && experiment.examples[i].vInj==newVInj && experiment.examples[i].tBInj==newTBInj){
 				experiment.examples[i].isComplete=true;
 				for (n=0;n<experiment.console.length;n++){
@@ -70,8 +71,12 @@ function outputMethod(experimentStatus) {
 	output.checkGameExample=function(example,newConcA,newConcB,newNumInj,newTBInj,newVInj,ligand,sample){
 		for (n in example){
 			i = example[n]
-			if (experiment.examples[i].concA == newConcA && experiment.examples[i].concB==newConcB && experiment.examples[i].numInj==newNumInj && experiment.examples[i].vInj==newVInj && experiment.examples[i].tBInj==newTBInj && experiment.examples[i].ligand==ligand && experiment.examples[i].sample==sample){
+			
+			
+			if ((experiment.examples[i].concA - experiment.examples[i].concA*0.05<= newConcA && experiment.examples[i].concA + experiment.examples[i].concA*0.05>= newConcA) && (experiment.examples[i].concB - experiment.examples[i].concB*0.05<= newConcB && experiment.examples[i].concB + experiment.examples[i].concB*0.05>= newConcB) && experiment.examples[i].numInj==newNumInj && experiment.examples[i].vInj==newVInj && experiment.examples[i].tBInj==newTBInj){
+				
 				experiment.examples[i].isComplete=true;
+				console.log(experiment.examples[i].isComplete)
 				for (n=0;n<experiment.console.length;n++){
 					if (experiment.console[n].id==i+'b'){
 						experiment.console[n].show=true;
@@ -81,6 +86,7 @@ function outputMethod(experimentStatus) {
 			}
 		}
 	}
+	//&& (experiment.examples[i].concB - experiment.examples[i].concB*0.1<= newConcB && experiment.examples[i].concB + experiment.examples[i].concB*0.1>= newConcB))
 
 	//RUNNING THE EXPERIMENT
 
@@ -96,14 +102,14 @@ function outputMethod(experimentStatus) {
 	}
 
 	output.createArrays = function (numSteps){
-		console.log(numSteps);
+		
 		output.dataA = new Array(numSteps);
 		output.dataB = new Array(numSteps);
 		output.dataC = new Array(numSteps);
 	}
 	output.calcConc = function (user_concA, user_concB, vInj, k_on, k_off) {
 		//initialise arrays + variables
-		console.log(user_concA, user_concB, vInj)
+		
 		
 		output.totInj = 0
 
@@ -152,7 +158,7 @@ function outputMethod(experimentStatus) {
 				//?increase vCell here?
 				output.concA[output.concA.length-1] = (output.vCell*output.concA[output.concA.length-1]+vInj*user_concA)/output.vCell;
 				output.vCell=output.vCell+vInj
-				console.log(i,' concdata data: ',output.vCell)
+				
 			}
 			//if not time of injection
 			else{
@@ -171,7 +177,7 @@ function outputMethod(experimentStatus) {
 	}
 
 	output.calcRate=function(k_on,k_off,deltH, noise){
-		console.log(deltH)
+		
 
 		output.fRateData = new Array(output.numSteps);
 		output.rRateData = new Array(output.numSteps);

@@ -67,7 +67,7 @@ function tableCreate(outputModel, experimentStatus) {
 					},
 					{
 						field: "mAnswer",
-						displayName: "Multiple Choice",
+						displayName: "Multiple Choice / Calculation",
 						width: "248",
 						enableSorting: false // ui-grid have sort column issue when different columns have both strings and text, so currently allow only sort by trial number
 					},
