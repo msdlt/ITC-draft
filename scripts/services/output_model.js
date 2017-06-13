@@ -230,7 +230,7 @@ function outputMethod(experimentStatus) {
 		for (i=0; i<output.numSteps; i++){
 			
 			output.cumHeat = output.cumHeat + output.heatData[i][1]*output.timeStep;
-			if (i%output.stepBInj==0 && i!==0 && i!==output.stepBInj){
+			if ((i%output.stepBInj==0 && i!==0 && i!==output.stepBInj) ||i==output.numSteps-1){
 				output.ratio = (output.totInj*output.vInj*output.userConcA) /  (output.userConcB*output.vCell);
 				experiment.ratio=output.ratio
 				
