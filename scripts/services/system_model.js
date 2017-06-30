@@ -15,8 +15,8 @@ system.examples=[
 	{
 		id:0,
 		dH:300,
-		kOff:1,
-		kOn:10
+		kOff:0.01,
+		kOn:0.1
 	},
 	{
 		id:1,
@@ -28,64 +28,64 @@ system.examples=[
 	{
 		id:2,
 		dH:-10,
-		kOff:1,
-		kOn:4000000
+		kOff:0.1,
+		kOn:400000
 	},
 	{
 		id:3,
 		dH:-10,
-		kOff:1,
-		kOn:4000000
+		kOff:0.1,
+		kOn:400000
 	},
 	{
 		id:4,
 		dH:-10,
-		kOff:1,
-		kOn:4000000
+		kOff:0.1,
+		kOn:400000
 	},
 	{
 		id:5,
 		dH:-10,
-		kOff:1,
-		kOn:4000000
+		kOff:0.1,
+		kOn:400000
 	},
 	//2nd research c 
 	{
 		id:6,
 		dH:-10,
-		kOff:1,
-		kOn:2000000000
+		kOff:0.1,
+		kOn:200000000
 	},
 	{
 		id:7,
 		dH:-10,
-		kOff:1,
-		kOn:2000000000
+		kOff:0.1,
+		kOn:200000000
 	},
 	{
 		id:8,
 		dH:-10,
-		kOff:1,
-		kOn:2000000000
+		kOff:0.1,
+		kOn:200000000
 	},
 	{
 		id:9,
 		dH:-10,
-		kOff:1,
-		kOn:2000000000
+		kOff:0.1,
+		kOn:200000000
 	},
 	//noise 
 	{
 		id:10,
 		dH:-10,
-		kOff:1,
-		kOn:2000000000
+		kOff:0.1,
+		kOn:200000000
 	},
 	{
 		id:11,
 		dH:-10,
-		kOff:1,
-		kOn:2000000000
+		kOff:0.1,
+		kOn:200000000
 	},
 	//PLACEHOLDERS - first solution prep - real reactions - set in experiment.pairs 
 	//need to set

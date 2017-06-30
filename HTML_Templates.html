@@ -13,6 +13,16 @@
 	</div>
 </div>
 
+<div class='modal-question-footer'>
+	<form novalidate name='answer_form'>
+		<div>
+			Demonstrator Input:<br>
+			<input class="form" name="macroConc" ng-model='answer' type="number" required>
+			<button type="button" class="modal-button clickable2"  ng-click="view.releaseQuestion(answer,7)">Answer</button>
+		</div>
+	</form>
+</div>
+
 //IN MODAL CLOSE BUTTON
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="modal-cross" aria-hidden="true">&times;</span></button>
 
@@ -54,6 +64,12 @@
 		<button type='button' class='button clickable2' ng-click="view.experiment.mQuestionConfirm(answer,QIESTION_NUMBER_PLACEHOLDER)">CONFIRM ANSWER</button>
 	</div>
 </div>
+
+{{view.experiment.questions[0].question}}<br><br>
+{{view.experiment.questions[0][1]}}<br>
+{{view.experiment.questions[0][2]}}<br>
+{{view.experiment.questions[0][3]}}<br>
+{{view.experiment.questions[0][4]}}<br>
 
 //MULTIPLE CHOICE QUESTION 2
 <div class=question-box ng-show='view.experiment.questions[0].IsCorrect==null'>
